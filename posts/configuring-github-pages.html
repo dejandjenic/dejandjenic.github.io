@@ -1,0 +1,167 @@
+﻿
+<!DOCTYPE html>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+
+	<head>
+		<title>My Blog - Configuring github pages</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />		
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+		<meta name="description" content="Welcome!" />
+		<link type="application/rss+xml" rel="alternate" title="My Blog" href="/feed.rss" />
+				<link type="application/atom+xml" rel="alternate" title="My Blog" href="/feed.atom" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+		<meta name="application-name" content="My Blog" />
+		<meta name="msapplication-tooltip" content="My Blog" />
+		<meta name="msapplication-starturl" content="/" />
+
+		<meta property="og:title" content="My Blog - Configuring github pages" /> 
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://host.com/posts/configuring-github-pages" />
+		<!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/highlight.pack.js"></script>   
+		
+        
+
+		
+	</head>
+
+	<body>
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<div class="inner">
+
+					<!-- Logo -->
+					<a href="/" class="logo">
+						<span class="title">My Blog</span>
+					</a>
+
+					<!-- Nav -->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
+
+				</div>
+			</header>
+
+			<!-- Menu -->
+			<nav id="menu">
+				<h2>Menu</h2>
+				<ul>
+					        <li><a href="/posts">Archive</a></li>
+        <li><a href="/tags">Tags</a></li>
+        <li><a href="/about">About Me</a></li>
+
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+
+    
+<header>
+    <h1>Configuring github pages</h1>
+            <p><em>Published on Tuesday, June 6, 2023</em></p>
+            <ul class="actions small">
+                    <li><a role="button" href="/tags/Introduction,-github-pages" class="button small">Introduction, github pages</a></li>
+        </ul>     
+</header>
+
+					
+					<div id="content">
+						
+
+<h1 id="generating-github.io-site">Generating github.io site</h1>
+<h2 id="static-site-generators">Static site generators</h2>
+<p>A modern way of creating static site is to use static site generator. By searching on google for static site generators you can examine multiple options for your site. Combining this approach with idea of hosting (for free) static site on github.io it made sence to try with recomended (default) generator for github (jekyll).</p>
+<p>Tried to use jekyll with chirpy theme and after reading some texts and instalation/configuration guides decides to abbandon this approach. Main issue , along installation of ruby on windows, was incompatible nogokumbo package with jekyll. Error stated that html-proofer with version 3.18 could not be executed successfully and some articles suggested using version 3.16 but then error incompatible nogokumbo lib was detected.</p>
+<p>Abandoning jekyll (which looks really nice) and reverting to home ground , dotnet :-)</p>
+<p>Even though that wyam is not officially supported anymore , in favor of Soniq, i decided to use it. Really liked dotnet tool approach and powerfull pipelines that could be extended. On the down side , themes are not really developed part of the ecosystem.</p>
+<h2 id="hosting">Hosting</h2>
+<p>github.io offers ,as mentined , free hosting of static sites. This feature can be used with github actions to integrate deployment and developing, awesome.</p>
+<h2 id="development">Development</h2>
+<p>Following simple instructions from wyam ended up with generated site in 10 minutes.</p>
+<p>Writing some text as first blog took a bit more :-)</p>
+<h2 id="deployment">Deployment</h2>
+<p>As main guide used this blog <a href="https://ewinnington.github.io/posts/wyam-github-actions">https://ewinnington.github.io/posts/wyam-github-actions</a> but found some differences.
+I didn;t like the idea of using source and master branches , main is defualt anyway so switched this to main and gh-pages branches.
+ssh-keygen command states that option -N should be used when generating ssh key but in my case this option should be removed.</p>
+<p>Some screens looked differently in current version of github ui then ones shown on screen , but this is understandable.</p>
+<p>Initially deploy action failed to deploy caused by an error:</p>
+<pre><code>git&#64;github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre>
+<p>Reading some articles about deployment action and found <a href="https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey">https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey</a>
+so looks like user should be git&#64;github.com</p>
+<p>regenerating ssh keys, reconfiguring settings on repository.</p>
+<h2 id="final">Final</h2>
+<p>i investigated potential options for using static site generatos hosted by github.io</p>
+<p>Decided to use wyam and configured CI/CD pipeline for deployment.
+Wrote this peace of text as a first article.</p>
+<p>Happy</p>
+
+
+
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+    <section>
+        <h2>Feeds</h2>
+        <ul class="actions small vertical">
+            <li><a href="/feed.rss" class="button small"><i class="fa fa-rss"></i> RSS Feed</a></li>
+                        <li><a href="/feed.atom" class="button small"><i class="fa fa-rss"></i> Atom Feed</a></li>
+        </ul>
+    </section>
+    <section>
+    </section>
+    <ul class="copyright">
+        <li>Copyright © 2023</li>
+        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        <li><a href="https://wyam.io">Generated by Wyam</a></li>
+    </ul>
+</div>
+
+			</footer>
+
+		</div>
+		
+		
+
+		<!-- Scripts -->
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/skel.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="/assets/js/main.js"></script>
+
+	</body>
+
+</html>
