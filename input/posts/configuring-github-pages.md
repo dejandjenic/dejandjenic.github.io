@@ -1,6 +1,6 @@
 Title: Configuring github pages
 Published: 06/06/2023
-Tags: Introduction github-pages
+Tags: Introduction
 ---
 # Generating github.io site
 
