@@ -1,4 +1,4 @@
-name: Wyam
+name: GenesysSSG
 
 on:
   push:
@@ -16,10 +16,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.802
-    - name: Install Wyam
-      run: dotnet tool install --tool-path . wyam.tool
+    - name: Install GenesysSSG
+      run: dotnet tool install --tool-path . GenesysSSG
     - name: Publish blog
-      run: ./wyam -r blog -t SolidState
+      run: ./genesys
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
