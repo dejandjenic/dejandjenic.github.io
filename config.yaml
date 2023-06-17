@@ -1,0 +1,9 @@
+inputDirectory: input
+outputDirectory: output
+templateDirectory: template
+title: My blog
+theme: https://github.com/dejandjenic/template.test.git
+description: 
+additionalItems: 
+additionalFooterLinks: 
+additionalNavLinks: 

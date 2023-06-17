@@ -3,3 +3,4 @@ config.wyam.hash
 config.wyam.packages.xml
 wwwroot
 output
+.genesys

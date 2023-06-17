@@ -1,6 +1,9 @@
-Title: Configuring github pages
-Published: 06/06/2023
-Tags: Introduction
+---
+title: Configuring github pages
+created: 6 June 2023
+tags:
+  - introduction
+short: Using static site generators and github pages
 ---
 # Generating github.io site
 
