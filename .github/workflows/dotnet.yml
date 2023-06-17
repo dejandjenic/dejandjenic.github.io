@@ -19,7 +19,7 @@ jobs:
     - name: Install GenesysSSG
       run: dotnet tool install --tool-path . GenesysSSG
     - name: Publish blog
-      run: ./genesys
+      run: ./genesysssg
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
