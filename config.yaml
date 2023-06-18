@@ -5,6 +5,6 @@ title: My blog
 theme: https://github.com/dejandjenic/template.test.git
 description: 
 additionalItems: 
-  GA: G-W99CWL1C9H
+ga: G-W99CWL1C9H
 additionalFooterLinks: 
 additionalNavLinks: 
