@@ -4,4 +4,4 @@ tags:
   - replace me
 short: projects
 ---
-projects
+[GenesysSSG](/projects/genesysssg.html)
