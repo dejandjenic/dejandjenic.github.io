@@ -2,7 +2,7 @@ inputDirectory: input
 outputDirectory: output
 templateDirectory: template
 title: My blog
-theme: https://github.com/dejandjenic/template.test.git
+theme: SolidState
 description: 
 additionalItems: 
 ga: G-W99CWL1C9H
