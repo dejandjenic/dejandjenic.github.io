@@ -2,6 +2,8 @@ title: Configuring github pages
 created: 6 June 2023
 tags:
   - introduction
+  - github
+  - github pages
 short: Using static site generators and github pages
 ---
 # Generating github.io site
