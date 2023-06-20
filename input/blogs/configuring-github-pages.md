@@ -5,6 +5,7 @@ tags:
   - github
   - github pages
 short: Using static site generators and github pages
+image: /images/gh-pages.jpg
 ---
 # Generating github.io site
 
@@ -27,7 +28,7 @@ Writing some text as first blog took a bit more :-)
 
 ## Deployment
 As main guide used this blog https://ewinnington.github.io/posts/wyam-github-actions but found some differences.
-I didn;t like the idea of using source and master branches , main is defualt anyway so switched this to main and gh-pages branches.
+I didn't like the idea of using source and master branches , main is defualt anyway so switched this to main and gh-pages branches.
 ssh-keygen command states that option -N should be used when generating ssh key but in my case this option should be removed.
 
 Some screens looked differently in current version of github ui then ones shown on screen , but this is understandable.
