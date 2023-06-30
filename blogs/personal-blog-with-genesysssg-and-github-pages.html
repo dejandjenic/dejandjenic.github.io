@@ -82,12 +82,12 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									<h1>Personal blog with GenesysSSG and github pages</h1>
+									<h1 id="personal-blog-with-genesysssg-and-github-pages">Personal blog with GenesysSSG and github pages</h1>
 <p>Navigate to github and create repository in the following format username.github.io</p>
-<h2>Git branches</h2>
+<h2 id="git-branches">Git branches</h2>
 <p>create branch calld gh-pages that will be used to server generated content.</p>
 <p><img src="../images/blog3.png" alt="gh-pages" /></p>
-<h2>Keys</h2>
+<h2 id="keys">Keys</h2>
 <p>execute following command to generate keys used to allow github to deploy code to new branch</p>
 <pre><code>ssh-keygen -t rsa -b 4096 -C &quot;git@github.com&quot;
 </code></pre>
@@ -96,17 +96,17 @@
 <li>private key , this will go to secrets tab in git</li>
 <li>public key</li>
 </ol>
-<h3>Install keys</h3>
+<h3 id="install-keys">Install keys</h3>
 <p>navigate to settings of your repository on github and add new deploy key , as shown bellow</p>
 <p><img src="../images/blog1.png" alt="Deploy key" /></p>
 <p>the value that should be entered is the value taken from the private key file.</p>
 <p>navigate to Secrets and variables</p>
 <p><img src="../images/blog2.png" alt="Secret" /></p>
 <p>the value that should be entered is the value taken from the public key file.</p>
-<h2>Setup github pages</h2>
+<h2 id="setup-github-pages">Setup github pages</h2>
 <p>Navigate to pages section and ensure that settings are configured as shown</p>
 <p><img src="../images/blog4.png" alt="gh-pages settings" /></p>
-<h2>Generating static site</h2>
+<h2 id="generating-static-site">Generating static site</h2>
 <p>Clone your repository into local directory and navigate to it.</p>
 <p>Install GenesysSSG</p>
 <pre><code>dotnet tool install -g GenesysSSG
@@ -125,7 +125,7 @@
 <pre><code>genesysssg -w -s
 </code></pre>
 <p>when finished push code to git remote</p>
-<h2>Actions</h2>
+<h2 id="actions">Actions</h2>
 <p>navigate to actions and add new manual action</p>
 <p><img src="../images/blog5.png" alt="actions" /></p>
 <p>paste content into new action field</p>
@@ -163,7 +163,7 @@ jobs:
 <p>this will checkout your code, install and run genesysSSG on commit to main and publish results to gh-pages branch</p>
 <p>after commit action will be run</p>
 <p><img src="../images/blog6.png" alt="actions" /></p>
-<h2>Verification</h2>
+<h2 id="verification">Verification</h2>
 <p>navigate your browser to username.github.io and verify that your content is published</p>
 
 
