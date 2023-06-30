@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Personal blog with GenesysSSG and github pages</h2>
+								<p>Posted on Thursday, 22 June 2023</p>
+								
+									<a role="button" href="../tags/introduction.html" class="button small">introduction</a>
+								
+									<a role="button" href="../tags/github.html" class="button small">github</a>
+								
+									<a role="button" href="../tags/github pages.html" class="button small">github pages</a>
+								
+									<a role="button" href="../tags/personal blog.html" class="button small">personal blog</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1>Personal blog with GenesysSSG and github pages</h1>
+<p>Navigate to github and create repository in the following format username.github.io</p>
+<h2>Git branches</h2>
+<p>create branch calld gh-pages that will be used to server generated content.</p>
+<p><img src="../images/blog3.png" alt="gh-pages" /></p>
+<h2>Keys</h2>
+<p>execute following command to generate keys used to allow github to deploy code to new branch</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C &quot;git@github.com&quot;
+</code></pre>
+<p>this command will generate 2 files</p>
+<ol>
+<li>private key , this will go to secrets tab in git</li>
+<li>public key</li>
+</ol>
+<h3>Install keys</h3>
+<p>navigate to settings of your repository on github and add new deploy key , as shown bellow</p>
+<p><img src="../images/blog1.png" alt="Deploy key" /></p>
+<p>the value that should be entered is the value taken from the private key file.</p>
+<p>navigate to Secrets and variables</p>
+<p><img src="../images/blog2.png" alt="Secret" /></p>
+<p>the value that should be entered is the value taken from the public key file.</p>
+<h2>Setup github pages</h2>
+<p>Navigate to pages section and ensure that settings are configured as shown</p>
+<p><img src="../images/blog4.png" alt="gh-pages settings" /></p>
+<h2>Generating static site</h2>
+<p>Clone your repository into local directory and navigate to it.</p>
+<p>Install GenesysSSG</p>
+<pre><code>dotnet tool install -g GenesysSSG
+</code></pre>
+<p>generate new site with genesysSSG</p>
+<pre><code>genesysssg -n
+</code></pre>
+<p>add new blog item</p>
+<pre><code>genesysssg -b &quot;First blog&quot;
+</code></pre>
+<p>open directory with text editor like VS Code</p>
+<pre><code>code .
+</code></pre>
+<p>edit blogs/firstblog.md</p>
+<p>if you want to see generated content run</p>
+<pre><code>genesysssg -w -s
+</code></pre>
+<p>when finished push code to git remote</p>
+<h2>Actions</h2>
+<p>navigate to actions and add new manual action</p>
+<p><img src="../images/blog5.png" alt="actions" /></p>
+<p>paste content into new action field</p>
+<pre><code>
+name: GenesysSSG
+
+on:
+  push:
+    branches:
+    - main  # default branch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0'
+    - name: Install GenesysSSG
+      run: dotnet tool install --tool-path . GenesysSSG
+    - name: Publish blog
+      run: ./genesysssg
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages  # deploying branch
+        PUBLISH_DIR: ./output
+</code></pre>
+<p>save and commit</p>
+<p>this will checkout your code, install and run genesysSSG on commit to main and publish results to gh-pages branch</p>
+<p>after commit action will be run</p>
+<p><img src="../images/blog6.png" alt="actions" /></p>
+<h2>Verification</h2>
+<p>navigate your browser to username.github.io and verify that your content is published</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
