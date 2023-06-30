@@ -9,6 +9,6 @@ this is the list (not final) of supported themes
 
 | name | repo | demo |
 | - | - | - |
-| SolidState | [link](https://github.com/dejandjenic/GenesysSSG.Themes.SolidState/) | [demo](https://dejandjenic.github.io/GenesysSSG.Themes.SolidState.Demo/) |
-| JackTheBlogger | [link](https://github.com/dejandjenic/GenesysSSG.Themes.JackTheBlogger/) | [demo](https://dejandjenic.github.io/GenesysSSG.Themes.JackTheBlogger.Demo/) |
+| SolidState | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.SolidState/" target=_blank>link</a> | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.SolidState.Demo/" target=_blank>demo</a> |
+| JackTheBlogger | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.JackTheBlogger/" target=_blank>link</a> | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.JackTheBlogger.Demo/" target=_blank>demo</a> |
 
