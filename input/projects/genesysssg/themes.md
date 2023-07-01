@@ -4,18 +4,21 @@ tags:
   - replace me
 short: Themes
 ---
+
 # GenesysSSG Themes
-this is the list (not final) of supported themes
 
-| name | repo | demo |
-| - | - | - |
-| SolidState | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.SolidState/" target=_blank>link</a> | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.SolidState.Demo/" target=_blank>demo</a> |
-| JackTheBlogger | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.JackTheBlogger/" target=_blank>link</a> | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.JackTheBlogger.Demo/" target=_blank>demo</a> |
-| MinimalCache | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.MinimalCache/" target=_blank>link</a> | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.MinimalCache.Demo/" target=_blank>demo</a> |
+Here is a list of currently supported themes for GenesysSSG:
 
+| Name         | Repository                                                                                             | Demo                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| SolidState   | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.SolidState/" target="_blank">Link</a>       | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.SolidState.Demo/" target="_blank">Demo</a>              |
+| JackTheBlogger | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.JackTheBlogger/" target="_blank">Link</a>    | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.JackTheBlogger.Demo/" target="_blank">Demo</a>          |
+| MinimalCache | <a href="https://github.com/dejandjenic/GenesysSSG.Themes.MinimalCache/" target="_blank">Link</a>        | <a href="https://dejandjenic.github.io/GenesysSSG.Themes.MinimalCache.Demo/" target="_blank">Demo</a>            |
 
+Feel free to explore these themes by visiting their respective repositories and demos. Each theme offers a unique visual style and layout, allowing you to customize your GenesysSSG-powered websites.
 
-## New theme
-to create new theme start by using file from https://github.com/dejandjenic/GenesysSSG.Themes.ZeroTheme
+## Creating a New Theme
 
-edit content of the *.template files and publish it to public git repo or include it in ou template directory.
+To create a new theme, you can start with the template files provided in the [ZeroTheme repository](https://github.com/dejandjenic/GenesysSSG.Themes.ZeroTheme). Modify the content of the `.template` files according to your desired design and publish the theme to a public Git repository or include it in your template directory.
+
+Get creative and design a theme that perfectly matches your vision for your GenesysSSG website.
