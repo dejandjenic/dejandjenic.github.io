@@ -72,185 +72,156 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									<p>GenesysSSG is a static site generator written in dotnet. Can be used on any system (Windows, Linux, Mac).
-For rendering content GenesysSSG uses liquid templates.
-For available themese please check <a href="themes.html">themes</a> section.</p>
+									<h1 id="genesysssg">GenesysSSG</h1>
+<p>GenesysSSG is a powerful and flexible static site generator written in .NET. It empowers developers to effortlessly create and deploy static websites on any system, including Windows, Linux, and Mac. With its intuitive liquid templating engine, you can easily generate dynamic and customized content for your websites.</p>
 <h2 id="instalation">Instalation</h2>
-<p>Dotnet is prerequest for running GenessysSSG. To install dotnet on any platform follow this steps.</p>
+<p>To get started with GenesysSSG, ensure that you have Dotnet installed on your machine.</p>
 <p>to install GenesysSSG invoke this command from terminal</p>
 <pre><code>dotnet tool install -g GenesysSSG
 </code></pre>
 <h2 id="usage">Usage</h2>
-<p>create directory and navigate to it with terminal, example</p>
+<p>Using GenesysSSG is a breeze. Follow these simple steps to create your static site:</p>
+<p>Create a new directory for your project and navigate to it in the terminal.</p>
 <pre><code>mkdir test
 cd test
 </code></pre>
-<p>start GenesysSSG with option to create new project</p>
+<p>Initialize a new GenesysSSG project by running the following command:</p>
 <pre><code>genesysssg -n
 </code></pre>
-<p>add first blog item</p>
+<p>Add your first blog item using:</p>
 <pre><code>genesysssg -b &quot;First blog&quot;
 </code></pre>
-<p>open directory with text editor like VS Code</p>
+<p>Open your project directory in a text editor like Visual Studio Code:</p>
 <pre><code>code .
 </code></pre>
 <p>edit blogs/firstblog.md</p>
-<p>start genesys to preview generated content</p>
+<p>Edit the blogs/firstblog.md file with your content and save the changes.</p>
 <pre><code>genesysssg -w -s
 </code></pre>
-<p>once you are happy with content push to your git repo.</p>
-<h2 id="startup-arguments">Startup arguments</h2>
+<p>Once you are satisfied with the content, push your project to your Git repository to make it live.</p>
+<h2 id="startup-arguments">Startup Arguments</h2>
+<p>GenesysSSG supports the following startup arguments:</p>
+<ul>
+<li><code>-s</code>: Serve content locally.</li>
+<li><code>-w</code>: Watch for changes and regenerate content automatically.</li>
+<li><code>-n</code>: Initialize a new project.</li>
+<li><code>-p &lt;port&gt;</code>: Specify a custom port to listen on.</li>
+<li><code>-b &lt;title&gt;</code>: Create a new blog entry.</li>
+<li><code>-d &lt;title&gt;</code>: Create a new document entry (ensure you are in the correct directory).</li>
+<li><code>-x</code>: Extract the theme to the template directory.</li>
+<li><code>-c</code>: Clear cached version of template.</li>
+</ul>
+<h2 id="configuration-options">Configuration Options</h2>
+<p>The configuration of GenesysSSG is managed through the <code>config.yml</code> file. Customize the following options to tailor your site:</p>
 <table>
 <thead>
 <tr>
-<th>name</th>
-<th>example value</th>
-<th>description</th>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-s</td>
-<td>not applicable</td>
-<td>server content locally</td>
-</tr>
-<tr>
-<td>-w</td>
-<td>not applicable</td>
-<td>watch for changes</td>
-</tr>
-<tr>
-<td>-n</td>
-<td>not applicable</td>
-<td>initialize new project</td>
-</tr>
-<tr>
-<td>-p</td>
-<td>8888</td>
-<td>port on which to listen</td>
-</tr>
-<tr>
-<td>-b</td>
-<td>&quot;sample title&quot;</td>
-<td>create new blog entry</td>
-</tr>
-<tr>
-<td>-d</td>
-<td>&quot;sample doc title&quot;</td>
-<td>create new doc entry, had to navigate to correct directory</td>
-</tr>
-<tr>
-<td>-x</td>
-<td>not applicable</td>
-<td>extract theme to template directory</td>
-</tr>
-</tbody>
-</table>
-<h2 id="configuration-options">Configuration options</h2>
-<p>configuration is managed by config.yml file</p>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>description</th>
-<th>type</th>
-<th>example value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>email</td>
-<td>email</td>
+<td><code>email</code></td>
+<td>Your email address</td>
 <td>string</td>
 <td>test@test.com</td>
 </tr>
 <tr>
-<td>theme</td>
-<td>theme that is used to generate content</td>
+<td><code>theme</code></td>
+<td>The theme used to generate your site's content</td>
 <td>string</td>
 <td>SolidState</td>
 </tr>
 <tr>
-<td>inputDirectory</td>
-<td>directory to hold input files</td>
+<td><code>inputDirectory</code></td>
+<td>The directory where your input files are stored</td>
 <td>string</td>
 <td>input</td>
 </tr>
 <tr>
-<td>outputDirectory</td>
-<td>directory to hold output files</td>
+<td><code>outputDirectory</code></td>
+<td>The directory where the generated output files will be placed</td>
 <td>string</td>
 <td>output</td>
 </tr>
 <tr>
-<td>templateDirectory</td>
-<td>directory to hold template files</td>
+<td><code>templateDirectory</code></td>
+<td>The directory where your template files are located</td>
 <td>string</td>
 <td>template</td>
 </tr>
 <tr>
-<td>title</td>
-<td>title of the blog/doc site</td>
+<td><code>title</code></td>
+<td>The title of your blog/document site</td>
 <td>string</td>
 <td>My Blog</td>
 </tr>
 <tr>
-<td>ga</td>
-<td>key for google analytics</td>
+<td><code>ga</code></td>
+<td>Your Google Analytics key</td>
 <td>string</td>
 <td>G-23476sdfkjh</td>
 </tr>
 <tr>
-<td>description</td>
-<td>description of the blog/doc site</td>
+<td><code>description</code></td>
+<td>A brief description of your blog/document site</td>
 <td>string</td>
-<td>this is my page generated by ssg</td>
+<td>This is my page generated by SSG</td>
 </tr>
 <tr>
-<td>facebook</td>
-<td>-</td>
-<td>string</td>
-<td>some link</td>
-</tr>
-<tr>
-<td>twitter</td>
-<td>-</td>
+<td><code>facebook</code></td>
+<td>Your Facebook page link</td>
 <td>string</td>
 <td>some link</td>
 </tr>
 <tr>
-<td>linkedIn</td>
-<td>-</td>
+<td><code>twitter</code></td>
+<td>Your Twitter handle or page link</td>
 <td>string</td>
 <td>some link</td>
 </tr>
 <tr>
-<td>tel</td>
-<td>-</td>
+<td><code>linkedIn</code></td>
+<td>Your LinkedIn profile link</td>
+<td>string</td>
+<td>some link</td>
+</tr>
+<tr>
+<td><code>tel</code></td>
+<td>Your telephone number</td>
 <td>string</td>
 <td>(555) 555-5555</td>
 </tr>
 <tr>
-<td>additionalFooterLinks</td>
-<td>additional links to show in footer</td>
+<td><code>additionalFooterLinks</code></td>
+<td>Additional links to display in the footer</td>
 <td>array</td>
 <td>-</td>
 </tr>
 <tr>
-<td>additionalNavLinks</td>
-<td>additional links to show in nav menu</td>
+<td><code>additionalNavLinks</code></td>
+<td>Additional links to include in the navigation menu</td>
 <td>array</td>
 <td>-</td>
 </tr>
 <tr>
-<td>additionalItems</td>
-<td>additional items to used when generating content</td>
+<td><code>additionalItems</code></td>
+<td>Additional items used when generating content</td>
+<td>array</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>subDirectory</code></td>
+<td>If you site is not served from root (e.g. <a href="https://mysite.com/john">https://mysite.com/john</a>) then use this settings to set it to john/</td>
 <td>array</td>
 <td>-</td>
 </tr>
 </tbody>
 </table>
-<p>example of fully configured otions</p>
+<p>Example of fully configured options:</p>
 <pre><code>inputDirectory: input
 outputDirectory: output
 templateDirectory: template
@@ -274,8 +245,7 @@ email: email@email.com
 </code></pre>
 <p>by default you do not need to configure every item in configuration.</p>
 <h2 id="themes">Themes</h2>
-<p>For available themese please check <a href="themes.html">themes</a> section.</p>
-<p>you can easily create your own theme and share with others or modify existing theme and include it in your project.</p>
+<p>Choose from a variety of stunning <a href="themes.html">themes</a> to style your website. Check out the available themes in the Themes section. If none of the existing themes suit your needs, you can easily create your own custom theme or modify an existing one to match your vision.</p>
 
 
 								</div>
