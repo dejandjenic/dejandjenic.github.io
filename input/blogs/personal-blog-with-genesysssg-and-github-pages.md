@@ -5,6 +5,7 @@ tags:
   - github
   - github pages
   - personal blog
+  - genesysSSG
 short: Easily create personal blog with GenesysSSG and github pages and host it for free
 ---
 # Personal blog with GenesysSSG and github pages
