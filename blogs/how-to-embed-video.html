@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-	
+
 	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
 <script>
@@ -22,8 +22,7 @@
 		<link rel="stylesheet" href="/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 	</head>
-	
-	
+
 	<body class="is-preload">
 
 		<!-- Page Wrapper -->
@@ -65,7 +64,13 @@
 					<section id="wrapper">
 						<header>
 							<div class="inner">
-								<h2>ALL TAGS</h2>
+								<h2>How to embed video</h2>
+								<p>Posted on Sunday, 09 July 2023</p>
+								
+									<a role="button" href="../tags/genesysSSG.html" class="button small">genesysSSG</a>
+								
+									<a role="button" href="../tags/video.html" class="button small">video</a>
+								
 							</div>
 						</header>
 
@@ -73,21 +78,29 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									
-										<a role="button" href="./tags/genesysSSG.html" class="button small">genesysSSG (4)</a>
-									
-										<a role="button" href="./tags/mermaidjs.html" class="button small">mermaidjs (2)</a>
-									
-										<a role="button" href="./tags/introduction.html" class="button small">introduction (2)</a>
-									
-										<a role="button" href="./tags/github.html" class="button small">github (2)</a>
-									
-										<a role="button" href="./tags/github pages.html" class="button small">github pages (2)</a>
-									
-										<a role="button" href="./tags/video.html" class="button small">video (1)</a>
-									
-										<a role="button" href="./tags/personal blog.html" class="button small">personal blog (1)</a>
-									
+									<h1 id="how-to-embed-videos">How to Embed Videos</h1>
+<p>Videos can greatly enhance your website or blog. Whether you want to embed videos from YouTube, Vimeo, or any other online platform, or even host them locally, here's how you can do it.</p>
+<h2 id="embedding-youtube-videos">Embedding YouTube Videos</h2>
+<p>To embed a YouTube video, use the following Markdown syntax:</p>
+<pre><code class="language-markdown">[![Video Title](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+</code></pre>
+<p>sample output</p>
+<p><iframe src="https://www.youtube.com/embed/mswPy5bt3TQ" class="youtube" width="500" height="281" frameborder="0" allowfullscreen=""></iframe></p>
+<p>If you want to start the video from a specific point, you can add the time parameter in the video URL:</p>
+<pre><code>[![Video Title](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID&amp;t=100)
+</code></pre>
+<p>sample output</p>
+<p><iframe src="https://www.youtube.com/embed/mswPy5bt3TQ?start=100" class="youtube" width="500" height="281" frameborder="0" allowfullscreen=""></iframe></p>
+<p>You can also use the short syntax for YouTube videos:</p>
+<pre><code>[![Video Title](https://youtu.be/YOUR_VIDEO_ID)](https://youtu.be/YOUR_VIDEO_ID)
+</code></pre>
+<p>sample output</p>
+<p><iframe src="https://www.youtube.com/embed/mswPy5bt3TQ" class="youtube" width="500" height="281" frameborder="0" allowfullscreen=""></iframe></p>
+<h2 id="embedding-local-videos">Embedding Local Videos</h2>
+<p>If your video is hosted locally, you can use the following Markdown syntax:</p>
+<p><a href="https://sample.com/video.mp4"><video width="500" height="281" controls=""><source type="video/mp4" src="https://sample.com/video.mp4"></source></video></a></p>
+<p>That's it! You can now embed videos in your Markdown-based static site generator using these instructions.</p>
+
 
 								</div>
 							</div>
@@ -107,7 +120,7 @@
 			</div>
 
 		<!-- Scripts -->
-					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
 			<script src="/assets/js/jquery.scrollex.min.js"></script>
 			<script src="/assets/js/browser.min.js"></script>
 			<script src="/assets/js/breakpoints.min.js"></script>
