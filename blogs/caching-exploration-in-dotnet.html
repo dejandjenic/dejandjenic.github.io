@@ -1,0 +1,659 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Caching exploration in .NET</h2>
+								<p>Posted on Tuesday, 11 July 2023</p>
+								
+									<a role="button" href="../tags/.NET.html" class="button small">.NET</a>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+									<a role="button" href="../tags/caching.html" class="button small">caching</a>
+								
+									<a role="button" href="../tags/redis.html" class="button small">redis</a>
+								
+									<a role="button" href="../tags/docker.html" class="button small">docker</a>
+								
+									<a role="button" href="../tags/docker compose.html" class="button small">docker compose</a>
+								
+									<a role="button" href="../tags/YARP.html" class="button small">YARP</a>
+								
+									<a role="button" href="../tags/NBomber.html" class="button small">NBomber</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="multi-layered-caching-in.net-microservices">Multi-Layered Caching in .NET Microservices</h1>
+<p>Caching plays a crucial role in optimizing the performance and scalability of .NET microservices. It allows frequently accessed data to be stored in memory or fast storage mediums, reducing the need to repeatedly retrieve data from original sources. In this blog post, we will explore the concept of multi-layered caching in .NET microservices and its significance in building highly performant and scalable applications.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Caching offers several benefits in modern .NET applications:</p>
+<ul>
+<li><strong>Reduced Latency</strong>: Caching minimizes the latency associated with fetching data from databases or external services, resulting in faster response times and improved user experience.</li>
+<li><strong>Enhanced Scalability</strong>: By reducing the computational and network resources required to serve requests, caching improves the scalability of microservices, enabling them to handle higher loads efficiently.</li>
+<li><strong>Improved Resilience</strong>: Caching mitigates the impact of external service failures or outages by providing access to previously cached data, ensuring that the application remains functional even when external dependencies are unavailable.</li>
+</ul>
+<h2 id="the-need-for-caching-in.net-applications">The Need for Caching in .NET Applications</h2>
+<p>To demonstrate the need for caching in .NET applications, let's create a sample .NET API project using the Minimal API approach. We will use the GenFu library for generating fake data.</p>
+<p>First, let's define a data model that will be returned by the search endpoint:</p>
+<pre><code class="language-csharp">public class DataEntity
+{
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public int Age { get; set; }
+}
+</code></pre>
+<p>Next, we need to create repository and service classes to be used by the endpoint. Here's an example of the IDataRepository interface and its implementation, DataRepository:</p>
+<pre><code class="language-csharp">public interface IDataRepository
+{
+    Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name);
+    Task Add(string name);
+}
+
+ public class DataRepository : IDataRepository
+{
+    public async Task Add(string name)
+    {
+        
+    }
+
+    public async Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name)
+    {
+        await Task.Delay(1500);
+        return GenFu.GenFu.ListOf&lt;DataEntity&gt;();
+    }
+}
+</code></pre>
+<p>Similarly, let's define the IDataService interface and its implementation, DataService:</p>
+<pre><code class="language-csharp"> public interface IDataService
+{
+    Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name);
+    Task Add(string name);
+}
+
+
+ public class DataService : IDataService
+{
+    readonly IDataRepository repository;
+    public DataService(IDataRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    public async Task Add(string name)
+    {
+        await repository.Add(name);
+    }
+
+    public async Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name)
+    {
+        return await repository.SearchEntities(name);
+    }
+}
+</code></pre>
+<p>In the above code, we simulate the database read operation by introducing a delay of 1.5 seconds. The implementation for adding data is left empty for now. This setup allows us to simulate the load and reading latency without actually implementing it.</p>
+<p>To wire up the dependencies, modify your Program.cs file as follows:</p>
+<pre><code class="language-csharp">using CachingDemo.Cache;
+using CachingDemo.Repository;
+using CachingDemo.Service;
+using Microsoft.AspNetCore.Mvc;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddScoped&lt;IDataRepository, DataRepository&gt;();
+builder.Services.AddScoped&lt;IDataService, DataService&gt;();
+
+
+var app = builder.Build();
+
+app.MapGet(&quot;/search&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.SearchEntities(name));
+app.MapGet(&quot;/add&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.Add(name));
+
+app.Run();
+
+</code></pre>
+<p>By running the application, you will have two endpoints: /search for searching entities and /add for adding entities. Note that the /add endpoint should ideally be a POST request, but for simplicity, we are using a GET request in this example.</p>
+<p>To test the search endpoint, you can use a URL like the following:</p>
+<pre><code class="language-bash">https://localhost:7220/search?name=test
+</code></pre>
+<p>This will return a JSON array of fake data similar to the following:</p>
+<pre><code class="language-json">[
+  {
+    &quot;name&quot;: &quot;John&quot;,
+    &quot;lastName&quot;: &quot;Doe&quot;,
+    &quot;age&quot;: 25
+  },
+  {
+    &quot;name&quot;: &quot;Jane&quot;,
+    &quot;lastName&quot;: &quot;Smith&quot;,
+    &quot;age&quot;: 30
+  },
+  ...
+]
+
+</code></pre>
+<p>Please note that the data is randomly generated and may not match exactly.</p>
+<p>In a real-world scenario, the application would be hosted behind a load balancer with multiple instances running simultaneously. In a Kubernetes environment, these instances would be represented as pods within a deployment. To simulate this environment on your local machine, you can use Docker Compose.</p>
+<p>Let's add some additional components to our project.</p>
+<h2 id="adding-yarp-for-load-balancing-and-docker-compose">Adding YARP for Load Balancing and Docker Compose</h2>
+<p>We can enhance our project by adding the YARP (Yet Another Reverse Proxy) project for load balancing. Additionally, we'll use Docker Compose to spin up multiple instances of our API.</p>
+<p>Create a new project and configure it as follows:</p>
+<pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection(&quot;ReverseProxy&quot;));
+var app = builder.Build();
+app.MapReverseProxy();
+app.Run();
+</code></pre>
+<p>Add the following configuration to your appsettings.json file:</p>
+<pre><code class="language-json">{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+
+
+  &quot;ReverseProxy&quot;: {
+    &quot;Routes&quot;: {
+      &quot;minimumroute&quot;: {
+        &quot;ClusterId&quot;: &quot;minimumcluster&quot;,
+        &quot;Match&quot;: {
+          &quot;Path&quot;: &quot;{**catch-all}&quot;
+        }
+      }
+    },
+    &quot;Clusters&quot;: {
+      &quot;minimumcluster&quot;: {
+        &quot;Destinations&quot;: {
+          &quot;api1&quot;: {
+            &quot;Address&quot;: &quot;http://api/&quot;
+          },
+          &quot;api2&quot;: {
+            &quot;Address&quot;: &quot;http://api2/&quot;
+          }
+        }
+      }
+    }
+  }
+}
+
+</code></pre>
+<p>we added routing of content to any of 2 instances of our app that are going to be used in our docker compose.</p>
+<p>lets create some Dockerfile</p>
+<p>first for our app, name this file Dockerfile</p>
+<pre><code class="language-Dockerfile">FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY [&quot;CachingDemo/CachingDemoApi.csproj&quot;, &quot;CachingDemo/&quot;]
+RUN dotnet restore &quot;CachingDemo/CachingDemoApi.csproj&quot;
+COPY . .
+WORKDIR &quot;/src/CachingDemo&quot;
+RUN dotnet build &quot;CachingDemoApi.csproj&quot; -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish &quot;CachingDemoApi.csproj&quot; -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;CachingDemoApi.dll&quot;]
+</code></pre>
+<p>then for YARP project, name this file Dockerfile.YARP</p>
+<pre><code class="language-Dockerfile">FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY [&quot;YARP/YARP.csproj&quot;, &quot;YARP/&quot;]
+RUN dotnet restore &quot;YARP/YARP.csproj&quot;
+COPY . .
+WORKDIR &quot;/src/YARP&quot;
+RUN dotnet build &quot;YARP.csproj&quot; -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish &quot;YARP.csproj&quot; -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT [&quot;dotnet&quot;, &quot;YARP.dll&quot;]
+</code></pre>
+<p>Build the Docker images for the API project and YARP project:</p>
+<pre><code class="language-bash">docker build . -t api
+docker build . -f .\Dockerfile.YARP -t yarp
+</code></pre>
+<p>Create a docker-compose.yml file with the following contents:</p>
+<pre><code class="language-yaml">version: '2.1'
+services:
+  api:
+    image: api
+  api2:
+    image: api
+  yarp:
+    image: yarp
+    ports:
+      - &quot;8002:80&quot;
+</code></pre>
+<p>Run Docker Compose to start the instances:</p>
+<pre><code class="language-bash">docker compose up
+</code></pre>
+<p>With this setup, Docker Compose will spin up two instances of your API project and one instance of the YARP project, which will forward requests to the API instances.</p>
+<p>Now, let's move on to load testing using NBomber.</p>
+<h2 id="load-testing-with-nbomber">Load Testing with NBomber</h2>
+<p>To perform load testing, we'll use the NBomber library. Make sure to add the required NuGet packages for NBomber, GenFu, and any other dependencies.</p>
+<p>Create a new load testing project and add references to YARP and GenFu.</p>
+<p>Configure NBomber in your load testing project as shown below:</p>
+<pre><code class="language-csharp">
+using NBomber.CSharp;
+
+var httpClient=new HttpClient();
+
+
+var users = GenFu.GenFu.ListOf&lt;User&gt;();
+
+var scenario = Scenario.Create(&quot;test_api_scenario&quot;, async context =&gt;
+{
+    var name = users[GenFu.GenFu.Random.Next(25)].Name;
+    await httpClient.GetAsync($&quot;http://localhost:8002/search?name={name}&quot;);
+
+    if(GenFu.GenFu.Random.Next(30) % 29 == 0)
+        await httpClient.GetAsync($&quot;http://localhost:8002/add?name={name}&quot;);
+
+    return Response.Ok();
+})
+.WithLoadSimulations(
+    Simulation.Inject(rate: 10,
+                      interval: TimeSpan.FromSeconds(1),
+                      during: TimeSpan.FromSeconds(30)),
+    Simulation.Pause(during: TimeSpan.FromSeconds(5))
+)
+
+;
+
+NBomberRunner
+    .RegisterScenarios(scenario)    
+    .Run();
+
+class User
+{
+    public string Name { get; set; }
+}
+</code></pre>
+<p>In the above code, we define a scenario named &quot;test_api_scenario&quot; that sends HTTP requests to the search endpoint with random names. We also include a conditional request to the add endpoint for every 30th request. The scenario is configured to have an injection rate of 10 requests per second for 30 seconds, followed by a 5-second pause.</p>
+<p>Running this load testing project will generate load on your API instances and test their performance.</p>
+<p><img src="../images/caching/img1.png" alt="image" /></p>
+<p><img src="../images/caching/img2.png" alt="image" /></p>
+<p>our load test creates 10 request per second and usual duration is slightly over 1.5 seconds.</p>
+<h2 id="implementing-caching">Implementing Caching</h2>
+<p>Now, let's add caching to our project using Redis and in-memory caching.</p>
+<p>Create the following interfaces and classes for caching:</p>
+<pre><code class="language-csharp">public interface IGenericCache
+{
+    public Task&lt;T&gt; GetOrSet&lt;T&gt;(string key, Func&lt;Task&lt;T&gt;&gt; getData);
+    public Task RemoveItem(string key);
+}
+
+public class RedisGenericCache : IGenericCache
+{
+    readonly IDatabase db;
+
+    public RedisGenericCache(ConnectionMultiplexer redis)
+    {            
+        db = redis.GetDatabase();
+    }
+
+    public async Task&lt;T&gt; GetOrSet&lt;T&gt;(string key, Func&lt;Task&lt;T&gt;&gt; getData)
+    {
+        var cacheData = await db.StringGetAsync(key);
+
+        if (!cacheData.HasValue)
+        {
+            var data = await getData();
+            var cacheString = System.Text.Json.JsonSerializer.Serialize(data);
+            await db.StringSetAsync(key, cacheString);
+            cacheData = cacheString;
+        }
+        return System.Text.Json.JsonSerializer.Deserialize&lt;T&gt;(cacheData);
+    }
+
+    public async Task RemoveItem(string key)
+    {
+        await db.StringGetDeleteAsync(key);
+    }
+}
+
+
+
+
+</code></pre>
+<p>Create the RedisDataRepository and InMemoryDataRepository implementations:</p>
+<pre><code class="language-csharp">public class RedisDataRepository : RedisGenericCache, IDataRepository
+{
+    readonly IDataRepository repository;
+    public RedisDataRepository(IDataRepository repository, ConnectionMultiplexer redis) : base(redis)
+    {
+        this.repository = repository;
+    }
+    public async Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name)
+    {
+        return await GetOrSet($&quot;SearchEntities_{name}&quot;, () =&gt; repository.SearchEntities(name));
+    }
+
+    public async Task Add(string name)
+    {
+        await RemoveItem($&quot;SearchEntities_{name}&quot;);
+        await repository.Add(name);
+    }
+}
+</code></pre>
+<p>Modify your Program.cs to incorporate the Redis caching:</p>
+<pre><code>using CachingDemo.Cache;
+using CachingDemo.Repository;
+using CachingDemo.Service;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddScoped&lt;IDataRepository, DataRepository&gt;();
+builder.Services.AddScoped&lt;IDataService, DataService&gt;();
+
+
+
+builder.Services.AddSingleton(sp =&gt; ConnectionMultiplexer.Connect(&quot;redis&quot;));
+builder.Services.AddSingleton&lt;RedisGenericCache&gt;();
+builder.Services.Decorate&lt;IDataRepository, RedisDataRepository&gt;();
+
+var app = builder.Build();
+
+app.MapGet(&quot;/search&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.SearchEntities(name));
+app.MapGet(&quot;/add&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.Add(name));
+
+app.Run();
+</code></pre>
+<p>In the above code, we register the RedisGenericCache and RedisDataRepository classes as singleton services. We then decorate the IDataRepository service with RedisDataRepository , which provide caching capabilities.</p>
+<p>lets shutdown docker compose and build enw version of our api.</p>
+<pre><code class="language-bash">docker compose down
+docker build . -t api
+</code></pre>
+<p>create file called redis.conf with content (it will be used later) and in file Dockerfile.redis add</p>
+<pre><code>notify-keyspace-events AKE
+</code></pre>
+<pre><code class="language-Dockerfile">FROM redis
+COPY redis.conf /usr/local/etc/redis/redis.conf
+CMD [ &quot;redis-server&quot;, &quot;/usr/local/etc/redis/redis.conf&quot; ]
+</code></pre>
+<p>build redis docker file and lets add redis container to our docker compose file</p>
+<pre><code class="language-bash">docker build . -f .\Dockerfile.redis -t myredis
+</code></pre>
+<pre><code class="language-yaml">version: '2.1'
+services:
+  redis:
+    image: myredis
+  api:
+    image: api
+    depends_on:
+      - redis
+  api2:
+    image: api
+    depends_on:
+      - redis
+  yarp:
+    image: yarp
+    ports:
+      - &quot;8002:80&quot;
+</code></pre>
+<p>start our instances and restart the test</p>
+<p><img src="../images/caching/img3.png" alt="image" /></p>
+<p><img src="../images/caching/img4.png" alt="image" /></p>
+<p>wow, but really nobody is surprised that adding caching improves performance greatly.</p>
+<p>However using redis (or any other distributed caching mechanism) in real world scenario would add some network latency and some delay. Can we improve this? Can we add some in memory caching to this existing model?</p>
+<h2 id="adding-in-memory-caching">Adding in memory caching</h2>
+<p>add file InMemoryGenericCache.cs</p>
+<pre><code class="language-csharp">public class InMemoryGenericCache : IGenericCache
+{
+    readonly IMemoryCache cache;
+    public InMemoryGenericCache(IMemoryCache cache)
+    {
+        this.cache = cache;
+    }
+
+    public async Task&lt;T&gt; GetOrSet&lt;T&gt;(string key, Func&lt;Task&lt;T&gt;&gt; getData)
+    {
+        return await cache.GetOrCreateAsync(key, async (e) =&gt; await getData());
+    }
+
+    public async Task RemoveItem(string key)
+    {
+        cache.Remove(key);
+    }
+}
+</code></pre>
+<p>and file InMemoryDataRepository.cs</p>
+<pre><code class="language-csharp">public class InMemoryDataRepository : InMemoryGenericCache, IDataRepository
+{
+    readonly IDataRepository repository;
+    public InMemoryDataRepository(IDataRepository repository, IMemoryCache cache) : base(cache)
+    {
+        this.repository = repository;
+    }
+
+    public async Task Add(string name)
+    {
+        await RemoveItem($&quot;SearchEntities_{name}&quot;);
+        await repository.Add(name);
+    }
+
+    public async Task&lt;IList&lt;DataEntity&gt;&gt; SearchEntities(string name)
+    {
+        return await GetOrSet($&quot;SearchEntities_{name}&quot;, () =&gt; repository.SearchEntities(name));
+    }
+}
+</code></pre>
+<p>but wait, what will happen if data in redis cache is invalidated and in memory data is not cleared (on second pod or instance)?</p>
+<p>lets use redis subscription to notify subscribers about deleting keys from redis.</p>
+<p>add</p>
+<pre><code class="language-csharp">public interface IRedisSubscriber
+{
+    Task OnItemRemoved(string key);
+}
+
+
+public class RedisSubscriber : IRedisSubscriber
+{
+    readonly InMemoryGenericCache inMemoryGenericCache;
+    readonly ILogger&lt;RedisSubscriber&gt; logger;
+    public RedisSubscriber(InMemoryGenericCache inMemoryGenericCache,ILogger&lt;RedisSubscriber&gt; logger)
+    {
+        this.logger = logger;
+        this.inMemoryGenericCache = inMemoryGenericCache;
+    }
+    public async Task OnItemRemoved(string key)
+    {
+        logger.LogInformation($&quot;redis key deleted {key}&quot;);
+        await inMemoryGenericCache.RemoveItem(key);
+    }
+}
+
+public class RedisSubscriberNotificationService : BackgroundService
+{
+    readonly IEnumerable&lt;IRedisSubscriber&gt; subscribers;
+    readonly ConnectionMultiplexer redis;
+    public RedisSubscriberNotificationService(IEnumerable&lt;IRedisSubscriber&gt; subscribers, ConnectionMultiplexer redis)
+    {
+        this.redis = redis;
+        this.subscribers = subscribers;
+    }
+
+    protected async override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+
+        if (subscribers.Any())
+        {
+            var sub = redis.GetSubscriber();
+            sub.Subscribe(&quot;__keyevent@0__:del&quot;, async (c, m) =&gt;
+            {
+                await Task.WhenAll(subscribers.Select(async subscriber =&gt; await subscriber.OnItemRemoved(m)));
+            });
+        }
+    }
+}
+
+</code></pre>
+<p>by doing this we will be notified when redis key is removed and we can use this moment to clear same value from in memory cache.</p>
+<p>modify Program.cs to incorporate new in memory caching</p>
+<pre><code class="language-csharp">using CachingDemo.Cache;
+using CachingDemo.Repository;
+using CachingDemo.Service;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddScoped&lt;IDataRepository, DataRepository&gt;();
+builder.Services.AddScoped&lt;IDataService, DataService&gt;();
+
+
+
+builder.Services.AddSingleton(sp =&gt; ConnectionMultiplexer.Connect(&quot;redis&quot;));
+builder.Services.AddSingleton&lt;RedisGenericCache&gt;();
+builder.Services.Decorate&lt;IDataRepository, RedisDataRepository&gt;();
+
+
+
+
+builder.Services.AddSingleton&lt;IMemoryCache, MemoryCache&gt;();
+builder.Services.AddSingleton&lt;InMemoryGenericCache&gt;();
+builder.Services.Decorate&lt;IDataRepository, InMemoryDataRepository&gt;();
+
+builder.Services.AddHostedService&lt;RedisSubscriberNotificationService&gt;();
+builder.Services.AddSingleton&lt;IRedisSubscriber, RedisSubscriber&gt;();
+
+
+var app = builder.Build();
+
+app.MapGet(&quot;/search&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.SearchEntities(name));
+app.MapGet(&quot;/add&quot;, async ([FromQuery] string name, IDataService service) =&gt; await service.Add(name));
+
+app.Run();
+
+</code></pre>
+<p>lets build our api image again and run the tests</p>
+<pre><code class="language-bash">docker compose down
+docker build . -t api
+docker compose up
+</code></pre>
+<p>lets review results</p>
+<p><img src="../images/caching/img5.png" alt="image" /></p>
+<p><img src="../images/caching/img6.png" alt="image" /></p>
+<p>wow, we have great results , using both of caching mechanisms, in memory for speed, redis for durability and distribution and we are still able to return correct results.</p>
+<p>entire code shown here can be found <a href="https://github.com/dejandjenic/CachingDemo">https://github.com/dejandjenic/CachingDemo</a></p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
