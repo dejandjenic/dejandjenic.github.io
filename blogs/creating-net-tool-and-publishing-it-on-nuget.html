@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Creating .net tool and publishing it on nuget</h2>
+								<p>Posted on Thursday, 13 July 2023</p>
+								
+									<a role="button" href="../tags/.NET.html" class="button small">.NET</a>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+									<a role="button" href="../tags/github.html" class="button small">github</a>
+								
+									<a role="button" href="../tags/nuget.html" class="button small">nuget</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="creating.net-tool-and-publishing-it-on-nuget">Creating .net tool and publishing it on nuget</h1>
+<h2 id="introduction">Introduction</h2>
+<p>.NET tools are valuable for building and deploying reusable components. In this article, we will walk through the process of creating a new project to demonstrate the creation of a .NET tool and publishing it on NuGet. We will cover the steps involved in setting up the project, modifying the project file, adding code functionality, configuring the GitHub repository, preparing for publishing, and finally publishing the tool on NuGet.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>To follow along with this tutorial, make sure you have the following:</p>
+<ol>
+<li>A development environment set up with .NET SDK installed.</li>
+<li>An active GitHub account.</li>
+<li>An API key from NuGet.org for publishing packages.</li>
+<li>Basic knowledge of C# and .NET.</li>
+</ol>
+<h2 id="create-a-console-application-project">Create a Console Application Project</h2>
+<p>Start by creating a new Console Application project using the .NET SDK. Modify the .csproj file with the following content:</p>
+<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;net7.0&lt;/TargetFramework&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+  &lt;/PropertyGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<p>Additionally, create a README.md file and describe what your tool is used for.</p>
+<h2 id="modify-the-project-file">Modify the Project File</h2>
+<p>Enhance the project file (csproj) to prepare it for packaging as a .NET tool. Add the following lines within the existing <PropertyGroup>:</p>
+<pre><code class="language-xml">&lt;PackAsTool&gt;true&lt;/PackAsTool&gt;
+&lt;ToolCommandName&gt;your command name&lt;/ToolCommandName&gt;
+&lt;PackageOutputPath&gt;./nupkg&lt;/PackageOutputPath&gt;
+&lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt;
+&lt;PackageId&gt;Your package id&lt;/PackageId&gt;
+&lt;Authors&gt;Your Name&lt;/Authors&gt;
+&lt;Company&gt;Your Email&lt;/Company&gt;
+&lt;Product&gt;Your product name&lt;/Product&gt;
+&lt;PackageReadmeFile&gt;README.md&lt;/PackageReadmeFile&gt;
+</code></pre>
+<h2 id="add-functionality-to-the-tool">Add Functionality to the Tool</h2>
+<p>Open the Program.cs file and add the following code:</p>
+<pre><code class="language-csharp">using System;
+using System.Linq;
+using System.Xml;
+
+try
+{
+    if (!args.Any())
+    {
+        Console.WriteLine(&quot;No file specified&quot;);
+        return;
+    }
+
+    XmlDocument doc = new XmlDocument();
+    doc.Load(args[0]);
+
+    var coverage = doc.SelectSingleNode(&quot;/coverage/@line-rate&quot;).Value;
+    if (decimal.TryParse(coverage, out var dCoverage))
+    {
+        var format = args.Length &gt; 1 ? args[1] : &quot;total_coverage={0}&quot;;
+        Console.WriteLine(string.Format(format, dCoverage * 100));
+    }
+    else
+    {
+        Console.WriteLine(&quot;Value could not be extracted&quot;);
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($&quot;An error occurred: {ex.Message}&quot;);
+}
+
+</code></pre>
+<p>The above code tries to extract code coverage from a Cobertura file, multiplies it by 100, and writes a formatted string to the console output.</p>
+<h2 id="configure-your-github-repository">Configure Your GitHub Repository</h2>
+<p>Now, create a new GitHub repository and push your code to it. Once the repository is set up, follow these steps:</p>
+<ol>
+<li>Create your own API key on NuGet.org.</li>
+<li>Go to your GitHub repository settings and add your NuGet API key as a secret.</li>
+<li>Add the provided script to your repository, which includes a function to retrieve the build version. name file GetBuildVersion.psm1 and store it in build directory relative to your project root</li>
+<li>Navigate to the Actions tab in your repository and create a new workflow using the provided YAML script.</li>
+</ol>
+<pre><code class="language-bash">Function GetBuildVersion {
+    Param (
+        [string]$VersionString
+    )
+
+    # Process through regex
+    $VersionString -match &quot;(?&lt;major&gt;\d+)(\.(?&lt;minor&gt;\d+))?(\.(?&lt;patch&gt;\d+))?(\-(?&lt;pre&gt;[0-9A-Za-z\-\.]+))?(\+(?&lt;build&gt;\d+))?&quot; | Out-Null
+
+    if ($matches -eq $null) {
+        return &quot;1.0.0-build&quot;
+    }
+
+    # Extract the build metadata
+    $BuildRevision = [uint64]$matches['build']
+    # Extract the pre-release tag
+    $PreReleaseTag = [string]$matches['pre']
+    # Extract the patch
+    $Patch = [uint64]$matches['patch']
+    # Extract the minor
+    $Minor = [uint64]$matches['minor']
+    # Extract the major
+    $Major = [uint64]$matches['major']
+
+    $Version = [string]$Major + '.' + [string]$Minor + '.' + [string]$Patch;
+    if ($PreReleaseTag -ne [string]::Empty) {
+        $Version = $Version + '-' + $PreReleaseTag
+    }
+
+    if ($BuildRevision -ne 0) {
+        $Version = $Version + '.' + [string]$BuildRevision
+    }
+
+    return $Version
+}
+</code></pre>
+<pre><code class="language-yaml">
+name: .NET
+
+on:
+  create:
+    branches: 
+      - release/**
+  push:
+    branches: [ &quot;main&quot; ]
+  pull_request:
+    branches: [ &quot;main&quot; ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    
+    - name: Get Build Version
+      run: |
+        Import-Module .\build\GetBuildVersion.psm1
+        Write-Host $Env:GITHUB_REF
+        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
+        echo &quot;BUILD_VERSION=$version&quot; | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+      shell: pwsh
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore CodeCoverageExtractor/CodeCoverageExtractor.csproj
+    - name: Build
+      run: dotnet build --no-restore   -p:Version=$BUILD_VERSION CodeCoverageExtractor/CodeCoverageExtractor.csproj
+      
+    - name: Publish
+      if: startsWith(github.ref, 'refs/heads/release')
+      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_KEY}}
+</code></pre>
+<h2 id="publish-your.net-tool-via-nuget">Publish Your .NET Tool via NuGet</h2>
+<p>Once the GitHub Action workflow is set up, it will automatically trigger a build whenever you create a branch with a release/ prefix or push changes to the main branch. The build process will generate a .nupkg file in the nupkg directory.</p>
+<p>Wait a few minutes for NuGet to verify your package. After verification, you can install and use the tool globally by invoking the following command:</p>
+<pre><code class="language-bash">dotnet tool install -g CodeCoverageExtractor
+codecoverageextractor path_to_cobertura_file format
+
+</code></pre>
+<p>Remember to name your new branch from <code>main</code> and increase the version for any new releases.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this article, we covered the process of creating a .NET tool, configuring the project file, adding functionality, setting up the GitHub repository, and publishing the tool on NuGet. By following these steps, you can easily create your own .NET tools and share them with the development community. Happy coding!</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
