@@ -429,7 +429,7 @@ public class RedisDataRepository : RedisGenericCache, IDataRepository
 
 Modify your Program.cs to incorporate the Redis caching:
 
-```
+```csharp
 using CachingDemo.Cache;
 using CachingDemo.Repository;
 using CachingDemo.Service;
