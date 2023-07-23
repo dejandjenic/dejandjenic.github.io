@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Enhancing Test Visualization on GitLab with .NET Projects</h2>
+								<p>Posted on Saturday, 22 July 2023</p>
+								
+									<a role="button" href="../tags/gitlab.html" class="button small">gitlab</a>
+								
+									<a role="button" href="../tags/.NET.html" class="button small">.NET</a>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+									<a role="button" href="../tags/tests.html" class="button small">tests</a>
+								
+									<a role="button" href="../tags/xunit.html" class="button small">xunit</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="enhancing-test-visualization-on-gitlab-with.net-projects">Enhancing Test Visualization on GitLab with .NET Projects</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In modern software development, efficient testing is crucial to ensure the stability and quality of applications. GitLab, a popular web-based Git repository management tool, offers a wide range of features to support the testing process. One such feature is test visualization, which provides developers with valuable insights into the test execution and results. This article explores how test visualization can be leveraged within GitLab for .NET projects, empowering teams to optimize their testing workflows and improve overall project quality.</p>
+<h2 id="understanding-test-visualization-in-gitlab">Understanding Test Visualization in GitLab</h2>
+<h3 id="overview-of-gitlabs-test-visualization-capabilities">Overview of GitLab's test visualization capabilities</h3>
+<p>GitLab provides a dedicated section within its user interface for visualizing test results and metrics. It offers a comprehensive overview of test execution, allowing developers to track the progress and outcomes of their tests.</p>
+<h3 id="key-benefits-of-using-test-visualization-in-software-development">Key benefits of using test visualization in software development</h3>
+<p>Test visualization in GitLab brings several advantages to the software development process</p>
+<ol>
+<li>Enhanced visibility: Developers can easily monitor the status and trends of their tests, gaining insights into test coverage, pass rates, and failure patterns.</li>
+<li>Early bug detection: Test visualization helps identify failing tests early in the development cycle, enabling prompt bug fixes and preventing issues from reaching production.</li>
+<li>Test prioritization: By analyzing test results, teams can prioritize their efforts and allocate resources to fix critical or frequently failing tests.</li>
+<li>Performance monitoring: Test visualization allows for tracking the performance of tests over time, highlighting any degradation or improvements in test execution</li>
+</ol>
+<h3 id="integration-with-continuous-integrationcontinuous-deployment-cicd-pipelines">Integration with Continuous Integration/Continuous Deployment (CI/CD) pipelines</h3>
+<p>GitLab seamlessly integrates test visualization into its CI/CD pipelines. Developers can configure test stages and jobs within the pipeline to automatically trigger test execution and generate visualized reports. This integration ensures that testing becomes an integral part of the development workflow.</p>
+<h2 id="setting-up.net-project">Setting Up .Net Project</h2>
+<p>To create a new project and include the sample code provided by Microsoft <a href="https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows">https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows</a>, follow these steps:</p>
+<p>Inside the project directory, create a file named PrimeService.cs and add the following code</p>
+<pre><code class="language-csharp">public class PrimeService
+    {
+        public bool IsPrime(int candidate)
+        {
+            if (candidate &lt; 2)
+            {
+                return false;
+            }
+
+            for (int divisor = 2; divisor &lt;= Math.Sqrt(candidate); ++divisor)
+            {
+                if (candidate % divisor == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+</code></pre>
+<p>Create a test project within the same project directory. You can name it anything you prefer.</p>
+<p>Add a reference to the project that contains PrimeService.cs. In your test project, add a reference to the project containing the PrimeService class.</p>
+<p>Inside the test project, create a file named PrimeServiceTests.cs and add the following code:</p>
+<pre><code class="language-csharp">public class PrimeServiceTests
+    {
+        readonly PrimeService _primeService;
+
+        public PrimeServiceTests() =&gt; _primeService = new PrimeService();
+
+        [Theory]
+        [InlineData(-1), InlineData(0), InlineData(1)]
+        public void IsPrime_ValuesLessThan2_ReturnFalse(int value) =&gt;
+            Assert.False(_primeService.IsPrime(value), $&quot;{value} should not be prime&quot;);
+
+        [Theory]
+        [InlineData(2), InlineData(3), InlineData(5), InlineData(7)]
+        public void IsPrime_PrimesLessThan10_ReturnTrue(int value) =&gt;
+            Assert.True(_primeService.IsPrime(value), $&quot;{value} should be prime&quot;);
+    }
+</code></pre>
+<p>Now you have a project with the PrimeService class and corresponding unit tests. You can proceed with configuring your CI/CD pipeline in GitLab and visualizing the test results using the test visualization capabilities.</p>
+<h2 id="setting-up-gitlab-for.net-project-testing">Setting Up GitLab for .NET Project Testing</h2>
+<ol>
+<li>Configuring GitLab CI/CD pipelines for .NET projects</li>
+<li>Defining test stages and jobs within the pipeline</li>
+<li>Installing necessary dependencies and tools for testing</li>
+</ol>
+<p>In the root directory of your project, create a .gitlab-ci.yml file and add the following content</p>
+<pre><code class="language-yaml">image:
+  name: mcr.microsoft.com/dotnet/sdk:7.0
+
+stages:
+  - build
+  - test
+
+build_job:
+  stage: build
+  only:
+    - pushes  
+  script:
+    - dotnet build
+
+test_job:
+  stage: test
+  only:
+    - pushes
+  script:
+    - dotnet test --results-directory $CI_PROJECT_DIR/cobertura --collect:&quot;XPlat Code Coverage&quot; --test-adapter-path:. --logger:&quot;junit;LogFilePath=..\artifacts\{assembly}-test.xml;MethodFormat=Class;FailureBodyFormat=Verbose&quot;
+    - cp $CI_PROJECT_DIR/cobertura/*/coverage.cobertura.xml $CI_PROJECT_DIR/cobertura/coverage.cobertura.xml
+    - dotnet tool install -g dotnet-reportgenerator-globaltool
+    - dotnet tool install -g CodeCoverageExtractor
+    - /root/.dotnet/tools/reportgenerator -reports:&quot;$CI_PROJECT_DIR/cobertura/coverage.cobertura.xml&quot; -targetdir:&quot;coveragereport&quot; -reporttypes:&quot;Html&quot;
+    - /root/.dotnet/tools/codecoverageextractor $CI_PROJECT_DIR/cobertura/coverage.cobertura.xml
+    - tar -cvf coveragereport.tar coveragereport/
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - ./**/*test.xml
+      - $CI_PROJECT_DIR/cobertura/coverage.cobertura.xml
+      - coveragereport.tar
+    reports:
+      junit:
+        - ./**/*test.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: $CI_PROJECT_DIR/cobertura/coverage.cobertura.xml
+        
+  dependencies:
+    - build_job
+  coverage: /total_coverage=(\d+.?\d?)/
+
+</code></pre>
+<p>The .gitlab-ci.yml file defines two stages: build and test. The build_job stage builds the project, and the test_job stage runs the tests.</p>
+<p>The pipeline script installs the dotnet-reportgenerator-globaltool and CodeCoverageExtractor tools for generating test reports and extracting code coverage information.</p>
+<p>By configuring GitLab CI/CD pipelines, defining test stages and jobs, and installing the required dependencies and tools, you can automate the build and test process for your .NET projects on GitLab. The pipeline script generates test reports, including code coverage, and provides valuable artifacts and reports for further analysis.</p>
+<h2 id="action">Action</h2>
+<p>Perform the following actions after setting up GitLab for .NET project testing</p>
+<ol>
+<li>Create a new merge request with the code you just created. This will trigger the pipeline to run</li>
+<li>Once the pipeline is executed, it should display a status similar to the following:</li>
+</ol>
+<p><img src="../images/gitlab-tests/img1.png" alt="image" /></p>
+<p>The image shows the pipeline status, a link to the full test report, and information about the code coverage percentage (83.30%).</p>
+<p>Navigate to the test report page to view detailed information about the test jobs that were executed, including the duration of each job, final results, and details about each test executed, such as input parameters, duration, result, and logs</p>
+<p><img src="../images/gitlab-tests/img2.png" alt="image" />
+<img src="../images/gitlab-tests/img3.png" alt="image" /></p>
+<p>From the test report, you can observe that not all of the code is covered by tests; it is currently at 83.30% coverage.</p>
+<p>Append the following test to your test project</p>
+<pre><code class="language-csharp">[Theory]
+        [InlineData(4), InlineData(6), InlineData(8), InlineData(9)]
+        public void IsPrime_NonPrimesLessThan10_ReturnFalse(int value) =&gt;
+            Assert.False(_primeService.IsPrime(value), $&quot;{value} should not be prime&quot;);
+</code></pre>
+<p>Commit and push your changes to the merge request and wait for the pipeline to finish.</p>
+<p><img src="../images/gitlab-tests/img4.png" alt="image" /></p>
+<p>The results will show that your code now has 100% coverage.</p>
+<p>Configure additional useful settings for your GitLab project:</p>
+<ol>
+<li>Navigate to Settings -&gt; General page and expand &quot;Badges.&quot;</li>
+<li>Add the following entries:</li>
+</ol>
+<pre><code>https://gitlab.com/djenka79/test-coverage-gitlab/badges/main/pipeline.svg
+https://gitlab.com/djenka79/test-coverage-gitlab/badges/main/coverage.svg
+</code></pre>
+<p><img src="../images/gitlab-tests/img5.png" alt="image" /></p>
+<p>Merge your merge request, and once the pipeline is finished, your project's overview page should display information about running pipelines and code coverage.</p>
+<p><img src="../images/gitlab-tests/img6.png" alt="image" /></p>
+<p>The overview page will show information about the running pipelines and the code coverage percentage.</p>
+<p>By following these actions, you can leverage the GitLab pipeline and test visualization features to monitor the progress of your tests, track code coverage, and ensure the quality of your .NET projects.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>With GitLab's robust test visualization capabilities, .NET project teams can gain valuable insights into the testing process, leading to improved software quality and accelerated development cycles. By leveraging test visualization, developers can identify bottlenecks, enhance collaboration, and optimize their testing strategies. Incorporating test visualization into the GitLab workflow empowers teams to make informed decisions and continuously improve their software testing practices.</p>
+<p>code used to create this article can be found <a href="https://gitlab.com/djenka79/test-coverage-gitlab">https://gitlab.com/djenka79/test-coverage-gitlab</a></p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
