@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Building Scalable Serverless Applications, Hosting .NET Minimal APIs with Google Cloud Functions</h2>
+								<p>Posted on Monday, 31 July 2023</p>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+									<a role="button" href="../tags/gcp.html" class="button small">gcp</a>
+								
+									<a role="button" href="../tags/cloud function.html" class="button small">cloud function</a>
+								
+									<a role="button" href="../tags/minimal api.html" class="button small">minimal api</a>
+								
+									<a role="button" href="../tags/.net7.html" class="button small">.net7</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="building-scalable-serverless-applications-hosting.net-minimal-apis-with-google-cloud-functions">Building Scalable Serverless Applications: Hosting .NET Minimal APIs with Google Cloud Functions</h1>
+<h2 id="introduction">Introduction:</h2>
+<p>In today's fast-paced digital landscape, developers are constantly seeking efficient ways to build and deploy applications that are scalable, cost-effective, and require minimal maintenance. The combination of .NET Minimal APIs and Google Cloud Functions presents a compelling solution to meet these demands. By leveraging the simplicity and performance of .NET Minimal APIs with the serverless architecture of Google Cloud Functions, developers can create robust applications that scale seamlessly with incoming traffic while enjoying the benefits of a pay-as-you-go billing model.</p>
+<p>In this article, we will delve into the process of hosting a .NET Minimal API on Google Cloud Functions, unlocking the power of serverless computing for your .NET applications. We will walk you through the necessary steps to set up and deploy your .NET Minimal API, as well as explore the unique advantages that both technologies offer. Whether you are a seasoned .NET developer or just starting your journey into serverless computing, this guide will equip you with the knowledge and tools needed to build modern, scalable, and responsive applications with ease.</p>
+<p>Let's get started on this exciting journey of hosting a .NET Minimal API with Google Cloud Functions and unlock the full potential of serverless computing for your projects!</p>
+<p>Hosting a .NET Minimal API with Google Cloud Functions can be a powerful combination to create scalable, serverless applications. In this article, we'll walk through the steps to set up and deploy a .NET Minimal API on Google Cloud Functions. Before we begin, ensure you have basic knowledge of .NET Minimal APIs, Google Cloud Functions, and the Google Cloud Platform (GCP).</p>
+<h2 id="benefits-of-google-cloud-functions">Benefits of Google Cloud Functions:</h2>
+<p>Serverless Architecture: Google Cloud Functions is a serverless computing platform, which means you don't need to worry about managing servers or infrastructure. Google takes care of server provisioning, scaling, and maintenance, allowing you to focus on writing code and building applications.</p>
+<p>Auto-scaling: Google Cloud Functions automatically scales your application in response to incoming traffic. It provisions and scales resources as needed, ensuring optimal performance during peak times while saving costs during periods of low or no traffic.</p>
+<p>Pay-per-Use Billing: With serverless computing, you only pay for the actual compute resources used during the execution of your functions. This fine-grained billing model allows you to optimize costs and eliminate the need to pay for idle resources.</p>
+<p>Easy Integration: Google Cloud Functions integrates seamlessly with other Google Cloud services, enabling you to build powerful and interconnected applications. You can easily trigger functions based on events from Cloud Storage, Pub/Sub, Firestore, HTTP requests, and more.</p>
+<p>Fast Deployment: Deploying functions is quick and straightforward. Google Cloud Functions abstracts away the complexity of infrastructure setup and configuration, allowing you to deploy and update functions with ease.</p>
+<p>Global Reach: Google Cloud Functions provides the option to deploy functions across multiple regions, ensuring low-latency access to your applications for users around the world.</p>
+<h2 id="benefits-of.net-minimal-apis">Benefits of .NET Minimal APIs:</h2>
+<p>Simplified Code: .NET Minimal APIs offer a simplified and more concise syntax compared to traditional ASP.NET Web APIs. This leads to cleaner and more readable code, making it easier for developers to understand and maintain the application.</p>
+<p>Improved Performance: The lightweight nature of .NET Minimal APIs results in faster startup times and reduced memory consumption. This is especially beneficial for serverless architectures where fast startup is crucial to handle incoming requests efficiently.</p>
+<p>Built-in Dependency Injection: .NET Minimal APIs come with built-in support for dependency injection, making it easier to manage and inject services into your application components. This promotes better code organization and testability.</p>
+<p>Rapid Development: With a minimalist approach, .NET Minimal APIs eliminate boilerplate code, allowing developers to focus on building the core business logic of their application without unnecessary distractions.</p>
+<p>Versatility: .NET Minimal APIs are versatile and can be hosted on various platforms, including traditional web servers, containerized environments, and, as demonstrated in this article, serverless platforms like Google Cloud Functions.</p>
+<p>Cross-platform Compatibility: .NET Core provide cross-platform support, enabling developers to build and deploy .NET Minimal APIs on Windows, macOS, and Linux systems.</p>
+<p>By combining the benefits of Google Cloud Functions and .NET Minimal APIs, developers can create highly scalable, cost-efficient, and easily maintainable serverless applications that respond quickly to user requests and adapt to varying workloads. Whether you're building microservices, APIs, or event-driven applications, this combination empowers developers to focus on application logic rather than infrastructure management.</p>
+<h2 id="prerequisites">1. Prerequisites</h2>
+<p>Before you start, make sure you have the following prerequisites in place:</p>
+<p>A Google Cloud Platform (GCP) account.
+The Google Cloud SDK (gcloud) installed on your local machine.
+.NET 7 SDK or later installed on your local machine.
+Basic knowledge of C# and .NET Minimal APIs.</p>
+<h2 id="create-a.net-minimal-api">2. Create a .NET Minimal API</h2>
+<p>First, let's create a simple .NET Minimal API project:</p>
+<p>Open a terminal or command prompt and run the following command to install project template</p>
+<pre><code class="language-bash">dotnet new install Google.Cloud.Functions.Templates
+</code></pre>
+<p>Open a terminal or command prompt and run the following command to create a new .NET Minimal API project:</p>
+<pre><code class="language-bash">dotnet new gcf-http -n MyMinimalApiProject
+</code></pre>
+<p>Navigate to the project directory:</p>
+<pre><code class="language-bash">cd MyMinimalApiProject
+</code></pre>
+<p>Open the project in your preferred code editor.</p>
+<p>In the Function.cs file, you'll find a GCP cloud function template.</p>
+<pre><code class="language-csharp">using Google.Cloud.Functions.Framework;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
+namespace MyMinimalApiProject;
+
+public class Function : IHttpFunction
+{
+    /// &lt;summary&gt;
+    /// Logic for your function goes here.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;context&quot;&gt;The HTTP context, containing the request and the response.&lt;/param&gt;
+    /// &lt;returns&gt;A task representing the asynchronous operation.&lt;/returns&gt;
+    public async Task HandleAsync(HttpContext context)
+    {
+        await context.Response.WriteAsync(&quot;Hello, Functions Framework.&quot;);
+    }
+}
+
+</code></pre>
+<p>Employing Swagger proves highly beneficial as it facilitates seamless integration with your API and offers a user-friendly UI tool for testing purposes. With Swagger, developers can effortlessly interact with your API, making it easier to explore and validate its functionalities.</p>
+<p>In your preferred code editor, open the MyMinimalApiProject.csproj file and add the necessary packages to include Swagger support in your project:</p>
+<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+	&lt;PropertyGroup&gt;
+		&lt;OutputType&gt;Exe&lt;/OutputType&gt;
+		&lt;TargetFramework&gt;net7.0&lt;/TargetFramework&gt;
+	&lt;/PropertyGroup&gt;
+
+	&lt;ItemGroup&gt;
+		&lt;PackageReference Include=&quot;Microsoft.AspNetCore.OpenApi&quot; Version=&quot;7.0.8&quot; /&gt;
+		&lt;PackageReference Include=&quot;Swashbuckle.AspNetCore&quot; Version=&quot;6.5.0&quot; /&gt;
+		&lt;PackageReference Include=&quot;Google.Cloud.Functions.Hosting&quot; Version=&quot;2.1.0&quot; /&gt;
+		&lt;None Include=&quot;appsettings*.json&quot; CopyToOutputDirectory=&quot;PreserveNewest&quot; /&gt;
+	&lt;/ItemGroup&gt;
+&lt;/Project&gt;
+
+</code></pre>
+<p>Create a new file named MathService.cs with the following content:</p>
+<pre><code class="language-csharp">using System;
+
+namespace MyMinimalApiProject
+{
+    public interface IMathService
+    {
+        double Pow(int baseNum, int pow);
+        double Sqrt(long baseNum);
+    }
+
+    public class MathService : IMathService
+    {
+        public double Pow(int baseNum, int pow)
+        {
+            return Math.Pow(baseNum, pow);
+        }
+
+        public double Sqrt(long baseNum)
+        {
+            return Math.Sqrt(baseNum);
+        }
+    }
+
+}
+
+
+</code></pre>
+<p>Create a new file named Startup.cs with the following content:</p>
+<pre><code class="language-csharp">public class Startup : FunctionsStartup
+{
+
+    public override void Configure(WebHostBuilderContext context, IApplicationBuilder app)
+    {
+        base.Configure(context, app);
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
+
+        app.UseRouting();
+        app.UseEndpoints(endpoints =&gt;
+        {
+            endpoints.MapGet(&quot;/pow/{baseNum}/{pow}&quot;, (IMathService service, int baseNum, int pow) =&gt; service.Pow(baseNum, pow))
+            .WithName(&quot;Pow&quot;)
+            .WithOpenApi();
+
+            endpoints.MapGet(&quot;/sqrt/{baseNum}&quot;, (IMathService service, long baseNum) =&gt; service.Sqrt(baseNum))
+            .WithName(&quot;Sqrt&quot;)
+            .WithOpenApi();
+        }
+        );
+        
+    }
+
+
+    public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
+    {
+        base.ConfigureServices(context, services);
+
+        services.AddScoped&lt;IMathService, MathService&gt;();
+
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
+    }
+}
+</code></pre>
+<p>In the Function.cs file, modify it to register the Startup class and respond with a 404 response for unhandled requests:</p>
+<pre><code class="language-csharp">[FunctionsStartup(typeof(Startup))]
+
+public class Function : IHttpFunction
+{
+    public async Task HandleAsync(HttpContext context)
+    {
+        context.Response.StatusCode = 404;
+        await context.Response.WriteAsync(&quot;Notfound&quot;);
+    }
+}
+</code></pre>
+<p>With these modifications, your .NET Minimal API project is now equipped with Swagger support, providing interactive documentation for your API. It includes two endpoints for calculating the power and square root of numbers using the IMathService interface. By using Swagger, developers can seamlessly interact with your API, making it easier to explore and test its functionalities. Now, let's proceed to test the API locally and deploy it to Google Cloud Functions to unlock the power of serverless computing for your application.</p>
+<h2 id="test-the.net-minimal-api-locally">3. Test the .NET Minimal API Locally</h2>
+<p>Before deploying to Google Cloud Functions, ensure your .NET Minimal API works as expected locally:</p>
+<p>Run the following command to build and run the project:</p>
+<pre><code class="language-bash">dotnet run
+</code></pre>
+<p>By default, the API will be available at http://localhost:8080.</p>
+<p>Use a tool like curl, Postman, or a web browser to test your API endpoints or you can use swagger ui that we added in previous step by navigating to http://localhost:8080/swagger/index.html</p>
+<h2 id="set-up-google-cloud-functions">4. Set Up Google Cloud Functions</h2>
+<p>Now, let's set up Google Cloud Functions for deployment:</p>
+<p>Open a terminal or command prompt.</p>
+<p>Authenticate with your Google Cloud account using the following command and follow the instructions on-screen:</p>
+<pre><code class="language-bash">gcloud auth login
+</code></pre>
+<p>Set your Google Cloud project as the default project for deployment:</p>
+<pre><code class="language-bash">gcloud config set project YOUR_PROJECT_ID
+</code></pre>
+<p>Replace YOUR_PROJECT_ID with the actual ID of your Google Cloud project.</p>
+<h2 id="deploy-the.net-minimal-api-to-google-cloud-functions">5. Deploy the .NET Minimal API to Google Cloud Functions</h2>
+<p>With everything set up, it's time to deploy the .NET Minimal API to Google Cloud Functions:</p>
+<p>Open a terminal or command prompt.</p>
+<p>Run the following command to deploy the function:</p>
+<pre><code class="language-bash">gcloud functions deploy myFunctionName --runtime dotnet7 --trigger-http --allow-unauthenticated
+</code></pre>
+<p>Replace myFunctionName with a name of your choice.</p>
+<p>Wait for the deployment process to finish.</p>
+<p>Once deployed, the command will provide you with the URL of the deployed function.</p>
+<h2 id="test-the-deployed.net-minimal-api">6. Test the Deployed .NET Minimal API</h2>
+<p>Now that your .NET Minimal API is deployed as a Google Cloud Function, test it using the provided URL:</p>
+<p>Use a tool like curl, Postman, or a web browser to access the API using the provided URL.</p>
+<p>Ensure that the API behaves as expected and returns the desired responses.</p>
+<p>Congratulations! You have successfully hosted a .NET Minimal API with Google Cloud Functions. You now have a scalable and serverless solution that automatically scales based on the incoming traffic, making it cost-effective and efficient.</p>
+<p>code created for this article is available at <a href="https://github.com/dejandjenic/MyMinimalApiProject">https://github.com/dejandjenic/MyMinimalApiProject</a></p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
