@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="advanced-usage">Advanced Usage</h1>
+<p>In addition to the basic workflow management features, XWorkflows offers several advanced functionalities to cater to complex workflow scenarios and customization requirements.</p>
+<h2 id="customizing-action-and-event-execution">1. Customizing Action and Event Execution</h2>
+<p>XWorkflows allows you to customize the execution of actions and events. By overriding methods in the action and event classes, you can implement specific behavior before and after the execution of actions and events. This enables you to integrate with external systems, perform additional validation, or modify the action/event data as needed.</p>
+<pre><code class="language-csharp">public class CustomSubmitOrderAction : SubmitOrderAction
+{
+    protected CustomSubmitOrderAction(SubmittedState state, SubmitOrderEvent e) : base(state, e)
+    {
+    }
+
+    // Override the Execute method to add custom logic before and after action execution
+    public override async Task&lt;(WorkflowActionResult&lt;bool&gt;, SubmitOrderActionRequest)&gt; Execute(OrderEntity data, SubmitOrderActionRequest p, CancellationToken cancellationToken)
+    {
+        // Custom pre-execution logic
+        Log(&quot;Executing CustomSubmitOrderAction...&quot;);
+
+        // Execute the base action's logic
+        var result = await base.Execute(data, p, cancellationToken);
+
+        // Custom post-execution logic
+        Log(&quot;CustomSubmitOrderAction executed successfully!&quot;);
+
+        return result;
+    }
+}
+</code></pre>
+<h2 id="handling-action-parameters-and-responses">2. Handling Action Parameters and Responses</h2>
+<p>XWorkflows allows you to pass custom parameters to actions and retrieve responses from actions. This allows you to provide additional data to actions and receive feedback after execution.</p>
+<pre><code class="language-csharp">// Define custom action parameters and response
+public class CustomActionParameters
+{
+    // Define custom properties here
+}
+
+public class CustomActionResponse
+{
+    // Define custom properties here
+}
+
+public class CustomAction : MyWorkflowAction&lt;MyWorkflowEvent, MyWorkflowState, CustomActionParameters, CustomActionParameters, CustomActionResponse&gt;
+{
+    protected CustomAction(MyWorkflowState state, MyWorkflowEvent e) : base(state, e)
+    {
+    }
+
+    public override Task&lt;(WorkflowActionResult&lt;CustomActionResponse&gt;, CustomActionParameters)&gt; Execute(MyWorkflowEntity data, CustomActionParameters p, CancellationToken cancellationToken)
+    {
+        // Implement the action logic here
+
+        // Access custom action parameters
+        var customData = p;
+
+        // Return custom action response
+        var response = new CustomActionResponse { /* Populate properties */ };
+        return Task.FromResult((WorkflowActionResult&lt;CustomActionResponse&gt;.Succeeded(response), p));
+    }
+}
+</code></pre>
+<h2 id="managing-multiple-workflows">3. Managing Multiple Workflows</h2>
+<p>XWorkflows allows you to manage multiple workflows for different entities in your application. Simply create separate custom workflow classes for each entity and register their relevant actions and states. This enables you to keep the workflows separate and organized, ensuring a clear and modular workflow management structure.</p>
+<h2 id="integrating-with-dependency-injection">4. Integrating with Dependency Injection</h2>
+<p>XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows.</p>
+<h2 id="implementing-conditional-transitions">5. Implementing Conditional Transitions</h2>
+<p>XWorkflows provides flexibility in defining conditional transitions between states. You can override the AllowedTransitions method in a state class to define complex logic for allowing or denying state transitions based on specific conditions.</p>
+<pre><code class="language-csharp">public class ConditionalTransitionState : MyWorkflowState
+{
+    public override IEnumerable&lt;Type&gt; AllowedTransitions()
+    {
+        // Implement custom logic for conditional transitions
+        if (/* Some condition here */)
+        {
+            yield return typeof(AllowedAction);
+        }
+        else
+        {
+            yield return typeof(DeniedAction);
+        }
+    }
+}
+</code></pre>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="entities">Entities</h1>
+<p>Entities are the core objects in XWorkflows that undergo state transitions within defined workflows. To work with entities in XWorkflows, you need to define a class that represents your entity and implement the IWorkflowStateEntity<TState> interface. This interface enables XWorkflows to manage the state transitions and actions for your entity.</p>
+<h2 id="defining-your-entity-class">1. Defining Your Entity Class</h2>
+<p>To create a workflow entity, define a class that represents the entity in your application. This class should contain properties and methods necessary to interact with the entity's data. For example, let's continue with our OrderEntity from the previous section:</p>
+<pre><code class="language-csharp">public class OrderEntity : IWorkflowStateEntity&lt;State&gt;
+{
+    public string Identifier { get; set; }
+    public State State { get; set; }
+
+    public async Task&lt;string&gt; GetIdentifier()
+    {
+        return Identifier;
+    }
+
+    public async Task&lt;State&gt; GetState()
+    {
+        return State;
+    }
+
+    public async Task SetState(State state, string identifier)
+    {
+        State = state;
+    }
+}
+</code></pre>
+<p>In this example, the OrderEntity class implements the IWorkflowStateEntity<State> interface, which requires three methods:</p>
+<ul>
+<li>GetIdentifier: Returns the unique identifier of the entity.</li>
+<li>GetState: Returns the current state of the entity.</li>
+<li>SetState: Sets the state of the entity after a successful state transition.</li>
+</ul>
+<h2 id="iworkflowstateentity-interface">2. IWorkflowStateEntity<TState> Interface</h2>
+<p>The IWorkflowStateEntity<TState> interface is a crucial component of XWorkflows that allows the library to interact with your entity and manage its state transitions. By implementing this interface, your entity becomes compatible with XWorkflows and gains the ability to participate in workflows.</p>
+<p>Properties</p>
+<ul>
+<li>Identifier: A unique identifier representing the entity. It can be a string, integer, or any other data type that uniquely identifies your entity.</li>
+<li>State: The current state of the entity. This property is required to manage state transitions effectively.</li>
+</ul>
+<p>Methods</p>
+<ul>
+<li>GetIdentifier: This method returns the unique identifier of the entity. It is used by XWorkflows to identify entities during state transitions.</li>
+<li>GetState: This method returns the current state of the entity. XWorkflows uses this method to determine the starting state before executing actions.</li>
+<li>SetState: This method is called after a successful state transition. It updates the entity's state to the new state after an action is executed.</li>
+</ul>
+<h2 id="using-your-entity-in-workflows">3. Using Your Entity in Workflows</h2>
+<p>Once you have defined your entity class and implemented the IWorkflowStateEntity<TState> interface, you can integrate it into workflows. Workflows will manage the state transitions and actions for your entity, providing a structured way to handle its behavior throughout its lifecycle.</p>
+<p>To use your entity in a workflow, create custom states, actions, and events that define the entity's workflow behavior. Then, define a custom workflow class that inherits from WorkflowBase&lt;TWorkflow, TEntity, TState&gt; and register the relevant actions for your entity.</p>
+<h2 id="supported-data-types">4. Supported Data Types</h2>
+<p>The IWorkflowStateEntity<TState> interface is designed to be flexible and can be used with various data types for the entity's identifier and state. XWorkflows allows you to use any data type that implements equality comparison (Equals) and hash code generation (GetHashCode).</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>

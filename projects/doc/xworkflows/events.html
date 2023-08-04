@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="events">Events</h1>
+<p>Events in XWorkflows allow you to perform additional tasks after an action is successfully executed. These tasks may include logging events, triggering notifications, or updating related data. To work with events in XWorkflows, you'll need to define custom event classes and associate them with the relevant actions.</p>
+<h2 id="creating-custom-events">1. Creating Custom Events</h2>
+<p>To create a custom event, you'll need to define a class that inherits from MyWorkflowEvent. This class should be parameterized with the appropriate data type representing the event data. Let's take an example of the SubmitOrderEvent, which logs the submission of an order:</p>
+<pre><code class="language-csharp">public class SubmitOrderActionRequest
+{
+    // Define any properties related to the action request, if needed
+}
+
+public class SubmitOrderEvent : MyWorkflowEvent&lt;SubmitOrderActionRequest&gt;
+{
+    public override async Task Execute(SubmitOrderActionRequest data, CancellationToken cancellationToken)
+    {
+        // Implement the event logic here
+        // For example, log the submission of the order
+        Log($&quot;Order submitted with request data: {data}&quot;);
+
+        // You can perform additional tasks like sending notifications or updating related data
+        await SendNotificationToCustomerAsync(data);
+    }
+}
+</code></pre>
+<p>In this example, the SubmitOrderEvent inherits from MyWorkflowEvent and is parameterized with SubmitOrderActionRequest, which represents the data associated with the event.</p>
+<h2 id="associating-events-with-actions">2. Associating Events with Actions</h2>
+<p>To associate events with actions, you'll need to specify the event type when defining the custom action class. When an action is executed successfully, the associated event will be triggered automatically.</p>
+<pre><code class="language-csharp">public class SubmitOrderAction : MyWorkflowAction&lt;SubmitOrderEvent, SubmittedState, SubmitOrderActionRequest, SubmitOrderActionRequest, bool&gt;
+{
+    protected SubmitOrderAction(SubmittedState state, SubmitOrderEvent e) : base(state, e)
+    {
+    }
+
+    public override Task&lt;(WorkflowActionResult&lt;bool&gt;, SubmitOrderActionRequest)&gt; Execute(OrderEntity data, SubmitOrderActionRequest p, CancellationToken cancellationToken)
+    {
+        // Implement the action logic here
+        // For example, update the order's state to Submitted and perform other tasks
+
+        data.State = State.Submitted;
+        return Task.FromResult((WorkflowActionResult&lt;bool&gt;.Succeeded(true), p));
+    }
+}
+</code></pre>
+<p>In this example, the SubmitOrderAction class is associated with the SubmitOrderEvent by specifying SubmitOrderEvent as the second generic parameter in the MyWorkflowAction inheritance.</p>
+<h2 id="execution-and-post-action-tasks">3. Execution and Post-Action Tasks</h2>
+<p>When an action is executed, XWorkflows will automatically trigger the associated event after the action's logic is executed successfully. The Execute method of the event class is called, allowing you to perform any post-action tasks.</p>
+<pre><code class="language-csharp">// Assuming you have an instance of the OrderWorkflow
+var orderWorkflow = new OrderWorkflow(actions);
+
+// Create an instance of the OrderEntity
+var order = new OrderEntity { /* Initialize properties */ };
+
+// Execute the SubmitOrderAction
+var submitRequest = new SubmitOrderActionRequest { /* Request data, if needed */ };
+var (result, response) = await orderWorkflow.ExecuteAction(order, submitRequest);
+
+// After the action is executed successfully, the associated SubmitOrderEvent will be triggered automatically.
+// It will execute the logic defined in the SubmitOrderEvent class, such as logging the submission and sending notifications.
+</code></pre>
+<h2 id="customizing-event-logic-optional">4. Customizing Event Logic (Optional)</h2>
+<p>You can customize the event logic to suit your application's needs. For example, you can add more tasks to be performed after the action, modify the event data, or integrate with external services to trigger specific actions.</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>

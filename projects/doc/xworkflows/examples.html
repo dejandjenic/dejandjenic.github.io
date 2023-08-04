@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="examples">Examples</h1>
+<p>In this section, we'll explore practical examples of using the XWorkflows library to manage workflows for different entities. Each example will demonstrate how to define custom actions, events, states, and workflows to achieve specific workflow behavior.</p>
+<h2 id="order-management-workflow">1. Order Management Workflow</h2>
+<p>In this example, we'll create a workflow to manage the lifecycle of an order entity with states such as &quot;Created,&quot; &quot;Submitted,&quot; &quot;Delivered,&quot; and &quot;Canceled.&quot; We'll define actions for submitting, canceling, and delivering an order, along with events for logging the actions.</p>
+<pre><code class="language-csharp">// Define custom actions, events, and states for Order workflow
+// ...
+
+// Create the custom OrderWorkflow
+var orderWorkflow = new OrderWorkflow(actions);
+
+// Create an instance of the OrderEntity
+var order = new OrderEntity { /* Initialize properties */ };
+
+// Execute actions within the workflow
+var submitRequest = new SubmitOrderActionRequest { /* Request data, if needed */ };
+var (submitResult, submitResponse) = await orderWorkflow.ExecuteAction(order, submitRequest);
+
+var cancelRequest = new CancelOrderActionRequest { /* Request data, if needed */ };
+var (cancelResult, cancelResponse) = await orderWorkflow.ExecuteAction(order, cancelRequest);
+
+var deliverRequest = new DeliverOrderActionRequest { /* Request data, if needed */ };
+var (deliverResult, deliverResponse) = await orderWorkflow.ExecuteAction(order, deliverRequest);
+</code></pre>
+<h2 id="task-management-workflow">2. Task Management Workflow</h2>
+<p>In this example, we'll create a workflow to manage the lifecycle of a task entity with states such as &quot;Open,&quot; &quot;In Progress,&quot; &quot;Completed,&quot; and &quot;Canceled.&quot; We'll define actions for updating the task status, marking it as completed, and canceling it.</p>
+<pre><code class="language-csharp">// Define custom actions, events, and states for Task workflow
+// ...
+
+// Create the custom TaskWorkflow
+var taskWorkflow = new TaskWorkflow(actions);
+
+// Create an instance of the TaskEntity
+var task = new TaskEntity { /* Initialize properties */ };
+
+// Execute actions within the workflow
+var updateStatusRequest = new UpdateTaskStatusActionRequest { /* Request data, if needed */ };
+var (updateStatusResult, updateStatusResponse) = await taskWorkflow.ExecuteAction(task, updateStatusRequest);
+
+var completeRequest = new CompleteTaskActionRequest { /* Request data, if needed */ };
+var (completeResult, completeResponse) = await taskWorkflow.ExecuteAction(task, completeRequest);
+
+var cancelRequest = new CancelTaskActionRequest { /* Request data, if needed */ };
+var (cancelResult, cancelResponse) = await taskWorkflow.ExecuteAction(task, cancelRequest);
+</code></pre>
+<h2 id="approval-workflow">3. Approval Workflow</h2>
+<p>In this example, we'll create a workflow to manage the approval process for a document entity with states such as &quot;Draft,&quot; &quot;Pending Approval,&quot; &quot;Approved,&quot; and &quot;Rejected.&quot; We'll define actions for submitting the document for approval, approving it, and rejecting it, along with events for notifying users.</p>
+<pre><code class="language-csharp">// Define custom actions, events, and states for Approval workflow
+// ...
+
+// Create the custom ApprovalWorkflow
+var approvalWorkflow = new ApprovalWorkflow(actions);
+
+// Create an instance of the DocumentEntity
+var document = new DocumentEntity { /* Initialize properties */ };
+
+// Execute actions within the workflow
+var submitRequest = new SubmitForApprovalActionRequest { /* Request data, if needed */ };
+var (submitResult, submitResponse) = await approvalWorkflow.ExecuteAction(document, submitRequest);
+
+var approveRequest = new ApproveDocumentActionRequest { /* Request data, if needed */ };
+var (approveResult, approveResponse) = await approvalWorkflow.ExecuteAction(document, approveRequest);
+
+var rejectRequest = new RejectDocumentActionRequest { /* Request data, if needed */ };
+var (rejectResult, rejectResponse) = await approvalWorkflow.ExecuteAction(document, rejectRequest);
+</code></pre>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>

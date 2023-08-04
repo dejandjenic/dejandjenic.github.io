@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="error-handling">Error Handling</h1>
+<p>Error handling is an essential aspect of workflow management to ensure smooth and reliable execution. XWorkflows provides robust error handling mechanisms to detect and handle potential issues that may arise during workflow execution.</p>
+<h2 id="invalid-state-transitions">1. Invalid State Transitions</h2>
+<p>When executing an action on an entity, XWorkflows checks whether the entity can transition to the desired state based on the AllowedTransitions defined in the current state. If the entity is not in the appropriate state or the desired transition is not allowed, XWorkflows will throw an exception indicating an invalid state transition.</p>
+<pre><code class="language-csharp">
+public enum WorkflowActionResultEnum
+{
+    CanNotStartWorkflow,
+    TransitionNotAllowed,
+    Custom
+}
+
+// Execute an action that is not allowed in the current state
+var invalidTransitionRequest = new InvalidTransitionActionRequest { /* Request data, if needed */ };
+var (result, response) = await orderWorkflow.ExecuteAction(order, invalidTransitionRequest);
+if(res.Errors.FirstOrDefault().Result == WorkflowActionResultEnum.CanNotStartWorkflow){
+    ///handle error
+}
+
+</code></pre>
+<h2 id="action-execution-failure">2. Action Execution Failure</h2>
+<p>In the event that an action's logic encounters an exception during execution, XWorkflows will catch the exception and propagate it back to the caller. To handle action execution failures, use standard exception handling techniques such as try-catch blocks.</p>
+<pre><code class="language-csharp">try
+{
+    // Execute an action that may encounter an exception during execution
+    var riskyActionRequest = new RiskyActionRequest { /* Request data, if needed */ };
+    var (result, response) = await orderWorkflow.ExecuteAction(order, riskyActionRequest);
+}
+catch (Exception ex)
+{
+    // Handle the exception
+    Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+}
+</code></pre>
+<h2 id="meaningful-error-messages">3. Meaningful Error Messages</h2>
+<p>XWorkflows provides meaningful error messages to help diagnose and resolve issues during workflow execution. The error messages will indicate the reason for the failure, such as an invalid state transition or the specific exception encountered during action execution.</p>
+<h2 id="logging-errors-optional">4. Logging Errors (Optional)</h2>
+<p>For production applications, it is advisable to log errors and exceptions for debugging and monitoring purposes. You can use your preferred logging framework to log error details in case an exception is thrown during workflow execution.</p>
+<h2 id="ensuring-data-integrity">5. Ensuring Data Integrity</h2>
+<p>XWorkflows ensures data integrity by following a transactional approach during workflow execution. If an exception occurs during action execution, any changes made to the entity state will be rolled back, leaving the entity in its original state.</p>
+<h2 id="graceful-error-handling">6. Graceful Error Handling</h2>
+<p>To provide a better user experience, consider implementing graceful error handling in your application. When an exception occurs during workflow execution, you can inform the user about the error and provide guidance on resolving the issue.</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>

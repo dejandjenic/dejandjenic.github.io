@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index.html">My blog</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>xworkflows</h2>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<p><a href="index.html">Introduction</a><br>
+<a href="installation.html">Installation</a><br>
+<a href="basic.html">Basic concepts</a><br>
+<a href="starting.html">Getting Started</a><br>
+<a href="entities.html">Entities</a><br>
+<a href="actions.html">Actions</a><br>
+<a href="events.html">Events</a><br>
+<a href="workflow.html">Workflow</a><br>
+<a href="errors.html">Error handling</a><br>
+<a href="advanced.html">Advanced usage</a><br>
+<a href="examples.html">Examples</a><br></p>
+<h1 id="workflows">Workflows</h1>
+<p>Workflows in XWorkflows provide a structured way to manage the behavior of entities throughout their lifecycles. A workflow defines a logical grouping of related actions and states for a specific entity. To work with workflows in XWorkflows, you'll need to create custom workflow classes and register the relevant actions and states for each entity.</p>
+<h2 id="defining-a-custom-workflow">1. Defining a Custom Workflow</h2>
+<p>To create a custom workflow, define a class that inherits from WorkflowBase&lt;TWorkflow, TEntity, TState&gt;. This class will serve as the blueprint for managing the workflow behavior of your entity.</p>
+<pre><code class="language-csharp">public class OrderWorkflow : WorkflowBase&lt;OrderWorkflow, OrderEntity, State&gt;
+{
+    public OrderWorkflow(IEnumerable&lt;IWorkflowOwner&lt;OrderWorkflow&gt;&gt; actions) : base(actions)
+    {
+        
+    }
+}
+</code></pre>
+<p>XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows.</p>
+<p>In this example, we have defined the OrderWorkflow class, which inherits from WorkflowBase. We have registered the relevant actions (SubmitOrderAction, CancelOrderAction, DeliverOrderAction) and states (CreatedState, SubmittedState, DeliveredState, CanceledState) for the OrderEntity workflow.</p>
+<h2 id="registering-actions-and-states">2. Registering Actions and States</h2>
+<p>XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows after this all workflow related classes will be registered with DI.</p>
+<h2 id="executing-actions-in-the-workflow">3. Executing Actions in the Workflow</h2>
+<p>To execute an action within a workflow, create an instance of your custom workflow class, and then call the ExecuteAction() method:</p>
+<pre><code class="language-csharp">var orderWorkflow = new OrderWorkflow(actions);
+
+var order = new OrderEntity { /* Initialize properties */ };
+var submitRequest = new SubmitOrderActionRequest { /* Request data, if needed */ };
+var (result, response) = await orderWorkflow.ExecuteAction(order, submitRequest);
+</code></pre>
+<p>By executing an action within a workflow, XWorkflows ensures that the entity transitions through the defined states based on the action's logic and AllowedTransitions defined in the states.</p>
+<h2 id="handling-errors-and-exceptions">4. Handling Errors and Exceptions</h2>
+<p>XWorkflows provides robust error handling to ensure that the workflow execution is smooth and reliable. If an action is executed without permission to transition the entity to a desired state or if an action fails during execution, XWorkflows will throw an exception with a meaningful error message to help diagnose and handle the issue gracefully.</p>
+<h2 id="multiple-workflows-optional">5. Multiple Workflows (Optional)</h2>
+<p>In XWorkflows, you can manage multiple workflows for different entities in your application. Simply define separate custom workflow classes for each entity and register their relevant actions and states. This enables you to keep the workflows separate and organized, ensuring a clear and modular workflow management structure.</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
