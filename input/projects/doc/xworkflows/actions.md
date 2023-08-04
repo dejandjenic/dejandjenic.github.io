@@ -63,13 +63,11 @@ public class OrderWorkflow : WorkflowBase<OrderWorkflow, OrderEntity, State>
 {
     public OrderWorkflow(IEnumerable<IWorkflowOwner<OrderWorkflow>> actions) : base(actions)
     {
-        // Register actions for the OrderEntity workflow
-        RegisterAction<SubmitOrderAction>();
-        RegisterAction<CancelOrderAction>();
-        // Add more actions as needed
     }
 }
 ```
+XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows.
+
 In this example, OrderWorkflow extends WorkflowBase and registers the SubmitOrderAction and CancelOrderAction for the OrderEntity workflow.
 
 ## 3. Execution and Error Handling

@@ -83,16 +83,8 @@ public class CustomAction : MyWorkflowAction<MyWorkflowEvent, MyWorkflowState, C
 XWorkflows allows you to manage multiple workflows for different entities in your application. Simply create separate custom workflow classes for each entity and register their relevant actions and states. This enables you to keep the workflows separate and organized, ensuring a clear and modular workflow management structure.
 
 ## 4. Integrating with Dependency Injection
-XWorkflows can be easily integrated with dependency injection frameworks like Microsoft's ASP.NET Core Dependency Injection. By registering actions and workflow classes as services, you can achieve better decoupling and enable easier unit testing.
+XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows.
 
-```csharp
-// Register the OrderWorkflow and its dependencies with DI container
-services.AddScoped<OrderWorkflow>();
-services.AddScoped<IWorkflowOwner<OrderWorkflow>, SubmitOrderAction>();
-services.AddScoped<IWorkflowOwner<OrderWorkflow>, CancelOrderAction>();
-services.AddScoped<IWorkflowOwner<OrderWorkflow>, DeliverOrderAction>();
-// Add more actions as needed
-```
 ## 5. Implementing Conditional Transitions
 XWorkflows provides flexibility in defining conditional transitions between states. You can override the AllowedTransitions method in a state class to define complex logic for allowing or denying state transitions based on specific conditions.
 

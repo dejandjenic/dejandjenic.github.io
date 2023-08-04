@@ -23,17 +23,21 @@ Error handling is an essential aspect of workflow management to ensure smooth an
 When executing an action on an entity, XWorkflows checks whether the entity can transition to the desired state based on the AllowedTransitions defined in the current state. If the entity is not in the appropriate state or the desired transition is not allowed, XWorkflows will throw an exception indicating an invalid state transition.
 
 ```csharp
-try
+
+public enum WorkflowActionResultEnum
 {
-    // Execute an action that is not allowed in the current state
-    var invalidTransitionRequest = new InvalidTransitionActionRequest { /* Request data, if needed */ };
-    var (result, response) = await orderWorkflow.ExecuteAction(order, invalidTransitionRequest);
+    CanNotStartWorkflow,
+    TransitionNotAllowed,
+    Custom
 }
-catch (WorkflowException ex)
-{
-    // Handle the exception
-    Console.WriteLine($"Error: {ex.Message}");
+
+// Execute an action that is not allowed in the current state
+var invalidTransitionRequest = new InvalidTransitionActionRequest { /* Request data, if needed */ };
+var (result, response) = await orderWorkflow.ExecuteAction(order, invalidTransitionRequest);
+if(res.Errors.FirstOrDefault().Result == WorkflowActionResultEnum.CanNotStartWorkflow){
+    ///handle error
 }
+
 ```
 ## 2. Action Execution Failure
 In the event that an action's logic encounters an exception during execution, XWorkflows will catch the exception and propagate it back to the caller. To handle action execution failures, use standard exception handling techniques such as try-catch blocks.

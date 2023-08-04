@@ -27,22 +27,16 @@ public class OrderWorkflow : WorkflowBase<OrderWorkflow, OrderEntity, State>
 {
     public OrderWorkflow(IEnumerable<IWorkflowOwner<OrderWorkflow>> actions) : base(actions)
     {
-        // Register actions and states for the OrderEntity workflow
-        RegisterAction<SubmitOrderAction>();
-        RegisterAction<CancelOrderAction>();
-        RegisterAction<DeliverOrderAction>();
-
-        RegisterState<CreatedState>();
-        RegisterState<SubmittedState>();
-        RegisterState<DeliveredState>();
-        RegisterState<CanceledState>();
+        
     }
 }
 ```
+XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows.
+
 In this example, we have defined the OrderWorkflow class, which inherits from WorkflowBase. We have registered the relevant actions (SubmitOrderAction, CancelOrderAction, DeliverOrderAction) and states (CreatedState, SubmittedState, DeliveredState, CanceledState) for the OrderEntity workflow.
 
 ## 2. Registering Actions and States
-To associate actions and states with your workflow, use the RegisterAction<TAction>() and RegisterState<TState>() methods within the constructor of your custom workflow class. These methods ensure that XWorkflows recognizes and includes the specified actions and states in the workflow's behavior.
+XWorkflows use dependency injection to register workflow related classes. In your Program.cs your should invoke method RegisterWorkflows after this all workflow related classes will be registered with DI.
 
 ## 3. Executing Actions in the Workflow
 To execute an action within a workflow, create an instance of your custom workflow class, and then call the ExecuteAction() method:

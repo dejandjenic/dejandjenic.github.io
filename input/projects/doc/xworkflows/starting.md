@@ -41,9 +41,9 @@ public class OrderEntity : IWorkflowStateEntity<State>
         return State;
     }
 
-    public async Task SetState(State state, string identifier)
+    public IEnumerable<Type> AllowedTransitions()
     {
-        State = state;
+        return new List<Type>();
     }
 }
 ```
