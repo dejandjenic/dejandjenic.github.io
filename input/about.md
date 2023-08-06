@@ -2,6 +2,7 @@ tags:
   - about me
 title: About me
 short: Dejan Đenić is a seasoned software developer with 21 years of experience specializing in .NET backend development. He has a strong passion for programming and has worked with cutting-edge technologies such as NoSQL databases, microservices, caching, Kubernetes, and CI/CD. Dejan has a versatile skill set and has worked as a full-stack developer with experience in React. He is dedicated to continuous learning and actively collaborates with cross-functional teams. Connect with him on LinkedIn to follow his professional journey and join the community of passionate developers and technology enthusiasts.
+created: Saturday, June 3, 2023
 ---
 # About me
 
