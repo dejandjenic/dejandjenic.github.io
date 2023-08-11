@@ -95,6 +95,12 @@
 <li>Implement your workflow-specific actions by inheriting from MyWorkflowAction and override the Execute method to provide your custom action logic.</li>
 <li>Define your workflow by creating a class that inherits from WorkflowBase.</li>
 </ul>
+<div class="mermaid">stateDiagram
+    [*] --> Create
+    Create --> Submit
+    Create --> Cancel
+    Submit --> [*]
+</div>
 <p>Here's a basic example to create a workflow for an order entity with three actions: Create, Submit, and Cancel:</p>
 <pre><code class="language-csharp">// Define your entity class
 public class OrderEntity : IWorkflowStateEntity&lt;State&gt;
@@ -145,6 +151,19 @@ public class OrderWorkflow : WorkflowBase&lt;OrderWorkflow, OrderEntity, State&g
 </code></pre>
 <h2 id="documentation">Documentation</h2>
 <p>read more about XWorkflows documentation <a href="../doc/xworkflows/index.html">here</a></p>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+  securityLevel: 'loose',
+});
+
+</script>
+<style>
+    .mermaid{
+        background-color:white
+    }
+</style>
 
 
 								</div>

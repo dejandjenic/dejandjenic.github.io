@@ -88,6 +88,13 @@
 <p>In this section, we'll explore practical examples of using the XWorkflows library to manage workflows for different entities. Each example will demonstrate how to define custom actions, events, states, and workflows to achieve specific workflow behavior.</p>
 <h2 id="order-management-workflow">1. Order Management Workflow</h2>
 <p>In this example, we'll create a workflow to manage the lifecycle of an order entity with states such as &quot;Created,&quot; &quot;Submitted,&quot; &quot;Delivered,&quot; and &quot;Canceled.&quot; We'll define actions for submitting, canceling, and delivering an order, along with events for logging the actions.</p>
+<div class="mermaid">stateDiagram
+    [*] --> Created
+    Created --> Submitted
+    Created --> Canceled
+    Submitted --> Delivered
+    Delivered --> [*]
+</div>
 <pre><code class="language-csharp">// Define custom actions, events, and states for Order workflow
 // ...
 
@@ -109,6 +116,14 @@ var (deliverResult, deliverResponse) = await orderWorkflow.ExecuteAction(order, 
 </code></pre>
 <h2 id="task-management-workflow">2. Task Management Workflow</h2>
 <p>In this example, we'll create a workflow to manage the lifecycle of a task entity with states such as &quot;Open,&quot; &quot;In Progress,&quot; &quot;Completed,&quot; and &quot;Canceled.&quot; We'll define actions for updating the task status, marking it as completed, and canceling it.</p>
+<div class="mermaid">stateDiagram
+    [*] --> Open
+    Open --> In_Progress
+    Open --> Canceled
+    In_Progress --> Completed
+    In_Progress --> Canceled
+    Completed --> [*]
+</div>
 <pre><code class="language-csharp">// Define custom actions, events, and states for Task workflow
 // ...
 
@@ -130,6 +145,12 @@ var (cancelResult, cancelResponse) = await taskWorkflow.ExecuteAction(task, canc
 </code></pre>
 <h2 id="approval-workflow">3. Approval Workflow</h2>
 <p>In this example, we'll create a workflow to manage the approval process for a document entity with states such as &quot;Draft,&quot; &quot;Pending Approval,&quot; &quot;Approved,&quot; and &quot;Rejected.&quot; We'll define actions for submitting the document for approval, approving it, and rejecting it, along with events for notifying users.</p>
+<div class="mermaid">stateDiagram
+    [*] --> Draft
+    Draft --> Pending_Approval
+    Pending_Approval --> Approved
+    Approved --> [*]
+</div>
 <pre><code class="language-csharp">// Define custom actions, events, and states for Approval workflow
 // ...
 
@@ -149,6 +170,19 @@ var (approveResult, approveResponse) = await approvalWorkflow.ExecuteAction(docu
 var rejectRequest = new RejectDocumentActionRequest { /* Request data, if needed */ };
 var (rejectResult, rejectResponse) = await approvalWorkflow.ExecuteAction(document, rejectRequest);
 </code></pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+  securityLevel: 'loose',
+});
+
+</script>
+<style>
+    .mermaid{
+        background-color:white
+    }
+</style>
 
 
 								</div>
