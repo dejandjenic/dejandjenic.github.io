@@ -34,6 +34,14 @@ dotnet add package XWorkflows
 * Implement your workflow-specific actions by inheriting from MyWorkflowAction and override the Execute method to provide your custom action logic.
 * Define your workflow by creating a class that inherits from WorkflowBase.
 
+```mermaid
+stateDiagram
+    [*] --> Create
+    Create --> Submit
+    Create --> Cancel
+    Submit --> [*]
+```
+
 Here's a basic example to create a workflow for an order entity with three actions: Create, Submit, and Cancel:
 
 
@@ -89,3 +97,19 @@ public class OrderWorkflow : WorkflowBase<OrderWorkflow, OrderEntity, State>
 ## Documentation
 
 read more about XWorkflows documentation [here](../doc/xworkflows/index.html)
+
+
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+  securityLevel: 'loose',
+});
+
+</script>
+<style>
+    .mermaid{
+        background-color:white
+    }
+</style>

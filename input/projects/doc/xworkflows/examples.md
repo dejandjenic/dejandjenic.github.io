@@ -22,6 +22,15 @@ In this section, we'll explore practical examples of using the XWorkflows librar
 ## 1. Order Management Workflow
 In this example, we'll create a workflow to manage the lifecycle of an order entity with states such as "Created," "Submitted," "Delivered," and "Canceled." We'll define actions for submitting, canceling, and delivering an order, along with events for logging the actions.
 
+```mermaid
+stateDiagram
+    [*] --> Created
+    Created --> Submitted
+    Created --> Canceled
+    Submitted --> Delivered
+    Delivered --> [*]
+```
+
 ```csharp
 // Define custom actions, events, and states for Order workflow
 // ...
@@ -44,6 +53,16 @@ var (deliverResult, deliverResponse) = await orderWorkflow.ExecuteAction(order, 
 ```
 ## 2. Task Management Workflow
 In this example, we'll create a workflow to manage the lifecycle of a task entity with states such as "Open," "In Progress," "Completed," and "Canceled." We'll define actions for updating the task status, marking it as completed, and canceling it.
+
+```mermaid
+stateDiagram
+    [*] --> Open
+    Open --> In_Progress
+    Open --> Canceled
+    In_Progress --> Completed
+    In_Progress --> Canceled
+    Completed --> [*]
+```
 
 ```csharp
 // Define custom actions, events, and states for Task workflow
@@ -68,6 +87,15 @@ var (cancelResult, cancelResponse) = await taskWorkflow.ExecuteAction(task, canc
 ## 3. Approval Workflow
 In this example, we'll create a workflow to manage the approval process for a document entity with states such as "Draft," "Pending Approval," "Approved," and "Rejected." We'll define actions for submitting the document for approval, approving it, and rejecting it, along with events for notifying users.
 
+
+```mermaid
+stateDiagram
+    [*] --> Draft
+    Draft --> Pending_Approval
+    Pending_Approval --> Approved
+    Approved --> [*]
+```
+
 ```csharp
 // Define custom actions, events, and states for Approval workflow
 // ...
@@ -88,3 +116,20 @@ var (approveResult, approveResponse) = await approvalWorkflow.ExecuteAction(docu
 var rejectRequest = new RejectDocumentActionRequest { /* Request data, if needed */ };
 var (rejectResult, rejectResponse) = await approvalWorkflow.ExecuteAction(document, rejectRequest);
 ```
+
+
+
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+  securityLevel: 'loose',
+});
+
+</script>
+<style>
+    .mermaid{
+        background-color:white
+    }
+</style>
