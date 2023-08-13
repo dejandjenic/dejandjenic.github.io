@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog | Exploring Blazor and Deployment Options</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="Exploring Blazor and Deployment Options">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h3><a href="/index.html">My blog</a></h3>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Exploring Blazor and Deployment Options</h2>
+								<p>Posted on Sunday, 13 August 2023</p>
+								
+									<a role="button" href="../tags/blazor.html" class="button small">blazor</a>
+								
+									<a role="button" href="../tags/.NET.html" class="button small">.NET</a>
+								
+									<a role="button" href="../tags/wasm.html" class="button small">wasm</a>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+									<a role="button" href="../tags/github.html" class="button small">github</a>
+								
+									<a role="button" href="../tags/docker.html" class="button small">docker</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="exploring-blazor-and-deployment-options">Exploring Blazor and Deployment Options</h1>
+<h2 id="introduction">Introduction:</h2>
+<p>In this article, I'm excited to delve into the world of Blazor, Microsoft's innovative web framework that enables developers to build interactive and dynamic web applications using C# and .NET instead of traditional web languages. In this article, I'll walk you through the process of creating a Blazor application that provides various useful functionalities like base64 encoding/decoding, URL encoding/decoding, JWT decoding, string escaping, HTML encoding/decoding, hash generation, and even GUID generation. As we progress, I'll also touch upon the deployment options, specifically focusing on hosting the application on GitHub Pages and containerizing it using Docker.</p>
+<h2 id="solution-overview">Solution Overview</h2>
+<p>To make our exploration practical and hands-on, we'll implement a set of simple yet powerful tools every developer frequently uses. These tools include functionalities such as base64 encoding/decoding, URL encoding/decoding, JWT decoding, string escaping, HTML encoding/decoding, hash generation, and even GUID generation. And we're going to build all of these into a Blazor WebAssembly application.</p>
+<h2 id="development">Development</h2>
+<h3 id="reusable-control-editor.razor">Reusable Control: Editor.razor</h3>
+<p>We start by designing a reusable control, Editor, which provides input and output text fields, action buttons for encoding/decoding, and a swap button to easily switch between input and output. This control simplifies the process of creating pages with different functionalities by eliminating repetitive UI code.</p>
+<pre><code class="language-csharp">@using System.Web
+
+&lt;textarea  rows=&quot;15&quot; cols=&quot;40&quot; style=&quot;width:100%&quot; @bind=&quot;ModelObject.Source&quot;&gt;&lt;/textarea&gt;
+&lt;button class=&quot;btn btn-primary&quot; @onclick=&quot;Action1Handler&quot;&gt;@Action1Text&lt;/button&gt;
+@if (Action2Enabled)
+{
+    &lt;button class=&quot;btn btn-primary&quot; @onclick=&quot;Action2Handler&quot;&gt;@Action2Text&lt;/button&gt;
+}
+@if (SwapEnabled)
+{
+    &lt;button class=&quot;btn btn-primary&quot; @onclick=&quot;Swap&quot;&gt;&lt;i class=&quot;bi bi-arrow-down-up&quot;&gt;&lt;/i&gt; Swap&lt;/button&gt;
+}
+&lt;textarea  rows=&quot;15&quot; cols=&quot;40&quot; style=&quot;width:100%&quot; @bind=&quot;ModelObject.Destination&quot;&gt;&lt;/textarea&gt;
+
+
+
+@code {
+
+    class Model
+    {
+        public string Source { get; set; }
+        public string Destination { get; set; }
+    }
+
+    private Model ModelObject = new();
+
+    [Parameter]
+    public string Action1Text { get; set; }
+    [Parameter]
+    public string Action2Text { get; set; }
+
+    [Parameter]
+    public Func&lt;string, string&gt; Action1 { get; set; }
+
+    [Parameter]
+    public Func&lt;string, string&gt; Action2 { get; set; }
+
+    [Parameter]
+    public bool Action2Enabled { get; set; } = true;
+    [Parameter]
+    public bool SwapEnabled { get; set; } = true;
+
+    [Parameter]
+    public string DefaultText { get; set; }
+
+    private void Action1Handler()
+    {
+        ModelObject.Destination = Action1(ModelObject.Source);
+    }
+
+    private void Action2Handler()
+    {
+        ModelObject.Destination = Action2(ModelObject.Source);
+    }
+
+    private void Swap()
+    {
+        (ModelObject.Destination, ModelObject.Source) = (ModelObject.Source, ModelObject.Destination);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        ModelObject = new Model()
+        {
+                Source = DefaultText
+        };
+    }
+}
+
+</code></pre>
+<h3 id="base64-encoding-base64.razor">Base64 Encoding: Base64.razor</h3>
+<p>In the Base64.razor page, we showcase base64 encoding and decoding. Users can input text, click the &quot;Encode&quot; button to see the base64 encoded result, and click the &quot;Decode&quot; button to revert the encoded text back to its original form.</p>
+<pre><code class="language-csharp">@page &quot;/base64&quot;
+@using System.Web
+
+&lt;PageTitleWithH1&gt;Base64 Encode&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Encode&quot;
+    Action2Text=&quot;Decode&quot;
+    Action1=@(s =&gt; Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(s)))
+    Action2=@(s =&gt; System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(s)))&gt;
+&lt;/Editor&gt;
+</code></pre>
+<h3 id="escape-string-escape.razor">Escape String: Escape.razor</h3>
+<p>The Escape.razor page illustrates how to escape and unescape strings using regular expressions. Users can input text, click the &quot;Escape&quot; button to escape special characters, and click the &quot;Unescape&quot; button to revert the process.</p>
+<pre><code class="language-csharp">@page &quot;/escape&quot;
+
+&lt;PageTitleWithH1&gt;Escape&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Escape&quot;
+    Action2Text=&quot;Unescape&quot;
+    Action1=@(s =&gt;  System.Text.RegularExpressions.Regex.Escape(s))
+    Action2=@(s =&gt; System.Text.RegularExpressions.Regex.Unescape(s))&gt;
+&lt;/Editor&gt;
+
+</code></pre>
+<h3 id="guid-generation-guid.razor">Guid Generation: Guid.razor</h3>
+<p>In the Guid.razor page, we demonstrate the generation of GUIDs (Globally Unique Identifiers). Users can specify the number of GUIDs they want to generate, and the application will produce a list of randomly generated GUIDs.</p>
+<pre><code class="language-csharp">@page &quot;/guid&quot;
+
+&lt;PageTitleWithH1&gt;Guid&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Generate&quot;
+    Action2Enabled=false
+    SwapEnabled=false
+    DefaultText=&quot;10&quot;
+    Action1=@(s =&gt;  
+    {
+        var count = int.TryParse(s,out var i)?i:10;
+        count=Math.Max(1,count);
+        count=Math.Min(100,count);
+        return string.Join(&quot;\r\n&quot;,Enumerable.Range(1,count).Select(x=&gt; System.Guid.NewGuid().ToString()));
+    })&gt;
+&lt;/Editor&gt;
+
+
+</code></pre>
+<h3 id="hash-generation-hash.razor">Hash Generation: Hash.razor</h3>
+<p>The Hash.razor page showcases the creation of SHA256 hashes. Users can input text, and the application will display the SHA256 hash of the input text.</p>
+<pre><code class="language-csharp">@page &quot;/hash&quot;
+@using System.Security.Cryptography
+
+&lt;PageTitleWithH1&gt;Hash&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;SHA256 hash&quot;
+    Action2Enabled=false
+    SwapEnabled=false
+    Action1=@(s =&gt;  CreateHash(s))&gt;
+&lt;/Editor&gt;
+
+@code
+{
+    public static string CreateHash(ReadOnlySpan&lt;char&gt; input)
+    {
+        var encoding = System.Text.Encoding.UTF8;
+        var inputByteCount = encoding.GetByteCount(input);
+        using var sha256 = new SHA256Managed();
+
+        Span&lt;byte&gt; bytes = inputByteCount &lt; 1024
+            ? stackalloc byte[inputByteCount]
+            : new byte[inputByteCount];
+        Span&lt;byte&gt; destination = stackalloc byte[sha256.HashSize / 8];
+
+        encoding.GetBytes(input, bytes);
+
+        sha256.TryComputeHash(bytes, destination, out int _bytesWritten);
+
+        return BitConverter.ToString(destination.ToArray()).ToLower().Replace(&quot;-&quot;,&quot;&quot;);
+    }
+}
+
+
+</code></pre>
+<h3 id="html-encoding-html.razor">HTML Encoding: Html.razor</h3>
+<p>With the Html.razor page, we demonstrate HTML encoding and decoding. Users can input text, click the &quot;Encode&quot; button to encode special characters, and click the &quot;Decode&quot; button to revert the encoding.</p>
+<pre><code class="language-csharp">@page &quot;/html&quot;
+@using System.Web
+
+&lt;PageTitleWithH1&gt;Html Encode&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Encode&quot;
+    Action2Text=&quot;Decode&quot;
+    Action1=@(s =&gt; HttpUtility.HtmlEncode(s))
+    Action2=@(s =&gt; HttpUtility.HtmlDecode(s))&gt;
+&lt;/Editor&gt;
+
+</code></pre>
+<h3 id="json-formatting-json.razor">JSON Formatting: Json.razor</h3>
+<p>The Json.razor page focuses on JSON formatting. Users can input JSON data, click the &quot;Beautify&quot; button to format it with proper indentation, and click the &quot;Uglify&quot; button to remove extra whitespace.</p>
+<pre><code class="language-csharp">@page &quot;/json&quot;
+@using System.Web
+@using System.Text.Json
+@using System.Dynamic
+
+&lt;PageTitleWithH1&gt;Json beautify&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Beautify&quot;
+    Action2Text=&quot;Uglify&quot;
+    Action1=@(json =&gt; {
+                       var parsedJson = JsonSerializer.Deserialize&lt;ExpandoObject&gt;(json);
+                       var options = new JsonSerializerOptions() { WriteIndented = true };
+                       return JsonSerializer.Serialize(parsedJson, options);
+            })
+    Action2=@(json =&gt; {
+                          var parsedJson = JsonSerializer.Deserialize&lt;ExpandoObject&gt;(json);
+                          var options = new JsonSerializerOptions() { WriteIndented = false };
+                          return JsonSerializer.Serialize(parsedJson, options);
+            })&gt;
+&lt;/Editor&gt;
+</code></pre>
+<h3 id="jwt-parsing-jwt.razor">JWT Parsing: Jwt.razor</h3>
+<p>In the Jwt.razor page, we explore JSON Web Tokens (JWT) by providing a token for parsing. The application will display the claims contained in the JWT payload.</p>
+<pre><code class="language-csharp">@page &quot;/jwt&quot;
+@using System.Text.Json;
+
+&lt;PageTitleWithH1&gt;JWT&lt;/PageTitleWithH1&gt;
+
+&lt;Editor Action1Text=&quot;Parse&quot;
+        Action2Enabled=false
+        SwapEnabled=false
+        Action1=@(s =&gt;
+        {
+        try{
+            var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().ReadJwtToken(s);
+            var options = new JsonSerializerOptions() { WriteIndented = true };
+            return JsonSerializer.Serialize( token.Payload.Claims,options);
+        }
+        catch(Exception ex){
+            return ex.Message;
+        }
+        })
+        Action2=@(s =&gt; System.Text.RegularExpressions.Regex.Unescape(s))&gt;
+&lt;/Editor&gt;
+
+</code></pre>
+<h3 id="url-encoding-url.razor">URL Encoding: Url.razor</h3>
+<p>Lastly, the Url.razor page demonstrates URL encoding and decoding. Users can input a URL, click the &quot;Encode&quot; button to encode special characters, and click the &quot;Decode&quot; button to revert the encoding.</p>
+<pre><code class="language-csharp">@page &quot;/url&quot;
+@using System.Web
+
+&lt;PageTitleWithH1&gt;Url Encode&lt;/PageTitleWithH1&gt;
+
+&lt;Editor
+    Action1Text=&quot;Encode&quot;
+    Action2Text=&quot;Decode&quot;
+    Action1=@(s =&gt; HttpUtility.UrlEncode(s))
+    Action2=@(s =&gt; HttpUtility.UrlDecode(s))&gt;
+&lt;/Editor&gt;
+
+</code></pre>
+<h3 id="navigation-menu-enhancement">Navigation Menu Enhancement</h3>
+<p>To improve the user experience, we've also enhanced the navigation menu. It now lists each functionality, making it easier for users to jump to the desired page.</p>
+<pre><code class="language-html">&lt;div class=&quot;top-row ps-3 navbar navbar-dark&quot;&gt;
+    &lt;div class=&quot;container-fluid&quot;&gt;
+        &lt;a class=&quot;navbar-brand&quot; href=&quot;&quot;&gt;Blazor Playground&lt;/a&gt;
+        &lt;button title=&quot;Navigation menu&quot; class=&quot;navbar-toggler&quot; @onclick=&quot;ToggleNavMenu&quot;&gt;
+            &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;@NavMenuCssClass nav-scrollable&quot; @onclick=&quot;ToggleNavMenu&quot;&gt;
+    &lt;nav class=&quot;flex-column&quot;&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;&quot; Match=&quot;NavLinkMatch.All&quot;&gt;
+                &lt;span class=&quot;oi oi-home&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Home
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;html&quot;&gt;
+                &lt;span class=&quot;oi oi-plus&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Html encode
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;url&quot;&gt;
+                &lt;span class=&quot;oi oi-list-rich&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Url encode
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;base64&quot;&gt;
+                &lt;span class=&quot;oi oi-flash&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Base64
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;json&quot;&gt;
+                &lt;span class=&quot;oi oi-fork&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Json
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;hash&quot;&gt;
+                &lt;span class=&quot;oi oi-layers&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Hash
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;guid&quot;&gt;
+                &lt;span class=&quot;oi oi-globe&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Guid
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;escape&quot;&gt;
+                &lt;span class=&quot;oi oi-lock-locked&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; Escape
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;nav-item px-3&quot;&gt;
+            &lt;NavLink class=&quot;nav-link&quot; href=&quot;jwt&quot;&gt;
+                &lt;span class=&quot;oi oi-key&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; JWT
+            &lt;/NavLink&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+&lt;/div&gt;
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass =&gt; collapseNavMenu ? &quot;collapse&quot; : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+
+</code></pre>
+<h2 id="deployment-github-pages-and-docker">Deployment: GitHub Pages and Docker</h2>
+<p>For deployment, we've covered two options: GitHub Pages and Docker.</p>
+<h3 id="github-pages-deployment">GitHub Pages Deployment</h3>
+<p>To host our application on GitHub Pages, we've set up a GitHub Action workflow. This workflow builds the application, modifies the base address for subdirectory hosting, copies the index.html to a 404.html file, and deploys the output to the gh-pages branch. This enables us to access our Blazor application using a public URL.</p>
+<pre><code>name: Blazor Playground
+
+on:
+  push:
+    branches:
+    - main  # default branch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '7.0'
+    - name: Publish
+      run: dotnet publish -c Release -o release
+    - name: Set base
+      run: sed -i 's/&lt;base href=&quot;\/&quot;/&lt;base href=&quot;\/BlazorPlayground\/&quot;/g' release/wwwroot/index.html &gt;&gt; release/wwwroot/index.html
+    - name: No Jekyll
+      run: touch release/wwwroot/.nojekyll
+    - name: copy index.html to 404.html
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages  # deploying branch
+        PUBLISH_DIR: ./release/wwwroot
+</code></pre>
+<h3 id="docker-deployment">Docker Deployment</h3>
+<p>Alternatively, we've containerized our Blazor application using Docker. The Dockerfile builds the application, copies the output to an Nginx-based image, and configures Nginx to serve the static files. This containerized application can be deployed to any environment that supports Docker containers.</p>
+<pre><code class="language-bash">FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+	
+WORKDIR /src
+
+
+
+COPY [&quot;BlazorPlayground.csproj&quot;, &quot;BlazorPlayground.csproj&quot;]
+
+RUN dotnet restore &quot;BlazorPlayground.csproj&quot;
+
+
+
+COPY [&quot;/&quot;, &quot;/&quot;]
+RUN sed -i 's/&lt;base href=&quot;\/&quot;/&lt;base href=&quot;\/BlazorPlayground\/&quot;/g' release/wwwroot/index.html &gt;&gt; release/wwwroot/index.html
+
+RUN dotnet build &quot;BlazorPlayground.csproj&quot; --no-restore -c Release -o /app
+
+
+
+FROM build AS publish
+RUN dotnet publish &quot;BlazorPlayground.csproj&quot; --no-restore -c Release -o /app
+
+
+
+
+FROM nginx:alpine AS final
+WORKDIR /usr/share/nginx/html
+
+COPY --from=publish /app/wwwroot .
+COPY [&quot;nginx.conf&quot;, &quot;/etc/nginx/nginx.conf&quot;]
+
+</code></pre>
+<pre><code class="language-bash">events { }
+http {
+    include mime.types;
+
+    server {
+        listen 80;
+
+        location / {
+            root /usr/share/nginx/html;
+            try_files $uri $uri/ /index.html =404;
+        }
+    }
+}
+
+</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>In this article, we've journeyed through the exciting world of Blazor, building a versatile web application that offers a range of essential tools. We've explored encoding, decoding, hashing, and more, showcasing Blazor's capabilities in a practical and engaging manner. Moreover, we've discussed deployment options, making our application accessible through GitHub Pages and containerization. This hands-on experience with Blazor and deployment strategies equips developers with valuable insights for their future projects.</p>
+<p>For the complete code and the deployed version of the application, check out the <a href="https://github.com/dejandjenic/BlazorPlayground/">GitHub repository</a> and the <a href="https://dejandjenic.github.io/BlazorPlayground/">live application</a>. Happy coding!</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
