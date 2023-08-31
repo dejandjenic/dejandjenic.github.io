@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W99CWL1C9H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W99CWL1C9H');
+</script>
+		<title>My blog | Publishing blazor WASM with electron.js</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="Publishing blazor WASM with electron.js">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h3><a href="/index.html">My blog</a></h3>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								
+									<li><a href="/index.html">Home</a></li>
+								
+									<li><a href="/archive.html">Archive</a></li>
+								
+									<li><a href="/tags.html">Tags</a></li>
+								
+									<li><a href="/projects.html">projects</a></li>
+								
+									<li><a href="/about.html">About me</a></li>
+								
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Publishing blazor WASM with electron.js</h2>
+								<p>Posted on Wednesday, 30 August 2023</p>
+								
+									<a role="button" href="../tags/Blazor.html" class="button small">Blazor</a>
+								
+									<a role="button" href="../tags/WebAssembly.html" class="button small">WebAssembly</a>
+								
+									<a role="button" href="../tags/Electron.js.html" class="button small">Electron.js</a>
+								
+									<a role="button" href="../tags/dotnet.html" class="button small">dotnet</a>
+								
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h1 id="mastering-cross-platform-deployment-blazor-wasm-applications-with-electron.js-and-auto-updates-via-github-actions">Mastering Cross-Platform Deployment: Blazor WASM Applications with Electron.js and Auto-Updates via GitHub Actions</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In the dynamic landscape of web application development, the need to bring web technologies closer to the desktop experience has led to innovative solutions. In this tutorial, we will explore the fusion of Blazor WebAssembly (WASM) with Electron.js—a framework for building cross-platform desktop applications using web technologies. By combining these two technologies, we can deliver the power of Blazor WASM applications in a standalone desktop environment.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before we dive into the deployment process, make sure you have the following prerequisites set up:</p>
+<p>A functional Blazor application (You can refer to my previous article on <a href="https://medium.com/@dejandjenic/exploring-blazor-and-deployment-options-da81c2c301aa">Exploring Blazor and Deployment Options</a> for guidance on setting up a Blazor project).</p>
+<h2 id="project-setup">Project Setup</h2>
+<p>To embark on this journey, we'll create a new repository and structure our project accordingly:</p>
+<ul>
+<li>Create a new repository for your project.</li>
+<li>Inside this repository, create a directory named &quot;blazor&quot; to hold your existing Blazor application files.</li>
+<li>Copy all the Blazor application files from your previous repository to the &quot;blazor&quot; directory.</li>
+<li>Additionally, create an &quot;electron-app&quot; directory at the root of your repository.</li>
+</ul>
+<h2 id="initializing-electron.js">Initializing Electron.js</h2>
+<p>Our next step involves setting up Electron.js to create the bridge between our Blazor application and the desktop environment:</p>
+<ul>
+<li>Navigate to the &quot;electron-app&quot; directory and execute the following commands:</li>
+</ul>
+<pre><code class="language-bash">npm init
+npm install electron --save-dev
+</code></pre>
+<ul>
+<li>These commands will initialize a new project and add Electron as a development dependency.</li>
+</ul>
+<pre><code class="language-javascript">// main.js
+
+// Modules to control application life and create native browser window
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
+require('update-electron-app')(
+
+)
+
+const createWindow = () =&gt; {
+  console.log(__dirname)
+  // Create the browser window.
+  const mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),      
+    }
+  })
+
+  // and load the index.html of the app.
+  mainWindow.loadFile('index.html')  
+  
+  // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
+}
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.whenReady().then(() =&gt; {
+  createWindow()
+
+  app.on('activate', () =&gt; {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', () =&gt; {
+  if (process.platform !== 'darwin') app.quit()
+})
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
+</code></pre>
+<h2 id="loading-the-blazor-application">Loading the Blazor Application</h2>
+<p>To integrate our Blazor application, we'll create a script named loadBlazor.js. This script adjusts the base URL and loads the Blazor scripts:</p>
+<pre><code class="language-javascript">
+function addScript(value, element, prop){
+    var el = document.createElement(element);
+    el[prop] = value;
+    document.getElementsByTagName('head')[0].appendChild(el);
+    return el;
+}
+
+let url = document.baseURI.replace(&quot;index.html&quot;,&quot;&quot;)
+
+addScript(url, &quot;base&quot;, &quot;href&quot;)
+addScript(url + &quot;_framework/blazor.webassembly.js&quot;, &quot;script&quot;, &quot;src&quot;)
+
+setTimeout(()=&gt;{
+    addScript(url, &quot;a&quot;, &quot;href&quot;).click()
+},1000)
+
+</code></pre>
+<h2 id="electron-forge-for-packaging-and-publishing">Electron Forge for Packaging and Publishing</h2>
+<p>Electron Forge simplifies packaging and publishing our Electron application. Let's add necessary dependencies and create configuration files:</p>
+<ul>
+<li>Install Electron Forge:</li>
+</ul>
+<pre><code class="language-bash">npm install --save-dev @electron-forge/cli @electron-forge/publisher-github
+</code></pre>
+<ul>
+<li>Create a forge.config.js configuration file:</li>
+</ul>
+<pre><code class="language-javascript">module.exports = {
+  packagerConfig: {
+    asar: true,
+  },
+  rebuildConfig: {},
+  makers: [
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {},
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin'],
+    },
+    {
+      name: '@electron-forge/maker-deb',
+      config: {},
+    },
+    {
+      name: '@electron-forge/maker-rpm',
+      config: {},
+    },
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'dejandjenic',
+          name: 'BlazorPlaygroundElectron'
+        },
+        prerelease: false
+      }
+    }
+  ]
+};
+</code></pre>
+<p>This configuration demonstrates that you're generating application packages for different platforms like Windows, macOS, Debian-based (Linux), and RPM-based (Linux) distributions.</p>
+<p>Additionally, in your GitHub Actions workflow configuration, you could highlight that the pipeline runs on different operating systems:</p>
+<pre><code class="language-yaml">name: Blazor Playground
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:  
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0'
+
+    
+      - name: Publish
+        run: dotnet publish blazor/BlazorPlayground.csproj -c Release -o release
+      - name: Install ReplaceInFile
+        run: dotnet tool install --tool-path . ReplaceInFile
+      - name: Modify original file index.html
+        run: ./replaceinfile &quot;release/wwwroot/index.html&quot; '&lt;base href=\&quot;/\&quot; /&gt;' &quot;&quot;
+      - name: Modify original file index.html
+        run: ./replaceinfile &quot;release/wwwroot/index.html&quot; '&lt;script src=\&quot;_framework/blazor.webassembly.js\&quot;&gt;&lt;/script&gt;' &quot;&quot;
+      - name: Modify original file index.html
+        run: ./replaceinfile &quot;release/wwwroot/index.html&quot; &quot;&lt;/body&gt;&quot; '&lt;script src=\&quot;loadBlazor.js\&quot;&gt;&lt;/script&gt;&lt;/body&gt;'
+      - name: Copy blazor output
+        run: cp -r ./release/wwwroot/* ./electron-app/
+        
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Restore npm dependencies
+        run: npm ci
+        working-directory: ./electron-app/
+
+      - name: Publish app
+        run: npm run publish
+        working-directory: ./electron-app/
+        if: github.ref_type == 'tag'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+</code></pre>
+<p>By specifying different operating systems like Windows, Ubuntu (Linux), and macOS in the workflow, you're implicitly indicating that the application is being built and tested for these platforms.</p>
+<p>Remember, you can adjust these sections to provide clearer details about your application's cross-platform compatibility and the role of Electron Forge in generating packages for different operating systems.</p>
+<h2 id="images">Images</h2>
+<p>Setting required permissions for GitHug actions
+<img src="../images/electron/permissions.png" alt="image" /></p>
+<p>Draft release created by publishing electron app
+<img src="../images/electron/draft-release.png" alt="image" /></p>
+<p>Released version
+<img src="../images/electron/release.png" alt="image" /></p>
+<p>Running application on windows
+<img src="../images/electron/application.png" alt="image" /></p>
+<p>Application is being updated
+<img src="../images/electron/update.png" alt="image" /></p>
+<h2 id="conclusion-elevating-your-application-with-auto-updates-and-cicd">Conclusion: Elevating Your Application with Auto-Updates and CI/CD</h2>
+<p>In the realm of application deployment, the marriage of Blazor WASM and Electron.js brings forth an integration that bridges web experiences and desktop functionality. Throughout this tutorial, we've traversed the complete journey, from establishing a project structure to deploying your application via Electron Forge. However, the story doesn't end here—two integral factors deserve special attention: Auto-Updates and Continuous Integration and Continuous Deployment (CI/CD) through GitHub Actions.</p>
+<h3 id="empowering-user-experience-with-auto-updates">Empowering User Experience with Auto-Updates</h3>
+<p>Introducing an invaluable feature, Electron.js brings automatic updates to the forefront. This game-changing capability ensures that your application remains current, delivering bug fixes, feature enhancements, and security patches seamlessly, without requiring manual user interventions. The result is an elevated user experience, an aspect pivotal to the success of any Electron application.</p>
+<h3 id="exemplifying-auto-update-in-our-project">Exemplifying Auto-Update in Our Project</h3>
+<p>Within our project, the auto-update functionality is seamlessly integrated using the update-electron-app package. When a new version is released, users are prompted to update, ensuring they continually benefit from the latest improvements. This feature not only improves the user experience but also streamlines the maintenance process for developers.</p>
+<h3 id="effortless-releases-with-cicd-through-github-actions">Effortless Releases with CI/CD through GitHub Actions</h3>
+<p>The journey doesn't stop with auto-updates; we've also embraced the prowess of GitHub Actions for CI/CD. By leveraging this automation tool, the deployment process transforms into an orchestrated symphony of tasks. Each release, when tagged, triggers a cascade of actions: building, packaging, and publishing. GitHub Actions introduces consistency and reliability to your deployment pipeline, significantly reducing manual intervention and potential errors.</p>
+<h3 id="unleash-your-applications-potential">Unleash Your Application's Potential</h3>
+<p>With your Blazor WASM application now elegantly fused with Electron.js, empowered by auto-updates, and fortified by CI/CD through GitHub Actions, the horizon of possibilities is vast. Delve into advanced Electron.js features, optimize performance, and craft an immersive user experience that resonates with both web and desktop enthusiasts.</p>
+<h2 id="embark-on-your-development-odyssey">Embark on Your Development Odyssey</h2>
+<p>Ready to embark on your own development journey? The complete codebase and resources employed in this tutorial are at your fingertips in the <a href="https://github.com/dejandjenic/BlazorPlaygroundElectron">GitHub repository</a>. Feel free to explore, experiment, and shape the code to fit your unique projects.</p>
+<p>As we conclude, remember that the fusion of Blazor WASM and Electron.js, accentuated by auto-updates and fortified by GitHub Actions, redefines the landscape of desktop applications. With every release cycle smoothly orchestrated, your application evolves seamlessly, delivering the latest features and enhancements to your audience with unparalleled convenience.</p>
+
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">							
+							<ul class="copyright">
+								<li>Copyright © 2023</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
+</html>
