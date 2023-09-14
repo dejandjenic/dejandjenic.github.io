@@ -16,8 +16,9 @@
 
   gtag('config', 'G-W99CWL1C9H');
 </script>
-		<title>My blog</title>
+		<title>My blog | Announcing GenesysSSG release 1.0.21</title>
 		<meta charset="utf-8" />
+		<meta name="description" content="Announcing GenesysSSG release 1.0.21">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
@@ -64,7 +65,11 @@
 					<section id="wrapper">
 						<header>
 							<div class="inner">
-								<h2>blazor</h2>
+								<h2>Announcing GenesysSSG release 1.0.21</h2>
+								<p>Posted on Thursday, 14 September 2023</p>
+								
+									<a role="button" href="../tags/genesysSSG.html" class="button small">genesysSSG</a>
+								
 							</div>
 						</header>
 
@@ -72,19 +77,30 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									
-										<div>
-											<a href="/blogs/blazor-playground.html">
-												<h3>Exploring Blazor and Deployment Options</h3>
-											</a>
-											<p>
-												<em>Posted on Sunday, 13 August 2023</em>
-											</p>
-											<p>
-												Exploring Blazor and Deployment Options
-											</p>
-										</div>
-									
+									<p>GenesysSSG release 1.0.21 has just been released</p>
+<p>some of the new features are</p>
+<ul>
+<li>ability to pin certain blog post or page in order to be rendered e.g. as a widget</li>
+<li>ability to sort pined blogs by settings pinOrder</li>
+<li>hot reload functionality in watch mode</li>
+<li>generic configuration sections, e.g. in config set</li>
+</ul>
+<pre><code>generic:
+  about:
+    name: test
+    url: test.url
+</code></pre>
+<p>can be used in template</p>
+<pre><code>{{configuration.generic[&quot;about&quot;].text}}
+{{configuration.generic[&quot;about&quot;].url}}
+</code></pre>
+<ul>
+<li>fixed bug with repeated processing</li>
+<li>added lang property to configuration used to render html lang=&quot;{{lang}}&quot;</li>
+<li>added rss feed generation , available under /rss.xml</li>
+</ul>
+
+
 								</div>
 							</div>
 
@@ -103,7 +119,7 @@
 			</div>
 
 		<!-- Scripts -->
-					<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
 			<script src="/assets/js/jquery.scrollex.min.js"></script>
 			<script src="/assets/js/browser.min.js"></script>
 			<script src="/assets/js/breakpoints.min.js"></script>
