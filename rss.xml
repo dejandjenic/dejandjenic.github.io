@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0"><channel>
+  <title>My blog</title>
+  <link>https://dejandjenic.github.io</link>
+  <description></description>
+<item>
+    <title>Announcing GenesysSSG release 1.0.21</title>
+    <link>https://dejandjenic.github.io/blogs/announcing-genesysssg-release-1.0.21.html</link>
+    <description>Announcing GenesysSSG release 1.0.21</description>
+  </item>
+<item>
+    <title>Announcing MonoChrome GenesysSSG theme</title>
+    <link>https://dejandjenic.github.io/blogs/announcing-monochrome-genesysssg-theme.html</link>
+    <description>Announcing MonoChrome GenesysSSG theme</description>
+  </item>
+<item>
+    <title>Publishing blazor WASM with electron.js</title>
+    <link>https://dejandjenic.github.io/blogs/publishing-blazor-wasm-with-electron-js.html</link>
+    <description>Discover how to seamlessly deploy Blazor WebAssembly applications using Electron.js, leveraging the power of automatic updates and streamlining the deployment process through GitHub Actions. Elevate your user experience and ensure your application is always up-to-date.</description>
+  </item>
+<item>
+    <title>Exploring Blazor and Deployment Options</title>
+    <link>https://dejandjenic.github.io/blogs/blazor-playground.html</link>
+    <description>Exploring Blazor and Deployment Options</description>
+  </item>
+<item>
+    <title>Building Scalable Serverless Applications, Hosting .NET Minimal APIs with Google Cloud Functions</title>
+    <link>https://dejandjenic.github.io/blogs/dotnet-minimal-api-on-gcp-cloud-function.html</link>
+    <description>This article showcases how to host a .NET Minimal API with Google Cloud Functions, offering a scalable, serverless solution. It outlines the benefits of both technologies, such as serverless architecture and simplified code. The step-by-step guide covers project setup, local testing, deployment, and the addition of Swagger for interactive API documentation. The combination empowers developers to build efficient applications that automatically scale with incoming traffic.</description>
+  </item>
+<item>
+    <title>Enhancing Test Visualization on GitLab with .NET Projects</title>
+    <link>https://dejandjenic.github.io/blogs/test-report-visualization-with-gitlab-and-dotnet.html</link>
+    <description>This article explores the power of test visualization in GitLab for .NET projects. It provides insights into configuring GitLab CI/CD pipelines, defining test stages and jobs, and installing dependencies for testing. The article also demonstrates how to create a merge request, view test reports with detailed information, and improve code coverage. Additionally, it covers configuring useful settings in GitLab, such as badges, and highlights the benefits of test visualization for optimizing software testing workflows.</description>
+  </item>
+<item>
+    <title>Creating .net tool and publishing it on nuget</title>
+    <link>https://dejandjenic.github.io/blogs/creating-net-tool-and-publishing-it-on-nuget.html</link>
+    <description>This article provides a step-by-step guide to creating a .NET tool and publishing it on NuGet via GitHub. The process involves setting up a Console Application project, modifying the project file, adding code functionality, configuring the GitHub repository, preparing for publishing, and finally publishing the tool on NuGet. Key steps include creating the project, modifying the project file to enable packaging as a .NET tool, adding code to implement desired functionality, configuring the GitHub repository and secrets, setting up a GitHub Action workflow for automatic builds and publishing, and finally using the published tool by installing it globally. By following these steps, developers can easily create their own .NET tools and share them with others in the community.</description>
+  </item>
+<item>
+    <title>Caching exploration in .NET</title>
+    <link>https://dejandjenic.github.io/blogs/caching-exploration-in-dotnet.html</link>
+    <description>Caching exploration in .NET</description>
+  </item>
+<item>
+    <title>How to embed video</title>
+    <link>https://dejandjenic.github.io/blogs/how-to-embed-video.html</link>
+    <description>How to embed video in your statically generated web site</description>
+  </item>
+<item>
+    <title>Diagrams with mermaidjs and GenesysSSG</title>
+    <link>https://dejandjenic.github.io/blogs/mermaid-demo.html</link>
+    <description>Diagrams with mermaidjs and GenesysSSG demo page</description>
+  </item>
+<item>
+    <title>Diagrams with mermaidjs and GenesysSSG</title>
+    <link>https://dejandjenic.github.io/blogs/diagrams-with-mermaidjs-and-genesysssg.html</link>
+    <description>Diagrams with mermaidjs and GenesysSSG</description>
+  </item>
+<item>
+    <title>Personal blog with GenesysSSG and github pages</title>
+    <link>https://dejandjenic.github.io/blogs/personal-blog-with-genesysssg-and-github-pages.html</link>
+    <description>Easily create personal blog with GenesysSSG and github pages and host it for free</description>
+  </item>
+<item>
+    <title>Configuring github pages</title>
+    <link>https://dejandjenic.github.io/blogs/configuring-github-pages.html</link>
+    <description>Using static site generators and github pages</description>
+  </item>
+<item>
+    <title>About me</title>
+    <link>https://dejandjenic.github.io/about.html</link>
+    <description>Dejan Đenić is a seasoned software developer with 21 years of experience specializing in .NET backend development. He has a strong passion for programming and has worked with cutting-edge technologies such as NoSQL databases, microservices, caching, Kubernetes, and CI/CD. Dejan has a versatile skill set and has worked as a full-stack developer with experience in React. He is dedicated to continuous learning and actively collaborates with cross-functional teams. Connect with him on LinkedIn to follow his professional journey and join the community of passionate developers and technology enthusiasts.</description>
+  </item>
+<item>
+    <title>Projects</title>
+    <link>https://dejandjenic.github.io/projects.html</link>
+    <description>projects</description>
+  </item>
+<item>
+    <title>GenesysSSG</title>
+    <link>https://dejandjenic.github.io/projects/index.html</link>
+    <description>GenesysSSG</description>
+  </item>
+<item>
+    <title>GenesysSSG</title>
+    <link>https://dejandjenic.github.io/projects/genesysssg/index.html</link>
+    <description>GenesysSSG</description>
+  </item>
+<item>
+    <title>Themes</title>
+    <link>https://dejandjenic.github.io/projects/genesysssg/themes.html</link>
+    <description>Themes</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>GenesysSSG Doc</title>
+    <link>https://dejandjenic.github.io/projects/doc/genesysssgdoc.html</link>
+    <description>GenesysSSG Doc</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/events.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/actions.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/workflow.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/starting.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/basic.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/entities.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/advanced.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/installation.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/examples.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://dejandjenic.github.io/projects/doc/xworkflows/errors.html</link>
+    <description>xworkflows</description>
+  </item>
+</channel>
+
+</rss>
