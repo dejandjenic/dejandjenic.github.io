@@ -1,4 +1,4 @@
-title: projects
+title: Projects
 created: Saturday, June 17, 2023
 tags:
   - replace me
