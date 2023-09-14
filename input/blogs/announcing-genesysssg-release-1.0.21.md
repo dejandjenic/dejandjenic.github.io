@@ -4,7 +4,7 @@ tags:
   - genesysSSG
 short: Announcing GenesysSSG release 1.0.21
 ---
-GenesysSSG release 1.0.21 has just been released
+### GenesysSSG release 1.0.21 has just been released
 
 some of the new features are
 

@@ -91,7 +91,8 @@ The configuration of GenesysSSG is managed through the `config.yml` file. Custom
 | `additionalNavLinks`     | Additional links to include in the navigation menu | array | -             |
 | `additionalItems`        | Additional items used when generating content  | array  | -               |
 | `subDirectory`        | If you site is not served from root (e.g. https://mysite.com/john) then use this settings to set it to john/  | array  | -               |
-
+| `generic`                | Generic section for any object | map/dictionary | complex | 
+| `lang`                   | Lang used for html attribute                    | string | en             |
 
 
 
@@ -118,6 +119,11 @@ facebook: facebook.com/link
 twitter: twitter.com/link
 linkedIn: linkedin/link
 email: email@email.com
+generic:
+  about:
+    text: some text
+    url: my.url
+lang: en
 ```
 
 by default you do not need to configure every item in configuration.
