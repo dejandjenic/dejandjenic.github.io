@@ -2,7 +2,7 @@ inputDirectory: input
 outputDirectory: output
 templateDirectory: template
 title: Dejan's Blog
-theme: Monochrome
+theme: MonoChrome
 description: Empowering Tech Enthusiasts, One Byte at a Time.
 additionalItems: 
 ga: G-W99CWL1C9H
