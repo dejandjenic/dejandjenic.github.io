@@ -1,19 +1,21 @@
 title: Creating .net tool and publishing it on nuget
 created: Thursday, July 13, 2023
 tags:
-  - .NET
   - dotnet
   - github
   - nuget
 short: This article provides a step-by-step guide to creating a .NET tool and publishing it on NuGet via GitHub. The process involves setting up a Console Application project, modifying the project file, adding code functionality, configuring the GitHub repository, preparing for publishing, and finally publishing the tool on NuGet. Key steps include creating the project, modifying the project file to enable packaging as a .NET tool, adding code to implement desired functionality, configuring the GitHub repository and secrets, setting up a GitHub Action workflow for automatic builds and publishing, and finally using the published tool by installing it globally. By following these steps, developers can easily create their own .NET tools and share them with others in the community.
+pinned: true
+pinOrder: 1
+image: /images/dotnet_tool_nuget.png
 ---
-# Creating .net tool and publishing it on nuget
+### Creating .net tool and publishing it on nuget
 
-## Introduction
+#### Introduction
 
 .NET tools are valuable for building and deploying reusable components. In this article, we will walk through the process of creating a new project to demonstrate the creation of a .NET tool and publishing it on NuGet. We will cover the steps involved in setting up the project, modifying the project file, adding code functionality, configuring the GitHub repository, preparing for publishing, and finally publishing the tool on NuGet.
 
-## Prerequisites
+#### Prerequisites
 To follow along with this tutorial, make sure you have the following:
 
 1. A development environment set up with .NET SDK installed.
@@ -21,7 +23,7 @@ To follow along with this tutorial, make sure you have the following:
 1. An API key from NuGet.org for publishing packages.
 1. Basic knowledge of C# and .NET.
 
-## Create a Console Application Project
+#### Create a Console Application Project
 
 Start by creating a new Console Application project using the .NET SDK. Modify the .csproj file with the following content:
 
@@ -38,7 +40,7 @@ Start by creating a new Console Application project using the .NET SDK. Modify t
 
 Additionally, create a README.md file and describe what your tool is used for.
 
-## Modify the Project File
+#### Modify the Project File
 
 Enhance the project file (csproj) to prepare it for packaging as a .NET tool. Add the following lines within the existing <PropertyGroup>:
 
@@ -54,7 +56,7 @@ Enhance the project file (csproj) to prepare it for packaging as a .NET tool. Ad
 <PackageReadmeFile>README.md</PackageReadmeFile>
 ```
 
-## Add Functionality to the Tool
+#### Add Functionality to the Tool
 
 Open the Program.cs file and add the following code:
 
@@ -94,7 +96,7 @@ catch (Exception ex)
 
 The above code tries to extract code coverage from a Cobertura file, multiplies it by 100, and writes a formatted string to the console output.
 
-## Configure Your GitHub Repository
+#### Configure Your GitHub Repository
 
 Now, create a new GitHub repository and push your code to it. Once the repository is set up, follow these steps:
 
@@ -189,7 +191,7 @@ jobs:
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_KEY}}
 ```
 
-## Publish Your .NET Tool via NuGet
+#### Publish Your .NET Tool via NuGet
 
 Once the GitHub Action workflow is set up, it will automatically trigger a build whenever you create a branch with a release/ prefix or push changes to the main branch. The build process will generate a .nupkg file in the nupkg directory.
 
@@ -203,6 +205,6 @@ codecoverageextractor path_to_cobertura_file format
 
 Remember to name your new branch from `main` and increase the version for any new releases.
 
-## Conclusion
+#### Conclusion
 
 In this article, we covered the process of creating a .NET tool, configuring the project file, adding functionality, setting up the GitHub repository, and publishing the tool on NuGet. By following these steps, you can easily create your own .NET tools and share them with the development community. Happy coding!

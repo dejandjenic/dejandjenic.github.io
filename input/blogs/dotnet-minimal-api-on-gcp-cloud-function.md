@@ -5,12 +5,15 @@ tags:
   - gcp
   - cloud function
   - minimal api
-  - .net7
+  - dotnet7
 short: This article showcases how to host a .NET Minimal API with Google Cloud Functions, offering a scalable, serverless solution. It outlines the benefits of both technologies, such as serverless architecture and simplified code. The step-by-step guide covers project setup, local testing, deployment, and the addition of Swagger for interactive API documentation. The combination empowers developers to build efficient applications that automatically scale with incoming traffic.
+pinned: true
+pinOrder: 8
+image: /images/dotnet_api_cloud_function.png
 ---
-# Building Scalable Serverless Applications: Hosting .NET Minimal APIs with Google Cloud Functions
+### Building Scalable Serverless Applications: Hosting .NET Minimal APIs with Google Cloud Functions
 
-## Introduction:
+#### Introduction:
 
 In today's fast-paced digital landscape, developers are constantly seeking efficient ways to build and deploy applications that are scalable, cost-effective, and require minimal maintenance. The combination of .NET Minimal APIs and Google Cloud Functions presents a compelling solution to meet these demands. By leveraging the simplicity and performance of .NET Minimal APIs with the serverless architecture of Google Cloud Functions, developers can create robust applications that scale seamlessly with incoming traffic while enjoying the benefits of a pay-as-you-go billing model.
 
@@ -22,7 +25,7 @@ Hosting a .NET Minimal API with Google Cloud Functions can be a powerful combina
 
 
 
-## Benefits of Google Cloud Functions:
+#### Benefits of Google Cloud Functions:
 Serverless Architecture: Google Cloud Functions is a serverless computing platform, which means you don't need to worry about managing servers or infrastructure. Google takes care of server provisioning, scaling, and maintenance, allowing you to focus on writing code and building applications.
 
 Auto-scaling: Google Cloud Functions automatically scales your application in response to incoming traffic. It provisions and scales resources as needed, ensuring optimal performance during peak times while saving costs during periods of low or no traffic.
@@ -35,7 +38,7 @@ Fast Deployment: Deploying functions is quick and straightforward. Google Cloud 
 
 Global Reach: Google Cloud Functions provides the option to deploy functions across multiple regions, ensuring low-latency access to your applications for users around the world.
 
-## Benefits of .NET Minimal APIs:
+#### Benefits of .NET Minimal APIs:
 Simplified Code: .NET Minimal APIs offer a simplified and more concise syntax compared to traditional ASP.NET Web APIs. This leads to cleaner and more readable code, making it easier for developers to understand and maintain the application.
 
 Improved Performance: The lightweight nature of .NET Minimal APIs results in faster startup times and reduced memory consumption. This is especially beneficial for serverless architectures where fast startup is crucial to handle incoming requests efficiently.
@@ -50,7 +53,7 @@ Cross-platform Compatibility: .NET Core provide cross-platform support, enabling
 
 By combining the benefits of Google Cloud Functions and .NET Minimal APIs, developers can create highly scalable, cost-efficient, and easily maintainable serverless applications that respond quickly to user requests and adapt to varying workloads. Whether you're building microservices, APIs, or event-driven applications, this combination empowers developers to focus on application logic rather than infrastructure management.
 
-## 1. Prerequisites
+#### 1. Prerequisites
 Before you start, make sure you have the following prerequisites in place:
 
 A Google Cloud Platform (GCP) account.
@@ -58,7 +61,7 @@ The Google Cloud SDK (gcloud) installed on your local machine.
 .NET 7 SDK or later installed on your local machine.
 Basic knowledge of C# and .NET Minimal APIs.
 
-##  2. Create a .NET Minimal API
+####  2. Create a .NET Minimal API
 First, let's create a simple .NET Minimal API project:
 
 Open a terminal or command prompt and run the following command to install project template
@@ -215,7 +218,7 @@ public class Function : IHttpFunction
 
 With these modifications, your .NET Minimal API project is now equipped with Swagger support, providing interactive documentation for your API. It includes two endpoints for calculating the power and square root of numbers using the IMathService interface. By using Swagger, developers can seamlessly interact with your API, making it easier to explore and test its functionalities. Now, let's proceed to test the API locally and deploy it to Google Cloud Functions to unlock the power of serverless computing for your application.
 
-## 3. Test the .NET Minimal API Locally
+#### 3. Test the .NET Minimal API Locally
 Before deploying to Google Cloud Functions, ensure your .NET Minimal API works as expected locally:
 
 Run the following command to build and run the project:
@@ -226,7 +229,7 @@ By default, the API will be available at http://localhost:8080.
 
 Use a tool like curl, Postman, or a web browser to test your API endpoints or you can use swagger ui that we added in previous step by navigating to http://localhost:8080/swagger/index.html
 
-## 4. Set Up Google Cloud Functions
+#### 4. Set Up Google Cloud Functions
 Now, let's set up Google Cloud Functions for deployment:
 
 Open a terminal or command prompt.
@@ -243,7 +246,7 @@ gcloud config set project YOUR_PROJECT_ID
 ```
 Replace YOUR_PROJECT_ID with the actual ID of your Google Cloud project.
 
-## 5. Deploy the .NET Minimal API to Google Cloud Functions
+#### 5. Deploy the .NET Minimal API to Google Cloud Functions
 With everything set up, it's time to deploy the .NET Minimal API to Google Cloud Functions:
 
 Open a terminal or command prompt.
@@ -259,7 +262,7 @@ Wait for the deployment process to finish.
 
 Once deployed, the command will provide you with the URL of the deployed function.
 
-## 6. Test the Deployed .NET Minimal API
+#### 6. Test the Deployed .NET Minimal API
 Now that your .NET Minimal API is deployed as a Google Cloud Function, test it using the provided URL:
 
 Use a tool like curl, Postman, or a web browser to access the API using the provided URL.

@@ -4,8 +4,9 @@ tags:
   - genesysSSG
   - mermaidjs
 short: Diagrams with mermaidjs and GenesysSSG
+image: /images/genesysssg_mermaidjs.png
 ---
-# Diagrams with mermaidjs and GenesysSSG
+### Diagrams with mermaidjs and GenesysSSG
 
 Having diagrams on your site is always nice.
 

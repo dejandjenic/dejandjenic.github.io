@@ -1,11 +1,18 @@
 inputDirectory: input
 outputDirectory: output
 templateDirectory: template
-title: My blog
-theme: SolidState
-description: 
+title: Dejan's Blog
+theme: Monochrome
+description: Empowering Tech Enthusiasts, One Byte at a Time.
 additionalItems: 
 ga: G-W99CWL1C9H
 additionalFooterLinks: 
 additionalNavLinks: 
 hostedurl: https://dejandjenic.github.io
+generic: 
+  about:
+    text: I'm Dejan Đenić, a seasoned software developer with over 20 years of experience, specializing in .NET backend development, NoSQL databases, microservices, CI/CD, and containerization. I have management experience, emphasizing secure API development. Through my blog and LinkedIn, I share insights, fostering a community of developers, and promoting effective team leadership in software development.
+    image: /images/me.jpg
+lang: en
+linkedin: https://www.linkedin.com/in/dejandjenic/
+twitter: https://twitter.com/dejandjenic

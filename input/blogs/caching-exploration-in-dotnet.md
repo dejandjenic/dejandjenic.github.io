@@ -1,7 +1,6 @@
 title: Caching exploration in .NET
 created: Tuesday, July 11, 2023
 tags:
-  - .NET
   - dotnet
   - caching
   - redis
@@ -10,13 +9,16 @@ tags:
   - YARP
   - NBomber
 short: Caching exploration in .NET
+pinned: true  
+pinOrder: 10
+image: /images/multi_layer_cache.png
 ---
 
-# Multi-Layered Caching in .NET Microservices
+### Multi-Layered Caching in .NET Microservices
 
 Caching plays a crucial role in optimizing the performance and scalability of .NET microservices. It allows frequently accessed data to be stored in memory or fast storage mediums, reducing the need to repeatedly retrieve data from original sources. In this blog post, we will explore the concept of multi-layered caching in .NET microservices and its significance in building highly performant and scalable applications.
 
-## Introduction
+#### Introduction
 
 Caching offers several benefits in modern .NET applications:
 
@@ -24,7 +26,7 @@ Caching offers several benefits in modern .NET applications:
 - **Enhanced Scalability**: By reducing the computational and network resources required to serve requests, caching improves the scalability of microservices, enabling them to handle higher loads efficiently.
 - **Improved Resilience**: Caching mitigates the impact of external service failures or outages by providing access to previously cached data, ensuring that the application remains functional even when external dependencies are unavailable.
 
-## The Need for Caching in .NET Applications
+#### The Need for Caching in .NET Applications
 
 To demonstrate the need for caching in .NET applications, let's create a sample .NET API project using the Minimal API approach. We will use the GenFu library for generating fake data.
 
@@ -157,7 +159,7 @@ In a real-world scenario, the application would be hosted behind a load balancer
 Let's add some additional components to our project.
 
 
-## Adding YARP for Load Balancing and Docker Compose
+#### Adding YARP for Load Balancing and Docker Compose
 
 
 We can enhance our project by adding the YARP (Yet Another Reverse Proxy) project for load balancing. Additionally, we'll use Docker Compose to spin up multiple instances of our API.
@@ -300,7 +302,7 @@ With this setup, Docker Compose will spin up two instances of your API project a
 
 Now, let's move on to load testing using NBomber.
 
-## Load Testing with NBomber
+#### Load Testing with NBomber
 
 To perform load testing, we'll use the NBomber library. Make sure to add the required NuGet packages for NBomber, GenFu, and any other dependencies.
 
@@ -357,7 +359,7 @@ Running this load testing project will generate load on your API instances and t
 
 our load test creates 10 request per second and usual duration is slightly over 1.5 seconds.
 
-## Implementing Caching
+#### Implementing Caching
 
 Now, let's add caching to our project using Redis and in-memory caching.
 
@@ -516,7 +518,7 @@ wow, but really nobody is surprised that adding caching improves performance gre
 
 However using redis (or any other distributed caching mechanism) in real world scenario would add some network latency and some delay. Can we improve this? Can we add some in memory caching to this existing model?
 
-## Adding in memory caching
+#### Adding in memory caching
 
 
 add file InMemoryGenericCache.cs

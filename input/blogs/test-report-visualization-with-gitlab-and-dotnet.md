@@ -2,27 +2,29 @@ title: Enhancing Test Visualization on GitLab with .NET Projects
 created: Saturday, July 22, 2023
 tags:
   - gitlab
-  - .NET
   - dotnet
   - tests
   - xunit
 short:  This article explores the power of test visualization in GitLab for .NET projects. It provides insights into configuring GitLab CI/CD pipelines, defining test stages and jobs, and installing dependencies for testing. The article also demonstrates how to create a merge request, view test reports with detailed information, and improve code coverage. Additionally, it covers configuring useful settings in GitLab, such as badges, and highlights the benefits of test visualization for optimizing software testing workflows.
+pinned: true
+pinOrder: 8
+image: /images/test_on_github.png
 ---
-#  Enhancing Test Visualization on GitLab with .NET Projects
+###  Enhancing Test Visualization on GitLab with .NET Projects
 
-## Introduction
+#### Introduction
 
 In modern software development, efficient testing is crucial to ensure the stability and quality of applications. GitLab, a popular web-based Git repository management tool, offers a wide range of features to support the testing process. One such feature is test visualization, which provides developers with valuable insights into the test execution and results. This article explores how test visualization can be leveraged within GitLab for .NET projects, empowering teams to optimize their testing workflows and improve overall project quality.
 
 
-## Understanding Test Visualization in GitLab
+#### Understanding Test Visualization in GitLab
 
-### Overview of GitLab's test visualization capabilities
+##### Overview of GitLab's test visualization capabilities
 
 GitLab provides a dedicated section within its user interface for visualizing test results and metrics. It offers a comprehensive overview of test execution, allowing developers to track the progress and outcomes of their tests.
 
 
-### Key benefits of using test visualization in software development
+##### Key benefits of using test visualization in software development
 
 Test visualization in GitLab brings several advantages to the software development process
 
@@ -32,11 +34,11 @@ Test visualization in GitLab brings several advantages to the software developme
 1. Performance monitoring: Test visualization allows for tracking the performance of tests over time, highlighting any degradation or improvements in test execution
 
 
-### Integration with Continuous Integration/Continuous Deployment (CI/CD) pipelines
+##### Integration with Continuous Integration/Continuous Deployment (CI/CD) pipelines
 
 GitLab seamlessly integrates test visualization into its CI/CD pipelines. Developers can configure test stages and jobs within the pipeline to automatically trigger test execution and generate visualized reports. This integration ensures that testing becomes an integral part of the development workflow.
 
-## Setting Up .Net Project
+#### Setting Up .Net Project
 
 To create a new project and include the sample code provided by Microsoft https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows, follow these steps:
 
@@ -95,7 +97,7 @@ public class PrimeServiceTests
 
 Now you have a project with the PrimeService class and corresponding unit tests. You can proceed with configuring your CI/CD pipeline in GitLab and visualizing the test results using the test visualization capabilities.
 
-## Setting Up GitLab for .NET Project Testing
+#### Setting Up GitLab for .NET Project Testing
 
 
 1. Configuring GitLab CI/CD pipelines for .NET projects
@@ -157,7 +159,7 @@ The pipeline script installs the dotnet-reportgenerator-globaltool and CodeCover
 
 By configuring GitLab CI/CD pipelines, defining test stages and jobs, and installing the required dependencies and tools, you can automate the build and test process for your .NET projects on GitLab. The pipeline script generates test reports, including code coverage, and provides valuable artifacts and reports for further analysis.
 
-## Action
+#### Action
 
 Perform the following actions after setting up GitLab for .NET project testing
 
@@ -215,7 +217,7 @@ Merge your merge request, and once the pipeline is finished, your project's over
 The overview page will show information about the running pipelines and the code coverage percentage.
 
 By following these actions, you can leverage the GitLab pipeline and test visualization features to monitor the progress of your tests, track code coverage, and ensure the quality of your .NET projects.
-## Conclusion
+#### Conclusion
 
 With GitLab's robust test visualization capabilities, .NET project teams can gain valuable insights into the testing process, leading to improved software quality and accelerated development cycles. By leveraging test visualization, developers can identify bottlenecks, enhance collaboration, and optimize their testing strategies. Incorporating test visualization into the GitLab workflow empowers teams to make informed decisions and continuously improve their software testing practices.
 

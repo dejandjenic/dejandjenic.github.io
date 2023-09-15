@@ -3,6 +3,7 @@ created: Thursday, September 14, 2023
 tags:
   - genesysSSG
 short: Announcing MonoChrome GenesysSSG theme
+image: /images/genesysssg-monochrome.png
 ---
 ### Announcing MonoChrome GenesysSSG theme
 

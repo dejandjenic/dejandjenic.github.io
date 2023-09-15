@@ -7,17 +7,18 @@ tags:
   - personal blog
   - genesysSSG
 short: Easily create personal blog with GenesysSSG and github pages and host it for free
+image: /images/genesysssg_github_pages.png
 ---
-# Personal blog with GenesysSSG and github pages
+### Personal blog with GenesysSSG and github pages
 
 Navigate to github and create repository in the following format username.github.io
 
-## Git branches
+#### Git branches
 create branch calld gh-pages that will be used to server generated content.
 
 ![gh-pages](../images/blog3.png)
 
-## Keys
+#### Keys
 
 execute following command to generate keys used to allow github to deploy code to new branch
 
@@ -31,7 +32,7 @@ this command will generate 2 files
 2. public key 
 
 
-### Install keys
+##### Install keys
 
 navigate to settings of your repository on github and add new deploy key , as shown bellow
 
@@ -45,13 +46,13 @@ navigate to Secrets and variables
 
 the value that should be entered is the value taken from the public key file.
 
-## Setup github pages
+#### Setup github pages
 
 Navigate to pages section and ensure that settings are configured as shown
 
 ![gh-pages settings](../images/blog4.png)
 
-## Generating static site
+#### Generating static site
 
 Clone your repository into local directory and navigate to it.
 
@@ -89,7 +90,7 @@ genesysssg -w -s
 
 when finished push code to git remote
 
-## Actions
+#### Actions
 
 navigate to actions and add new manual action
 
@@ -137,6 +138,8 @@ after commit action will be run
 
 ![actions](../images/blog6.png)
 
-## Verification
+#### Verification
 
 navigate your browser to username.github.io and verify that your content is published
+
+<style>img{max-width:100%}</style>

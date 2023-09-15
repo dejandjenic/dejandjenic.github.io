@@ -4,12 +4,13 @@ tags:
   - genesysSSG
   - video
 short: How to embed video in your statically generated web site
+image: /images/genesysssg_video.png
 ---
-# How to Embed Videos
+### How to Embed Videos
 
 Videos can greatly enhance your website or blog. Whether you want to embed videos from YouTube, Vimeo, or any other online platform, or even host them locally, here's how you can do it.
 
-## Embedding YouTube Videos
+#### Embedding YouTube Videos
 
 To embed a YouTube video, use the following Markdown syntax:
 
@@ -44,7 +45,7 @@ sample output
 
 ![youtu.be](https://youtu.be/mswPy5bt3TQ)
 
-## Embedding Local Videos
+#### Embedding Local Videos
 If your video is hosted locally, you can use the following Markdown syntax:
 
 

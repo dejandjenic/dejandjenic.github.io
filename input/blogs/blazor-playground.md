@@ -2,23 +2,25 @@ title: Exploring Blazor and Deployment Options
 created: Sunday, August 13, 2023
 tags:
   - blazor
-  - .NET
   - wasm
   - dotnet
   - github
   - docker
 short: Exploring Blazor and Deployment Options
+pinned: true
+image: /images/blazor-docker-github-pages.png
+pinOrder: 2
 ---
-# Exploring Blazor and Deployment Options
+### Exploring Blazor and Deployment Options
 
-## Introduction:
+#### Introduction:
 In this article, I'm excited to delve into the world of Blazor, Microsoft's innovative web framework that enables developers to build interactive and dynamic web applications using C# and .NET instead of traditional web languages. In this article, I'll walk you through the process of creating a Blazor application that provides various useful functionalities like base64 encoding/decoding, URL encoding/decoding, JWT decoding, string escaping, HTML encoding/decoding, hash generation, and even GUID generation. As we progress, I'll also touch upon the deployment options, specifically focusing on hosting the application on GitHub Pages and containerizing it using Docker.
 
-## Solution Overview
+#### Solution Overview
 To make our exploration practical and hands-on, we'll implement a set of simple yet powerful tools every developer frequently uses. These tools include functionalities such as base64 encoding/decoding, URL encoding/decoding, JWT decoding, string escaping, HTML encoding/decoding, hash generation, and even GUID generation. And we're going to build all of these into a Blazor WebAssembly application.
 
-## Development
-### Reusable Control: Editor.razor
+#### Development
+##### Reusable Control: Editor.razor
 We start by designing a reusable control, Editor, which provides input and output text fields, action buttons for encoding/decoding, and a swap button to easily switch between input and output. This control simplifies the process of creating pages with different functionalities by eliminating repetitive UI code.
 
 
@@ -95,7 +97,7 @@ We start by designing a reusable control, Editor, which provides input and outpu
 
 ```
 
-### Base64 Encoding: Base64.razor
+##### Base64 Encoding: Base64.razor
 In the Base64.razor page, we showcase base64 encoding and decoding. Users can input text, click the "Encode" button to see the base64 encoded result, and click the "Decode" button to revert the encoded text back to its original form.
 
 
@@ -114,7 +116,7 @@ In the Base64.razor page, we showcase base64 encoding and decoding. Users can in
 </Editor>
 ```
 
-### Escape String: Escape.razor
+##### Escape String: Escape.razor
 The Escape.razor page illustrates how to escape and unescape strings using regular expressions. Users can input text, click the "Escape" button to escape special characters, and click the "Unescape" button to revert the process.
 
 
@@ -132,7 +134,7 @@ The Escape.razor page illustrates how to escape and unescape strings using regul
 
 ```
 
-### Guid Generation: Guid.razor
+##### Guid Generation: Guid.razor
 In the Guid.razor page, we demonstrate the generation of GUIDs (Globally Unique Identifiers). Users can specify the number of GUIDs they want to generate, and the application will produce a list of randomly generated GUIDs.
 
 
@@ -198,7 +200,7 @@ The Hash.razor page showcases the creation of SHA256 hashes. Users can input tex
 
 ```
 
-### HTML Encoding: Html.razor
+##### HTML Encoding: Html.razor
 With the Html.razor page, we demonstrate HTML encoding and decoding. Users can input text, click the "Encode" button to encode special characters, and click the "Decode" button to revert the encoding.
 
 
@@ -217,7 +219,7 @@ With the Html.razor page, we demonstrate HTML encoding and decoding. Users can i
 
 ```
 
-### JSON Formatting: Json.razor
+##### JSON Formatting: Json.razor
 The Json.razor page focuses on JSON formatting. Users can input JSON data, click the "Beautify" button to format it with proper indentation, and click the "Uglify" button to remove extra whitespace.
 
 
@@ -245,7 +247,7 @@ The Json.razor page focuses on JSON formatting. Users can input JSON data, click
 </Editor>
 ```
 
-### JWT Parsing: Jwt.razor
+##### JWT Parsing: Jwt.razor
 In the Jwt.razor page, we explore JSON Web Tokens (JWT) by providing a token for parsing. The application will display the claims contained in the JWT payload.
 
 
@@ -274,7 +276,7 @@ In the Jwt.razor page, we explore JSON Web Tokens (JWT) by providing a token for
 
 ```
 
-### URL Encoding: Url.razor
+##### URL Encoding: Url.razor
 Lastly, the Url.razor page demonstrates URL encoding and decoding. Users can input a URL, click the "Encode" button to encode special characters, and click the "Decode" button to revert the encoding.
 
 
@@ -294,7 +296,7 @@ Lastly, the Url.razor page demonstrates URL encoding and decoding. Users can inp
 ```
 
 
-### Navigation Menu Enhancement
+##### Navigation Menu Enhancement
 To improve the user experience, we've also enhanced the navigation menu. It now lists each functionality, making it easier for users to jump to the desired page.
 
 
@@ -371,10 +373,10 @@ To improve the user experience, we've also enhanced the navigation menu. It now 
 
 ```
 
-## Deployment: GitHub Pages and Docker
+#### Deployment: GitHub Pages and Docker
 For deployment, we've covered two options: GitHub Pages and Docker.
 
-### GitHub Pages Deployment
+##### GitHub Pages Deployment
 To host our application on GitHub Pages, we've set up a GitHub Action workflow. This workflow builds the application, modifies the base address for subdirectory hosting, copies the index.html to a 404.html file, and deploys the output to the gh-pages branch. This enables us to access our Blazor application using a public URL.
 
 
@@ -414,7 +416,7 @@ jobs:
 ```
 
 
-### Docker Deployment
+##### Docker Deployment
 Alternatively, we've containerized our Blazor application using Docker. The Dockerfile builds the application, copies the output to an Nginx-based image, and configures Nginx to serve the static files. This containerized application can be deployed to any environment that supports Docker containers.
 
 
@@ -468,6 +470,7 @@ http {
 }
 
 ```
+
 # Conclusion
 In this article, we've journeyed through the exciting world of Blazor, building a versatile web application that offers a range of essential tools. We've explored encoding, decoding, hashing, and more, showcasing Blazor's capabilities in a practical and engaging manner. Moreover, we've discussed deployment options, making our application accessible through GitHub Pages and containerization. This hands-on experience with Blazor and deployment strategies equips developers with valuable insights for their future projects.
 

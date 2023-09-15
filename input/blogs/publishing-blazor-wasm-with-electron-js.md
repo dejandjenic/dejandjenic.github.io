@@ -6,19 +6,22 @@ tags:
   - Electron.js
   - dotnet
 short: Discover how to seamlessly deploy Blazor WebAssembly applications using Electron.js, leveraging the power of automatic updates and streamlining the deployment process through GitHub Actions. Elevate your user experience and ensure your application is always up-to-date.
+image: /images/blazor_electron.png
+pinOrder: 1
+pinned: true
 ---
-# Mastering Cross-Platform Deployment: Blazor WASM Applications with Electron.js and Auto-Updates via GitHub Actions
+### Mastering Cross-Platform Deployment: Blazor WASM Applications with Electron.js and Auto-Updates via GitHub Actions
 
-## Introduction
+#### Introduction
 
 In the dynamic landscape of web application development, the need to bring web technologies closer to the desktop experience has led to innovative solutions. In this tutorial, we will explore the fusion of Blazor WebAssembly (WASM) with Electron.js—a framework for building cross-platform desktop applications using web technologies. By combining these two technologies, we can deliver the power of Blazor WASM applications in a standalone desktop environment.
 
-## Prerequisites
+#### Prerequisites
 Before we dive into the deployment process, make sure you have the following prerequisites set up:
 
 A functional Blazor application (You can refer to my previous article on [Exploring Blazor and Deployment Options](https://medium.com/@dejandjenic/exploring-blazor-and-deployment-options-da81c2c301aa) for guidance on setting up a Blazor project).
 
-## Project Setup
+#### Project Setup
 To embark on this journey, we'll create a new repository and structure our project accordingly:
 
 * Create a new repository for your project.
@@ -26,7 +29,7 @@ To embark on this journey, we'll create a new repository and structure our proje
 * Copy all the Blazor application files from your previous repository to the "blazor" directory.
 * Additionally, create an "electron-app" directory at the root of your repository.
 
-## Initializing Electron.js
+#### Initializing Electron.js
 Our next step involves setting up Electron.js to create the bridge between our Blazor application and the desktop environment:
 
 * Navigate to the "electron-app" directory and execute the following commands:
@@ -91,7 +94,7 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 ```
 
-## Loading the Blazor Application
+#### Loading the Blazor Application
 To integrate our Blazor application, we'll create a script named loadBlazor.js. This script adjusts the base URL and loads the Blazor scripts:
 
 
@@ -115,7 +118,7 @@ setTimeout(()=>{
 
 ```
 
-## Electron Forge for Packaging and Publishing
+#### Electron Forge for Packaging and Publishing
 Electron Forge simplifies packaging and publishing our Electron application. Let's add necessary dependencies and create configuration files:
 
 * Install Electron Forge:
@@ -253,28 +256,29 @@ Running application on windows
 Application is being updated
 ![image](../images/electron/update.png)
 
-## Conclusion: Elevating Your Application with Auto-Updates and CI/CD
+#### Conclusion: Elevating Your Application with Auto-Updates and CI/CD
 In the realm of application deployment, the marriage of Blazor WASM and Electron.js brings forth an integration that bridges web experiences and desktop functionality. Throughout this tutorial, we've traversed the complete journey, from establishing a project structure to deploying your application via Electron Forge. However, the story doesn't end here—two integral factors deserve special attention: Auto-Updates and Continuous Integration and Continuous Deployment (CI/CD) through GitHub Actions.
 
-### Empowering User Experience with Auto-Updates
+##### Empowering User Experience with Auto-Updates
 
 Introducing an invaluable feature, Electron.js brings automatic updates to the forefront. This game-changing capability ensures that your application remains current, delivering bug fixes, feature enhancements, and security patches seamlessly, without requiring manual user interventions. The result is an elevated user experience, an aspect pivotal to the success of any Electron application.
 
-### Exemplifying Auto-Update in Our Project
+##### Exemplifying Auto-Update in Our Project
 
 Within our project, the auto-update functionality is seamlessly integrated using the update-electron-app package. When a new version is released, users are prompted to update, ensuring they continually benefit from the latest improvements. This feature not only improves the user experience but also streamlines the maintenance process for developers.
 
-### Effortless Releases with CI/CD through GitHub Actions
+##### Effortless Releases with CI/CD through GitHub Actions
 
 The journey doesn't stop with auto-updates; we've also embraced the prowess of GitHub Actions for CI/CD. By leveraging this automation tool, the deployment process transforms into an orchestrated symphony of tasks. Each release, when tagged, triggers a cascade of actions: building, packaging, and publishing. GitHub Actions introduces consistency and reliability to your deployment pipeline, significantly reducing manual intervention and potential errors.
 
-### Unleash Your Application's Potential
+##### Unleash Your Application's Potential
 
 With your Blazor WASM application now elegantly fused with Electron.js, empowered by auto-updates, and fortified by CI/CD through GitHub Actions, the horizon of possibilities is vast. Delve into advanced Electron.js features, optimize performance, and craft an immersive user experience that resonates with both web and desktop enthusiasts.
 
-## Embark on Your Development Odyssey
+#### Embark on Your Development Odyssey
 Ready to embark on your own development journey? The complete codebase and resources employed in this tutorial are at your fingertips in the [GitHub repository](https://github.com/dejandjenic/BlazorPlaygroundElectron). Feel free to explore, experiment, and shape the code to fit your unique projects.
 
 As we conclude, remember that the fusion of Blazor WASM and Electron.js, accentuated by auto-updates and fortified by GitHub Actions, redefines the landscape of desktop applications. With every release cycle smoothly orchestrated, your application evolves seamlessly, delivering the latest features and enhancements to your audience with unparalleled convenience.
 
 
+<style>img{max-width:100%}</style>

@@ -3,6 +3,7 @@ created: Thursday, September 14, 2023
 tags:
   - genesysSSG
 short: Announcing GenesysSSG release 1.0.21
+image: /images/genesysssg-1.0.20.png
 ---
 ### GenesysSSG release 1.0.21 has just been released
 

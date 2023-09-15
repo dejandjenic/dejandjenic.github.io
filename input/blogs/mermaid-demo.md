@@ -1,13 +1,15 @@
-title: Diagrams with mermaidjs and GenesysSSG
+title: Diagrams with mermaidjs and GenesysSSG - DEMO
 created: Sunday, July 2, 2023
 tags:
   - genesysSSG
   - mermaidjs
 short: Diagrams with mermaidjs and GenesysSSG demo page
+image: /images/genesysssg_mermaidjs.png
 ---
-# Diagrams with mermaidjs and GenesysSSG demo page
+### Diagrams with mermaidjs and GenesysSSG demo page
 
 
+#### Example #1
 
 ```mermaid
  pie title What Voldemort doesn't have?
@@ -18,7 +20,7 @@ short: Diagrams with mermaidjs and GenesysSSG demo page
 <hr>
 
 
-
+#### Example #2
 
 ```mermaid
 sequenceDiagram
@@ -36,6 +38,7 @@ sequenceDiagram
 
 <hr>
 
+#### Example #3
 
 ```mermaid
 graph LR
@@ -49,7 +52,7 @@ graph LR
 
 <hr>
 
-
+#### Example #4
 ```mermaid
 graph TB
     sq[Square shape] --> ci((Circle shape))
@@ -75,6 +78,9 @@ graph TB
 ```
 
 <hr>
+
+#### Example #5
+
 
 
 
