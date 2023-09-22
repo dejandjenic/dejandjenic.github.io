@@ -20,6 +20,8 @@ jobs:
       run: dotnet tool install --tool-path . GenesysSSG
     - name: Publish blog
       run: ./genesysssg
+    - name: Configure public domain
+      run: echo "www.dejandjenic.com" >> ./output/CNAME
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
