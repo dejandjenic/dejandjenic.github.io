@@ -69,6 +69,11 @@
     <description>Using static site generators and github pages</description>
   </item>
 <item>
+    <title>Contact</title>
+    <link>https://www.dejandjenic.com/contact.html</link>
+    <description>contact page</description>
+  </item>
+<item>
     <title>About me</title>
     <link>https://www.dejandjenic.com/about.html</link>
     <description>Dejan Đenić is a seasoned software developer with 21 years of experience specializing in .NET backend development. He has a strong passion for programming and has worked with cutting-edge technologies such as NoSQL databases, microservices, caching, Kubernetes, and CI/CD. Dejan has a versatile skill set and has worked as a full-stack developer with experience in React. He is dedicated to continuous learning and actively collaborates with cross-functional teams. Connect with him on LinkedIn to follow his professional journey and join the community of passionate developers and technology enthusiasts.</description>
@@ -84,16 +89,6 @@
     <description>GenesysSSG</description>
   </item>
 <item>
-    <title>GenesysSSG</title>
-    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
-    <description>GenesysSSG</description>
-  </item>
-<item>
-    <title>Themes</title>
-    <link>https://www.dejandjenic.com/projects/genesysssg/themes.html</link>
-    <description>Themes</description>
-  </item>
-<item>
     <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/xworkflows/index.html</link>
     <description>xworkflows</description>
@@ -104,13 +99,18 @@
     <description>GenesysSSG Doc</description>
   </item>
 <item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/events.html</link>
-    <description>xworkflows</description>
+    <title>Themes</title>
+    <link>https://www.dejandjenic.com/projects/genesysssg/themes.html</link>
+    <description>Themes</description>
+  </item>
+<item>
+    <title>GenesysSSG</title>
+    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
+    <description>GenesysSSG</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/installation.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -120,12 +120,7 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/starting.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -135,17 +130,17 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/errors.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/installation.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/events.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -155,7 +150,17 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/errors.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/starting.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
     <description>xworkflows</description>
   </item>
 </channel>
