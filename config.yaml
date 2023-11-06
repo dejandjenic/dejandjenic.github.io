@@ -8,11 +8,14 @@ additionalItems:
 ga: G-W99CWL1C9H
 additionalFooterLinks: 
 additionalNavLinks: 
-hostedurl: https://dejandjenic.github.io
+hostedurl: https://www.dejandjenic.com
 generic: 
   about:
     text: I'm Dejan Đenić, a seasoned software developer with over 20 years of experience, specializing in .NET backend development, NoSQL databases, microservices, CI/CD, and containerization. I have management experience, emphasizing secure API development. Through my blog and LinkedIn, I share insights, fostering a community of developers, and promoting effective team leadership in software development.
     image: /images/me.jpg
+  just-software:
+    id: S0RXNJg3gi2LJpAWjY85
+    key: XFETbtnVgz79xNNR4xwHpjlYuJci70+cwB9PKoWLb+jbFWOG9s9TQrBgDhL76x0tZ3izLgKMu0HRav+88UTZFHy8TyDPagP8C12Itot1ipqe+e2CFw03G8IgEXNzczfISoljN775ZvENlCnjPnhmKuh7dLeNrzcrMdzsGbjZ4MWk6qHICepFIi5+/H9PYtomuJSmCvG6J99bW5CFPfGIrQjVoNgk7Z4oNFLd4TdloSdsO+HRokzfSicOc+5ggRIdZy4LczXhM779A6JBzH6lW90HxWEv7Xh9yiaMPOOzCtEfhe8IURswrUNb4zdVApUE/qAQjdyxxFQte5IBaJI+XHl7mow3JIruxcM8fWN20/8N3i+emtoUe9/SQNn9sq9o0IxNoN2QEEAbWXZTBqKjbaLa/ez9oKPbbnheqeCG9NQ4LsEZ8WIvNvdols63vGiiy6g1lry6wnxsOMwG60tKMEetfRS+2K7QtXuskPHZ8w7/1dKO7d2C+LZLR+TyIWsK
 lang: en
 linkedin: https://www.linkedin.com/in/dejandjenic/
 twitter: https://twitter.com/dejandjenic
