@@ -3,6 +3,7 @@ created: Sunday, November 12, 2023
 tags:
   - xworkflows
 short: workflow management
+image: /images/xworkflows-announce.png
 ---
 # Simplifying Workflow Management with the XWorkflows Library
 ## Introduction
