@@ -98,6 +98,7 @@ public class OrderWorkflow : WorkflowBase<OrderWorkflow, OrderEntity, State>
 
 read more about XWorkflows documentation [here](../doc/xworkflows/index.html)
 
+GitHub Examples repository: https://github.com/dejandjenic/XWorkflows.Examples
 
 
 <script type="module">

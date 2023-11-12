@@ -118,6 +118,7 @@ var (rejectResult, rejectResponse) = await approvalWorkflow.ExecuteAction(docume
 ```
 
 
+GitHub Examples repository: https://github.com/dejandjenic/XWorkflows.Examples
 
 
 <script type="module">
