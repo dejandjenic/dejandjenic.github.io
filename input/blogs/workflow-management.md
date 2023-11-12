@@ -1,8 +1,8 @@
-title: workflow management
+title: Simplifying Workflow Management with the XWorkflows Library
 created: Sunday, November 12, 2023
 tags:
   - xworkflows
-short: workflow management
+short: Simplifying Workflow Management with the XWorkflows Library
 image: /images/xworkflows-announce.png
 ---
 # Simplifying Workflow Management with the XWorkflows Library
