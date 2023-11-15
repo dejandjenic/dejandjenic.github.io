@@ -16,9 +16,10 @@ Open your NuGet Package Manager Console.
 
 Run the following command:
 
-shell
-Copy code
+```shell
 Install-Package XWorkflows
+```
+
 The library and its dependencies will be fetched and installed into your project.
 
 With the XWorkflows library in your toolkit, you're ready to explore how it simplifies and enhances workflow management within your software applications.
@@ -49,8 +50,7 @@ Now that we have a foundational understanding of the core concepts of the XWorkf
 ## Defining Entities
 Entities are at the center of your workflow management. They represent the objects that undergo state transitions as actions are executed. To define an entity that can be managed by XWorkflows, you'll need to create a class that implements the IWorkflowStateEntity<TState> interface. This interface provides the necessary methods to retrieve and update the entity's state.
 
-csharp
-Copy code
+```csharp
 public class OrderEntity : IWorkflowStateEntity<State>
 {
     public string Identifier { get; set; }
@@ -71,11 +71,12 @@ public class OrderEntity : IWorkflowStateEntity<State>
         State = state;
     }
 }
+```
+
 ## Creating Actions
 Actions define the specific tasks that can be executed within a workflow. They encapsulate the logic associated with state transitions and can be triggered by external events or triggers. To create a custom action, you'll need to inherit from the WorkflowAction class provided by the library.
 
-csharp
-Copy code
+```csharp
 public class SubmitOrderAction : WorkflowAction<OrderWorkflow, SubmitOrderEvent, CreatedState, OrderEntity, State, SubmitOrderActionRequest, SubmitOrderActionRequest, bool>
 {
     public SubmitOrderAction(CreatedState state, SubmitOrderEvent e) : base(state, e)
@@ -90,11 +91,12 @@ public class SubmitOrderAction : WorkflowAction<OrderWorkflow, SubmitOrderEvent,
         return (WorkflowActionResult<bool>.Succeeded(true), p);
     }
 }
+```
+
 ## Creating Events
 Events provide the opportunity to perform tasks after an action is successfully executed. They can include tasks such as logging, sending notifications, or updating related data. To create an event, implement the IWorkflowEvent interface or derive from the WorkflowEvent class.
 
-csharp
-Copy code
+```csharp
 public class SubmitOrderEvent : WorkflowEvent<OrderWorkflow, CreatedState, OrderEntity, State>
 {
     public override async Task Execute(OrderEntity data, CancellationToken cancellationToken)
@@ -102,6 +104,8 @@ public class SubmitOrderEvent : WorkflowEvent<OrderWorkflow, CreatedState, Order
         // Perform post-action tasks like logging or notifications
     }
 }
+```
+
 In the next sections of this article, we will cover more advanced topics such as error handling, managing multiple workflows, and customizing action/event execution. We will also provide practical examples showcasing how the XWorkflows library can be applied to real-world scenarios to simplify workflow management.
 
 Stay tuned for Part 2 of this article where we dive deeper into these concepts and demonstrate their implementation with comprehensive code examples.
@@ -122,8 +126,7 @@ Welcome to Part 2 of our article on simplifying workflow management with the XWo
 ## Error Handling
 As any software system grows, handling errors becomes crucial. In the XWorkflows library, error handling is well-integrated to ensure smooth workflow execution even in the face of unexpected situations. The library provides mechanisms to handle invalid state transitions and exceptions during action execution.
 
-csharp
-Copy code
+```csharp
 try
 {
     // Execute an action within a workflow
@@ -135,23 +138,24 @@ catch (WorkflowException ex)
     // Handle the exception
     Console.WriteLine($"Workflow Error: {ex.Message}");
 }
+```
+
 ## Managing Multiple Workflows
 In real-world applications, managing workflows for different entities is common. The XWorkflows library excels in this area, allowing you to define and manage separate workflows with their own states and actions.
 
-csharp
-Copy code
+```csharp
 var orderWorkflow = new OrderWorkflow(actionsForOrder);
 var taskWorkflow = new TaskWorkflow(actionsForTask);
 
 // Execute actions within respective workflows
 await orderWorkflow.ExecuteAction(orderEntity, submitOrderRequest);
 await taskWorkflow.ExecuteAction(taskEntity, updateStatusRequest);
+```
 
 ## Customizing Action and Event Execution
 The flexibility of the XWorkflows library extends to customizing the execution of actions and events. You can override methods within action and event classes to inject custom logic before and after execution.
 
-csharp
-Copy code
+```csharp
 public class CustomAction : WorkflowAction<MyWorkflow, MyEvent, MyState, MyEntity, State, CustomRequest, CustomRequest, bool>
 {
     protected CustomAction(MyState state, MyEvent e) : base(state, e)
@@ -171,6 +175,7 @@ public class CustomAction : WorkflowAction<MyWorkflow, MyEvent, MyState, MyEntit
         return result;
     }
 }
+```
 
 ## Practical Examples
 In this part of the article, we'll provide practical examples showcasing the XWorkflows library in action:
@@ -209,42 +214,42 @@ Define the Order Entity:
 
 Create a class OrderEntity that implements IWorkflowStateEntity<State>. This class will hold the order's identifier and state.
 
-csharp
-Copy code
+```csharp
 // Define the OrderEntity class
+```
 Create Actions and Events:
 
 Define actions for submitting, canceling, and delivering orders. Create corresponding events for each action to handle post-action tasks.
 
-csharp
-Copy code
+```csharp
 // Define actions and events
+```
 Define States:
 
 Create classes for each order state, inheriting from WorkflowStateBase<OrderEntity, State, OrderWorkflow>. Define the allowed transitions for each state.
 
 csharp
-Copy code
 // Define states
+```
 Create the OrderWorkflow:
 
 Define the OrderWorkflow class, registering the actions and states.
 
-csharp
-Copy code
+```csharp
 // Create the OrderWorkflow class
+```
 Execute Workflow Actions:
 
 Instantiate the OrderEntity and execute actions within the workflow.
 
-csharp
-Copy code
+```csharp
 // Instantiate OrderEntity
 var order = new OrderEntity { /* Initialize properties */ };
 
 // Execute actions within the workflow
 var submitRequest = new SubmitOrderActionRequest { /* Request data */ };
 var (submitResult, submitResponse) = await orderWorkflow.ExecuteAction(order, submitRequest);
+```
 
 ## Example 2: Task Management Workflow
 In this example, we'll guide you through the implementation of a task management workflow using the XWorkflows library.
@@ -257,42 +262,42 @@ Define the Task Entity:
 
 Create a class TaskEntity that implements IWorkflowStateEntity<State>. This class will store the task's identifier and state.
 
-csharp
-Copy code
+```csharp
 // Define the TaskEntity class
+```
 Create Actions and Events:
 
 Define actions for updating task status, completing tasks, and canceling tasks. Implement corresponding events for post-action tasks.
 
-csharp
-Copy code
+```csharp
 // Define actions and events
+```
 Define States:
 
 Create classes for each task state, inheriting from WorkflowStateBase<TaskEntity, State, TaskWorkflow>. Specify allowed transitions for each state.
 
-csharp
-Copy code
+```csharp
 // Define states
+```
 Create the TaskWorkflow:
 
 Define the TaskWorkflow class, registering actions and states.
 
-csharp
-Copy code
+```csharp
 // Create the TaskWorkflow class
+```
 Execute Workflow Actions:
 
 Instantiate the TaskEntity and execute actions within the workflow.
 
-csharp
-Copy code
+```csharp
 // Instantiate TaskEntity
 var task = new TaskEntity { /* Initialize properties */ };
 
 // Execute actions within the workflow
 var updateStatusRequest = new UpdateTaskStatusActionRequest { /* Request data */ };
 var (updateStatusResult, updateStatusResponse) = await taskWorkflow.ExecuteAction(task, updateStatusRequest);
+```
 
 ## Example 3: Approval Workflow
 In our final example, we'll showcase the XWorkflows library's application in an approval workflow scenario.
@@ -305,42 +310,42 @@ Define the Document Entity:
 
 Create a class DocumentEntity implementing IWorkflowStateEntity<State>. This class will hold the document's identifier and state.
 
-csharp
-Copy code
+```csharp
 // Define the DocumentEntity class
+```
 Create Actions and Events:
 
 Define actions for submitting documents, approving them, and rejecting them. Create corresponding events for notifications.
 
-csharp
-Copy code
+```csharp
 // Define actions and events
+```
 Define States:
 
 Create classes for each document state, inheriting from WorkflowStateBase<DocumentEntity, State, ApprovalWorkflow>. Specify allowed transitions.
 
-csharp
-Copy code
+```csharp
 // Define states
+```
 Create the ApprovalWorkflow:
 
 Define the ApprovalWorkflow class, registering actions and states.
 
-csharp
-Copy code
+```csharp
 // Create the ApprovalWorkflow class
+```
 Execute Workflow Actions:
 
 Instantiate the DocumentEntity and execute actions within the workflow.
 
-csharp
-Copy code
+```csharp
 // Instantiate DocumentEntity
 var document = new DocumentEntity { /* Initialize properties */ };
 
 // Execute actions within the workflow
 var submitRequest = new SubmitForApprovalActionRequest { /* Request data */ };
 var (submitResult, submitResponse) = await approvalWorkflow.ExecuteAction(document, submitRequest);
+```
 
 ## Conclusion
 In this section, we've explored practical examples that demonstrate how the XWorkflows library can be applied to real-world scenarios. Through the order processing, task management, and approval workflow examples, we've showcased the library's versatility and power in simplifying workflow management within software applications.
