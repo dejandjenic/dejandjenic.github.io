@@ -269,21 +269,22 @@ Consider an e-commerce platform where orders transition through different states
 Define the Order Entity:</p>
 <p>Create a class OrderEntity that implements IWorkflowStateEntity<State>. This class will hold the order's identifier and state.</p>
 <pre><code class="language-csharp">// Define the OrderEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Create Actions and Events:</p>
 <p>Define actions for submitting, canceling, and delivering orders. Create corresponding events for each action to handle post-action tasks.</p>
 <pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Define States:</p>
 <p>Create classes for each order state, inheriting from WorkflowStateBase&lt;OrderEntity, State, OrderWorkflow&gt;. Define the allowed transitions for each state.</p>
-<p>csharp
-// Define states</p>
-<pre><code>Create the OrderWorkflow:
-
-Define the OrderWorkflow class, registering the actions and states.
-
-```csharp
-// Create the OrderWorkflow class
+<pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create the OrderWorkflow:</p>
+<p>Define the OrderWorkflow class, registering the actions and states.</p>
+<pre><code class="language-csharp">// Create the OrderWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Execute Workflow Actions:</p>
 <p>Instantiate the OrderEntity and execute actions within the workflow.</p>
@@ -302,18 +303,22 @@ Imagine a task management application where tasks transition through states: &qu
 Define the Task Entity:</p>
 <p>Create a class TaskEntity that implements IWorkflowStateEntity<State>. This class will store the task's identifier and state.</p>
 <pre><code class="language-csharp">// Define the TaskEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Create Actions and Events:</p>
 <p>Define actions for updating task status, completing tasks, and canceling tasks. Implement corresponding events for post-action tasks.</p>
 <pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Define States:</p>
 <p>Create classes for each task state, inheriting from WorkflowStateBase&lt;TaskEntity, State, TaskWorkflow&gt;. Specify allowed transitions for each state.</p>
 <pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Create the TaskWorkflow:</p>
 <p>Define the TaskWorkflow class, registering actions and states.</p>
 <pre><code class="language-csharp">// Create the TaskWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Execute Workflow Actions:</p>
 <p>Instantiate the TaskEntity and execute actions within the workflow.</p>
@@ -332,18 +337,22 @@ Consider a document approval process with states: &quot;Draft,&quot; &quot;Pendi
 Define the Document Entity:</p>
 <p>Create a class DocumentEntity implementing IWorkflowStateEntity<State>. This class will hold the document's identifier and state.</p>
 <pre><code class="language-csharp">// Define the DocumentEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Create Actions and Events:</p>
 <p>Define actions for submitting documents, approving them, and rejecting them. Create corresponding events for notifications.</p>
 <pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Define States:</p>
 <p>Create classes for each document state, inheriting from WorkflowStateBase&lt;DocumentEntity, State, ApprovalWorkflow&gt;. Specify allowed transitions.</p>
 <pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Create the ApprovalWorkflow:</p>
 <p>Define the ApprovalWorkflow class, registering actions and states.</p>
 <pre><code class="language-csharp">// Create the ApprovalWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 </code></pre>
 <p>Execute Workflow Actions:</p>
 <p>Instantiate the DocumentEntity and execute actions within the workflow.</p>
