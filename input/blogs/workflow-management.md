@@ -216,6 +216,7 @@ Create a class OrderEntity that implements IWorkflowStateEntity<State>. This cla
 
 ```csharp
 // Define the OrderEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create Actions and Events:
 
@@ -223,13 +224,15 @@ Define actions for submitting, canceling, and delivering orders. Create correspo
 
 ```csharp
 // Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Define States:
 
 Create classes for each order state, inheriting from WorkflowStateBase<OrderEntity, State, OrderWorkflow>. Define the allowed transitions for each state.
 
-csharp
+```csharp
 // Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create the OrderWorkflow:
 
@@ -237,6 +240,7 @@ Define the OrderWorkflow class, registering the actions and states.
 
 ```csharp
 // Create the OrderWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Execute Workflow Actions:
 
@@ -264,6 +268,7 @@ Create a class TaskEntity that implements IWorkflowStateEntity<State>. This clas
 
 ```csharp
 // Define the TaskEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create Actions and Events:
 
@@ -271,6 +276,7 @@ Define actions for updating task status, completing tasks, and canceling tasks. 
 
 ```csharp
 // Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Define States:
 
@@ -278,6 +284,7 @@ Create classes for each task state, inheriting from WorkflowStateBase<TaskEntity
 
 ```csharp
 // Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create the TaskWorkflow:
 
@@ -285,6 +292,7 @@ Define the TaskWorkflow class, registering actions and states.
 
 ```csharp
 // Create the TaskWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Execute Workflow Actions:
 
@@ -312,6 +320,7 @@ Create a class DocumentEntity implementing IWorkflowStateEntity<State>. This cla
 
 ```csharp
 // Define the DocumentEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create Actions and Events:
 
@@ -319,6 +328,7 @@ Define actions for submitting documents, approving them, and rejecting them. Cre
 
 ```csharp
 // Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Define States:
 
@@ -326,6 +336,7 @@ Create classes for each document state, inheriting from WorkflowStateBase<Docume
 
 ```csharp
 // Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Create the ApprovalWorkflow:
 
@@ -333,6 +344,7 @@ Define the ApprovalWorkflow class, registering actions and states.
 
 ```csharp
 // Create the ApprovalWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
 ```
 Execute Workflow Actions:
 
