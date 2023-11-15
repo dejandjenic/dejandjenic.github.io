@@ -12,10 +12,10 @@
   gtag('config', 'G-DKBCRZ77DR');
 </script>
 
-    <link rel="canonical" href="https://www.dejandjenic.comtags/cloud function.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/workflow-management-part3.html" />
     <meta charset="utf-8">
+    <meta name="description" content="Simplifying Workflow Management with the XWorkflows Library Part 3">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blogs with tag cloud function">
     <title>Dejan's Blog</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
@@ -24,6 +24,7 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -98,7 +99,15 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>posts for tag: cloud function</h2>
+          <h2>Simplifying Workflow Management with the XWorkflows Library Part 3</h2>
+          <p class="meta2">Posted on Wednesday, 15 November 2023</p>
+          <div class="social">
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/xworkflows.html" class="bb p10 f20">xworkflows</a>
+              </span>
+            
+          </div>
         </div>
       </div>
 
@@ -106,43 +115,146 @@
       <div class="row container-fluid boxparent">
         <div class="col-md-8 ">
 
-          
-            <div class="box p10 mb10">
-              <div>
-                
-                  <img src="/images/dotnet_api_cloud_function.png" />
-                
-              </div>
-              <div class="mt30">
-                <h3 class="title-b">
-                  <a href="/blogs/dotnet-minimal-api-on-gcp-cloud-function.html">Building Scalable Serverless Applications, Hosting .NET Minimal APIs with Google Cloud Functions</a>
-                </h3>
-                <div class="meta">
-                  Monday, 31 July 2023
-                </div>
-              </div>
-              <div class="mt10">
-                This article showcases how to host a .NET Minimal API with Google Cloud Functions, offering a scalable, serverless solution. It outlines the benefits of both technologies, such as serverless architecture and simplified code. The step-by-step guide covers project setup, local testing, deployment, and the addition of Swagger for interactive API documentation. The combination empowers developers to build efficient applications that automatically scale with incoming traffic.
-              </div>
+          <div class="p10 mb10">
+            
+              <img class="mb10" src="/images/xworkflows-announce.png" />
+            
+            <h1 id="part-3-practical-examples">Part 3: Practical Examples</h1>
+<p>Welcome to Part 3 of our article on simplifying workflow management with the XWorkflows library. In this section, we will dive into practical examples that demonstrate the library's capabilities in real-world scenarios.</p>
+<h2 id="example-1-order-processing-workflow">Example 1: Order Processing Workflow</h2>
+<p>In this example, we'll walk you through the implementation of an order processing workflow using the XWorkflows library.</p>
+<p>Scenario
+Consider an e-commerce platform where orders transition through different states: &quot;Created,&quot; &quot;Submitted,&quot; &quot;Delivered,&quot; and &quot;Canceled.&quot; We will create actions for submitting, canceling, and delivering orders, along with events for logging and notifications.</p>
+<p>Implementation
+Define the Order Entity:</p>
+<p>Create a class OrderEntity that implements IWorkflowStateEntity<State>. This class will hold the order's identifier and state.</p>
+<pre><code class="language-csharp">// Define the OrderEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create Actions and Events:</p>
+<p>Define actions for submitting, canceling, and delivering orders. Create corresponding events for each action to handle post-action tasks.</p>
+<pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Define States:</p>
+<p>Create classes for each order state, inheriting from WorkflowStateBase&lt;OrderEntity, State, OrderWorkflow&gt;. Define the allowed transitions for each state.</p>
+<pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create the OrderWorkflow:</p>
+<p>Define the OrderWorkflow class, registering the actions and states.</p>
+<pre><code class="language-csharp">// Create the OrderWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Execute Workflow Actions:</p>
+<p>Instantiate the OrderEntity and execute actions within the workflow.</p>
+<pre><code class="language-csharp">// Instantiate OrderEntity
+var order = new OrderEntity { /* Initialize properties */ };
 
-              <div class="btn-parent">
-                <a href="/blogs/dotnet-minimal-api-on-gcp-cloud-function.html" class="continue">continue reading</a>
-              </div>
+// Execute actions within the workflow
+var submitRequest = new SubmitOrderActionRequest { /* Request data */ };
+var (submitResult, submitResponse) = await orderWorkflow.ExecuteAction(order, submitRequest);
+</code></pre>
+<h2 id="example-2-task-management-workflow">Example 2: Task Management Workflow</h2>
+<p>In this example, we'll guide you through the implementation of a task management workflow using the XWorkflows library.</p>
+<p>Scenario
+Imagine a task management application where tasks transition through states: &quot;Open,&quot; &quot;In Progress,&quot; &quot;Completed,&quot; and &quot;Canceled.&quot; We'll define actions for updating task status, marking tasks as completed, and canceling tasks.</p>
+<p>Implementation
+Define the Task Entity:</p>
+<p>Create a class TaskEntity that implements IWorkflowStateEntity<State>. This class will store the task's identifier and state.</p>
+<pre><code class="language-csharp">// Define the TaskEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create Actions and Events:</p>
+<p>Define actions for updating task status, completing tasks, and canceling tasks. Implement corresponding events for post-action tasks.</p>
+<pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Define States:</p>
+<p>Create classes for each task state, inheriting from WorkflowStateBase&lt;TaskEntity, State, TaskWorkflow&gt;. Specify allowed transitions for each state.</p>
+<pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create the TaskWorkflow:</p>
+<p>Define the TaskWorkflow class, registering actions and states.</p>
+<pre><code class="language-csharp">// Create the TaskWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Execute Workflow Actions:</p>
+<p>Instantiate the TaskEntity and execute actions within the workflow.</p>
+<pre><code class="language-csharp">// Instantiate TaskEntity
+var task = new TaskEntity { /* Initialize properties */ };
 
-              <div class="social-list">
-                <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2f">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2f&text=">
-                  <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2f">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-              </div>
+// Execute actions within the workflow
+var updateStatusRequest = new UpdateTaskStatusActionRequest { /* Request data */ };
+var (updateStatusResult, updateStatusResponse) = await taskWorkflow.ExecuteAction(task, updateStatusRequest);
+</code></pre>
+<h2 id="example-3-approval-workflow">Example 3: Approval Workflow</h2>
+<p>In our final example, we'll showcase the XWorkflows library's application in an approval workflow scenario.</p>
+<p>Scenario
+Consider a document approval process with states: &quot;Draft,&quot; &quot;Pending Approval,&quot; &quot;Approved,&quot; and &quot;Rejected.&quot; We'll create actions for submitting documents, approving/rejecting them, and events for notifications.</p>
+<p>Implementation
+Define the Document Entity:</p>
+<p>Create a class DocumentEntity implementing IWorkflowStateEntity<State>. This class will hold the document's identifier and state.</p>
+<pre><code class="language-csharp">// Define the DocumentEntity class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create Actions and Events:</p>
+<p>Define actions for submitting documents, approving them, and rejecting them. Create corresponding events for notifications.</p>
+<pre><code class="language-csharp">// Define actions and events
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Define States:</p>
+<p>Create classes for each document state, inheriting from WorkflowStateBase&lt;DocumentEntity, State, ApprovalWorkflow&gt;. Specify allowed transitions.</p>
+<pre><code class="language-csharp">// Define states
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Create the ApprovalWorkflow:</p>
+<p>Define the ApprovalWorkflow class, registering actions and states.</p>
+<pre><code class="language-csharp">// Create the ApprovalWorkflow class
+// https://github.com/dejandjenic/XWorkflows.Examples
+</code></pre>
+<p>Execute Workflow Actions:</p>
+<p>Instantiate the DocumentEntity and execute actions within the workflow.</p>
+<pre><code class="language-csharp">// Instantiate DocumentEntity
+var document = new DocumentEntity { /* Initialize properties */ };
 
+// Execute actions within the workflow
+var submitRequest = new SubmitForApprovalActionRequest { /* Request data */ };
+var (submitResult, submitResponse) = await approvalWorkflow.ExecuteAction(document, submitRequest);
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this section, we've explored practical examples that demonstrate how the XWorkflows library can be applied to real-world scenarios. Through the order processing, task management, and approval workflow examples, we've showcased the library's versatility and power in simplifying workflow management within software applications.</p>
+<p>By following these examples and harnessing the capabilities of the XWorkflows library, developers can efficiently manage complex workflows, ensure data integrity, and achieve organized and maintainable software systems.</p>
+<p>References and Resources</p>
+<p>XWorkflows Examples GitHub Repository: <a href="https://github.com/dejandjenic/XWorkflows.Examples">https://github.com/dejandjenic/XWorkflows.Examples</a></p>
+<p>NuGet Package: XWorkflows</p>
+
+
+
+
+            <div class="social-list">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part3.html">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part3.html&text=Simplifying Workflow Management with the XWorkflows Library Part 3">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part3.html">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
             </div>
-          
+
+
+
+            
+              <div
+                id="just-comment"
+                clientId="6nNUpUgInhQ21pZIDKGK"
+                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part3.html"></div>
+            
+          </div>
 
 
 
@@ -557,6 +669,9 @@
         </div>
       </div>
     </div>
+    <script>
+      hljs.highlightAll();
+    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"

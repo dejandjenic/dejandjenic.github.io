@@ -12,10 +12,10 @@
   gtag('config', 'G-DKBCRZ77DR');
 </script>
 
-    <link rel="canonical" href="https://www.dejandjenic.comtags/cloud function.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/workflow-management-part2.html" />
     <meta charset="utf-8">
+    <meta name="description" content="Simplifying Workflow Management with the XWorkflows Library Part 2">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blogs with tag cloud function">
     <title>Dejan's Blog</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
@@ -24,6 +24,7 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -98,7 +99,15 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>posts for tag: cloud function</h2>
+          <h2>Simplifying Workflow Management with the XWorkflows Library Part 2</h2>
+          <p class="meta2">Posted on Tuesday, 14 November 2023</p>
+          <div class="social">
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/xworkflows.html" class="bb p10 f20">xworkflows</a>
+              </span>
+            
+          </div>
         </div>
       </div>
 
@@ -106,43 +115,96 @@
       <div class="row container-fluid boxparent">
         <div class="col-md-8 ">
 
-          
-            <div class="box p10 mb10">
-              <div>
-                
-                  <img src="/images/dotnet_api_cloud_function.png" />
-                
-              </div>
-              <div class="mt30">
-                <h3 class="title-b">
-                  <a href="/blogs/dotnet-minimal-api-on-gcp-cloud-function.html">Building Scalable Serverless Applications, Hosting .NET Minimal APIs with Google Cloud Functions</a>
-                </h3>
-                <div class="meta">
-                  Monday, 31 July 2023
-                </div>
-              </div>
-              <div class="mt10">
-                This article showcases how to host a .NET Minimal API with Google Cloud Functions, offering a scalable, serverless solution. It outlines the benefits of both technologies, such as serverless architecture and simplified code. The step-by-step guide covers project setup, local testing, deployment, and the addition of Swagger for interactive API documentation. The combination empowers developers to build efficient applications that automatically scale with incoming traffic.
-              </div>
+          <div class="p10 mb10">
+            
+              <img class="mb10" src="/images/xworkflows-announce.png" />
+            
+            <h1 id="part-2-advanced-features-and-practical-examples">Part 2: Advanced Features and Practical Examples</h1>
+<p>Welcome to Part 2 of our article on simplifying workflow management with the XWorkflows library. In this section, we will explore more advanced features and delve into practical examples to demonstrate the versatility and power of the library.</p>
+<h2 id="error-handling">Error Handling</h2>
+<p>As any software system grows, handling errors becomes crucial. In the XWorkflows library, error handling is well-integrated to ensure smooth workflow execution even in the face of unexpected situations. The library provides mechanisms to handle invalid state transitions and exceptions during action execution.</p>
+<pre><code class="language-csharp">try
+{
+    // Execute an action within a workflow
+    var actionRequest = new CustomActionRequest { /* Request data */ };
+    var (result, response) = await workflow.ExecuteAction(entity, actionRequest);
+}
+catch (WorkflowException ex)
+{
+    // Handle the exception
+    Console.WriteLine($&quot;Workflow Error: {ex.Message}&quot;);
+}
+</code></pre>
+<h2 id="managing-multiple-workflows">Managing Multiple Workflows</h2>
+<p>In real-world applications, managing workflows for different entities is common. The XWorkflows library excels in this area, allowing you to define and manage separate workflows with their own states and actions.</p>
+<pre><code class="language-csharp">var orderWorkflow = new OrderWorkflow(actionsForOrder);
+var taskWorkflow = new TaskWorkflow(actionsForTask);
 
-              <div class="btn-parent">
-                <a href="/blogs/dotnet-minimal-api-on-gcp-cloud-function.html" class="continue">continue reading</a>
-              </div>
+// Execute actions within respective workflows
+await orderWorkflow.ExecuteAction(orderEntity, submitOrderRequest);
+await taskWorkflow.ExecuteAction(taskEntity, updateStatusRequest);
+</code></pre>
+<h2 id="customizing-action-and-event-execution">Customizing Action and Event Execution</h2>
+<p>The flexibility of the XWorkflows library extends to customizing the execution of actions and events. You can override methods within action and event classes to inject custom logic before and after execution.</p>
+<pre><code class="language-csharp">public class CustomAction : WorkflowAction&lt;MyWorkflow, MyEvent, MyState, MyEntity, State, CustomRequest, CustomRequest, bool&gt;
+{
+    protected CustomAction(MyState state, MyEvent e) : base(state, e)
+    {
+    }
 
-              <div class="social-list">
-                <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2f">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2f&text=">
-                  <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2f">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-              </div>
+    public override async Task&lt;(WorkflowActionResult&lt;bool&gt;, CustomRequest)&gt; Execute(MyEntity data, CustomRequest p, CancellationToken cancellationToken)
+    {
+        // Custom pre-execution logic
+        Log(&quot;Executing CustomAction...&quot;);
 
+        var result = await base.Execute(data, p, cancellationToken);
+
+        // Custom post-execution logic
+        Log(&quot;CustomAction executed successfully!&quot;);
+
+        return result;
+    }
+}
+</code></pre>
+<h2 id="practical-examples">Practical Examples</h2>
+<p>In this part of the article, we'll provide practical examples showcasing the XWorkflows library in action:</p>
+<p>Order Processing Workflow: We'll demonstrate how to implement a complete order processing workflow using XWorkflows. This example will cover the submission, cancellation, and delivery of orders, each with their respective actions and events.</p>
+<p>Task Management Workflow: We'll dive into creating a workflow for managing tasks. This example will guide you through the definition of states, actions, and events to handle task status updates, completions, and cancellations.</p>
+<p>Approval Workflow: This example will showcase an approval workflow for managing document approval processes. We'll cover submitting documents for approval, approving/rejecting them, and leveraging events for notifications.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this section, we've explored advanced features of the XWorkflows library that empower developers to handle error scenarios, manage multiple workflows, and customize action/event execution. We've also introduced practical examples that highlight the versatility and practicality of the library in real-world scenarios.</p>
+<p>By harnessing the power of the XWorkflows library, developers can simplify and streamline complex workflow management, leading to more maintainable, organized, and efficient software applications.</p>
+<p>Stay tuned for the upcoming examples, where we'll walk you through the implementation details of the order processing, task management, and approval workflows.</p>
+<p>References and Resources</p>
+<p>XWorkflows Examples GitHub Repository: <a href="https://github.com/dejandjenic/XWorkflows.Examples">https://github.com/dejandjenic/XWorkflows.Examples</a></p>
+<p>NuGet Package: XWorkflows</p>
+<p><a href="workflow-management-part3.html">Part 3</a></p>
+
+
+
+
+            <div class="social-list">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part2.html">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part2.html&text=Simplifying Workflow Management with the XWorkflows Library Part 2">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part2.html">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
             </div>
-          
+
+
+
+            
+              <div
+                id="just-comment"
+                clientId="6nNUpUgInhQ21pZIDKGK"
+                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fworkflow-management-part2.html"></div>
+            
+          </div>
 
 
 
@@ -557,6 +619,9 @@
         </div>
       </div>
     </div>
+    <script>
+      hljs.highlightAll();
+    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"

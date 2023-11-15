@@ -195,180 +195,10 @@
 <p>Stay tuned for Part 2 of this article where we dive deeper into these concepts and demonstrate their implementation with comprehensive code examples.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>The XWorkflows library offers a powerful solution to the complexities of workflow management within software applications. By embracing its core concepts of entities, actions, events, states, and workflows, developers can create well-organized and efficient workflow systems that ensure data integrity and simplify maintenance. In Part 2 of this article, we'll explore more advanced features and dive into practical examples, enabling you to harness the full potential of the XWorkflows library for your projects.</p>
-<p>References and Resources
-XWorkflows GitHub Repository
-NuGet Package: XWorkflows</p>
-<hr />
-<h1 id="part-2-advanced-features-and-practical-examples">Part 2: Advanced Features and Practical Examples</h1>
-<p>Welcome to Part 2 of our article on simplifying workflow management with the XWorkflows library. In this section, we will explore more advanced features and delve into practical examples to demonstrate the versatility and power of the library.</p>
-<h2 id="error-handling">Error Handling</h2>
-<p>As any software system grows, handling errors becomes crucial. In the XWorkflows library, error handling is well-integrated to ensure smooth workflow execution even in the face of unexpected situations. The library provides mechanisms to handle invalid state transitions and exceptions during action execution.</p>
-<pre><code class="language-csharp">try
-{
-    // Execute an action within a workflow
-    var actionRequest = new CustomActionRequest { /* Request data */ };
-    var (result, response) = await workflow.ExecuteAction(entity, actionRequest);
-}
-catch (WorkflowException ex)
-{
-    // Handle the exception
-    Console.WriteLine($&quot;Workflow Error: {ex.Message}&quot;);
-}
-</code></pre>
-<h2 id="managing-multiple-workflows">Managing Multiple Workflows</h2>
-<p>In real-world applications, managing workflows for different entities is common. The XWorkflows library excels in this area, allowing you to define and manage separate workflows with their own states and actions.</p>
-<pre><code class="language-csharp">var orderWorkflow = new OrderWorkflow(actionsForOrder);
-var taskWorkflow = new TaskWorkflow(actionsForTask);
-
-// Execute actions within respective workflows
-await orderWorkflow.ExecuteAction(orderEntity, submitOrderRequest);
-await taskWorkflow.ExecuteAction(taskEntity, updateStatusRequest);
-</code></pre>
-<h2 id="customizing-action-and-event-execution">Customizing Action and Event Execution</h2>
-<p>The flexibility of the XWorkflows library extends to customizing the execution of actions and events. You can override methods within action and event classes to inject custom logic before and after execution.</p>
-<pre><code class="language-csharp">public class CustomAction : WorkflowAction&lt;MyWorkflow, MyEvent, MyState, MyEntity, State, CustomRequest, CustomRequest, bool&gt;
-{
-    protected CustomAction(MyState state, MyEvent e) : base(state, e)
-    {
-    }
-
-    public override async Task&lt;(WorkflowActionResult&lt;bool&gt;, CustomRequest)&gt; Execute(MyEntity data, CustomRequest p, CancellationToken cancellationToken)
-    {
-        // Custom pre-execution logic
-        Log(&quot;Executing CustomAction...&quot;);
-
-        var result = await base.Execute(data, p, cancellationToken);
-
-        // Custom post-execution logic
-        Log(&quot;CustomAction executed successfully!&quot;);
-
-        return result;
-    }
-}
-</code></pre>
-<h2 id="practical-examples">Practical Examples</h2>
-<p>In this part of the article, we'll provide practical examples showcasing the XWorkflows library in action:</p>
-<p>Order Processing Workflow: We'll demonstrate how to implement a complete order processing workflow using XWorkflows. This example will cover the submission, cancellation, and delivery of orders, each with their respective actions and events.</p>
-<p>Task Management Workflow: We'll dive into creating a workflow for managing tasks. This example will guide you through the definition of states, actions, and events to handle task status updates, completions, and cancellations.</p>
-<p>Approval Workflow: This example will showcase an approval workflow for managing document approval processes. We'll cover submitting documents for approval, approving/rejecting them, and leveraging events for notifications.</p>
-<h2 id="conclusion-1">Conclusion</h2>
-<p>In this section, we've explored advanced features of the XWorkflows library that empower developers to handle error scenarios, manage multiple workflows, and customize action/event execution. We've also introduced practical examples that highlight the versatility and practicality of the library in real-world scenarios.</p>
-<p>By harnessing the power of the XWorkflows library, developers can simplify and streamline complex workflow management, leading to more maintainable, organized, and efficient software applications.</p>
-<p>Stay tuned for the upcoming examples, where we'll walk you through the implementation details of the order processing, task management, and approval workflows.</p>
-<p>References and Resources
-XWorkflows GitHub Repository
-NuGet Package: XWorkflows</p>
-<hr />
-<h1 id="part-3-practical-examples">Part 3: Practical Examples</h1>
-<p>Welcome to Part 3 of our article on simplifying workflow management with the XWorkflows library. In this section, we will dive into practical examples that demonstrate the library's capabilities in real-world scenarios.</p>
-<h2 id="example-1-order-processing-workflow">Example 1: Order Processing Workflow</h2>
-<p>In this example, we'll walk you through the implementation of an order processing workflow using the XWorkflows library.</p>
-<p>Scenario
-Consider an e-commerce platform where orders transition through different states: &quot;Created,&quot; &quot;Submitted,&quot; &quot;Delivered,&quot; and &quot;Canceled.&quot; We will create actions for submitting, canceling, and delivering orders, along with events for logging and notifications.</p>
-<p>Implementation
-Define the Order Entity:</p>
-<p>Create a class OrderEntity that implements IWorkflowStateEntity<State>. This class will hold the order's identifier and state.</p>
-<pre><code class="language-csharp">// Define the OrderEntity class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create Actions and Events:</p>
-<p>Define actions for submitting, canceling, and delivering orders. Create corresponding events for each action to handle post-action tasks.</p>
-<pre><code class="language-csharp">// Define actions and events
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Define States:</p>
-<p>Create classes for each order state, inheriting from WorkflowStateBase&lt;OrderEntity, State, OrderWorkflow&gt;. Define the allowed transitions for each state.</p>
-<pre><code class="language-csharp">// Define states
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create the OrderWorkflow:</p>
-<p>Define the OrderWorkflow class, registering the actions and states.</p>
-<pre><code class="language-csharp">// Create the OrderWorkflow class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Execute Workflow Actions:</p>
-<p>Instantiate the OrderEntity and execute actions within the workflow.</p>
-<pre><code class="language-csharp">// Instantiate OrderEntity
-var order = new OrderEntity { /* Initialize properties */ };
-
-// Execute actions within the workflow
-var submitRequest = new SubmitOrderActionRequest { /* Request data */ };
-var (submitResult, submitResponse) = await orderWorkflow.ExecuteAction(order, submitRequest);
-</code></pre>
-<h2 id="example-2-task-management-workflow">Example 2: Task Management Workflow</h2>
-<p>In this example, we'll guide you through the implementation of a task management workflow using the XWorkflows library.</p>
-<p>Scenario
-Imagine a task management application where tasks transition through states: &quot;Open,&quot; &quot;In Progress,&quot; &quot;Completed,&quot; and &quot;Canceled.&quot; We'll define actions for updating task status, marking tasks as completed, and canceling tasks.</p>
-<p>Implementation
-Define the Task Entity:</p>
-<p>Create a class TaskEntity that implements IWorkflowStateEntity<State>. This class will store the task's identifier and state.</p>
-<pre><code class="language-csharp">// Define the TaskEntity class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create Actions and Events:</p>
-<p>Define actions for updating task status, completing tasks, and canceling tasks. Implement corresponding events for post-action tasks.</p>
-<pre><code class="language-csharp">// Define actions and events
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Define States:</p>
-<p>Create classes for each task state, inheriting from WorkflowStateBase&lt;TaskEntity, State, TaskWorkflow&gt;. Specify allowed transitions for each state.</p>
-<pre><code class="language-csharp">// Define states
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create the TaskWorkflow:</p>
-<p>Define the TaskWorkflow class, registering actions and states.</p>
-<pre><code class="language-csharp">// Create the TaskWorkflow class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Execute Workflow Actions:</p>
-<p>Instantiate the TaskEntity and execute actions within the workflow.</p>
-<pre><code class="language-csharp">// Instantiate TaskEntity
-var task = new TaskEntity { /* Initialize properties */ };
-
-// Execute actions within the workflow
-var updateStatusRequest = new UpdateTaskStatusActionRequest { /* Request data */ };
-var (updateStatusResult, updateStatusResponse) = await taskWorkflow.ExecuteAction(task, updateStatusRequest);
-</code></pre>
-<h2 id="example-3-approval-workflow">Example 3: Approval Workflow</h2>
-<p>In our final example, we'll showcase the XWorkflows library's application in an approval workflow scenario.</p>
-<p>Scenario
-Consider a document approval process with states: &quot;Draft,&quot; &quot;Pending Approval,&quot; &quot;Approved,&quot; and &quot;Rejected.&quot; We'll create actions for submitting documents, approving/rejecting them, and events for notifications.</p>
-<p>Implementation
-Define the Document Entity:</p>
-<p>Create a class DocumentEntity implementing IWorkflowStateEntity<State>. This class will hold the document's identifier and state.</p>
-<pre><code class="language-csharp">// Define the DocumentEntity class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create Actions and Events:</p>
-<p>Define actions for submitting documents, approving them, and rejecting them. Create corresponding events for notifications.</p>
-<pre><code class="language-csharp">// Define actions and events
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Define States:</p>
-<p>Create classes for each document state, inheriting from WorkflowStateBase&lt;DocumentEntity, State, ApprovalWorkflow&gt;. Specify allowed transitions.</p>
-<pre><code class="language-csharp">// Define states
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Create the ApprovalWorkflow:</p>
-<p>Define the ApprovalWorkflow class, registering actions and states.</p>
-<pre><code class="language-csharp">// Create the ApprovalWorkflow class
-// https://github.com/dejandjenic/XWorkflows.Examples
-</code></pre>
-<p>Execute Workflow Actions:</p>
-<p>Instantiate the DocumentEntity and execute actions within the workflow.</p>
-<pre><code class="language-csharp">// Instantiate DocumentEntity
-var document = new DocumentEntity { /* Initialize properties */ };
-
-// Execute actions within the workflow
-var submitRequest = new SubmitForApprovalActionRequest { /* Request data */ };
-var (submitResult, submitResponse) = await approvalWorkflow.ExecuteAction(document, submitRequest);
-</code></pre>
-<h2 id="conclusion-2">Conclusion</h2>
-<p>In this section, we've explored practical examples that demonstrate how the XWorkflows library can be applied to real-world scenarios. Through the order processing, task management, and approval workflow examples, we've showcased the library's versatility and power in simplifying workflow management within software applications.</p>
-<p>By following these examples and harnessing the capabilities of the XWorkflows library, developers can efficiently manage complex workflows, ensure data integrity, and achieve organized and maintainable software systems.</p>
-<p>References and Resources
-XWorkflows Examples GitHub Repository: <a href="https://github.com/dejandjenic/XWorkflows.Examples">https://github.com/dejandjenic/XWorkflows.Examples</a>
-NuGet Package: XWorkflows</p>
+<p>References and Resources</p>
+<p>XWorkflows Examples GitHub Repository: <a href="https://github.com/dejandjenic/XWorkflows.Examples">https://github.com/dejandjenic/XWorkflows.Examples</a></p>
+<p>NuGet Package: XWorkflows</p>
+<p><a href="workflow-management-part2.html">Part2</a></p>
 
 
 
@@ -564,6 +394,12 @@ NuGet Package: XWorkflows</p>
                   </li>
                 
                   <li>
+                    <a href="./tags/xworkflows.html">xworkflows
+                      <span>3</span>
+                    </a>
+                  </li>
+                
+                  <li>
                     <a href="./tags/docker.html">docker
                       <span>2</span>
                     </a>
@@ -584,12 +420,6 @@ NuGet Package: XWorkflows</p>
                   <li>
                     <a href="./tags/github pages.html">github pages
                       <span>2</span>
-                    </a>
-                  </li>
-                
-                  <li>
-                    <a href="./tags/xworkflows.html">xworkflows
-                      <span>1</span>
                     </a>
                   </li>
                 
