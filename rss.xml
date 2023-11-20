@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0"><channel>
-  <title>Dejan's Blog</title>
+  <title>Welcome to Dejan's Blog</title>
   <link>https://www.dejandjenic.com</link>
   <description>Empowering Tech Enthusiasts, One Byte at a Time.</description>
 <item>
     <title>Simplifying Workflow Management with the XWorkflows Library Part 3</title>
     <link>https://www.dejandjenic.com/blogs/workflow-management-part3.html</link>
-    <description>Managing complex workflows within software applications can quickly become a challenge, especially when dealing with multiple states, actions, and entities. Navigating the intricacies of transitioning between these states while ensuring data integrity can lead to spaghetti code and maintenance headaches. Fortunately, the XWorkflows library emerges as a powerful tool to address these concerns, offering an elegant and efficient solution for managing workflow behavior.</description>
+    <description>Managing complex workflows within software applications can quickly become a challenge, especially when dealing with multiple states, actions, and entities. Navigating the intricacies of transitioning between these states while ensuring data integrity can lead to spaghetti code and maintenance headaches. Fortunately, the XWorkflows library emerges as a powerful tool to address these concerns, offering an elegant and efficient solution for managing workflow behavior.  Part 3</description>
   </item>
 <item>
     <title>Simplifying Workflow Management with the XWorkflows Library Part 2</title>
     <link>https://www.dejandjenic.com/blogs/workflow-management-part2.html</link>
-    <description>Managing complex workflows within software applications can quickly become a challenge, especially when dealing with multiple states, actions, and entities. Navigating the intricacies of transitioning between these states while ensuring data integrity can lead to spaghetti code and maintenance headaches. Fortunately, the XWorkflows library emerges as a powerful tool to address these concerns, offering an elegant and efficient solution for managing workflow behavior.</description>
+    <description>Managing complex workflows within software applications can quickly become a challenge, especially when dealing with multiple states, actions, and entities. Navigating the intricacies of transitioning between these states while ensuring data integrity can lead to spaghetti code and maintenance headaches. Fortunately, the XWorkflows library emerges as a powerful tool to address these concerns, offering an elegant and efficient solution for managing workflow behavior.  Part 2</description>
   </item>
 <item>
     <title>Simplifying Workflow Management with the XWorkflows Library</title>
@@ -19,14 +19,14 @@
     <description>Managing complex workflows within software applications can quickly become a challenge, especially when dealing with multiple states, actions, and entities. Navigating the intricacies of transitioning between these states while ensuring data integrity can lead to spaghetti code and maintenance headaches. Fortunately, the XWorkflows library emerges as a powerful tool to address these concerns, offering an elegant and efficient solution for managing workflow behavior.</description>
   </item>
 <item>
-    <title>Announcing MonoChrome GenesysSSG theme</title>
-    <link>https://www.dejandjenic.com/blogs/announcing-monochrome-genesysssg-theme.html</link>
-    <description>Announcing MonoChrome GenesysSSG theme</description>
-  </item>
-<item>
     <title>Announcing GenesysSSG release 1.0.21</title>
     <link>https://www.dejandjenic.com/blogs/announcing-genesysssg-release-1.0.21.html</link>
     <description>Announcing GenesysSSG release 1.0.21</description>
+  </item>
+<item>
+    <title>Announcing MonoChrome GenesysSSG theme</title>
+    <link>https://www.dejandjenic.com/blogs/announcing-monochrome-genesysssg-theme.html</link>
+    <description>Announcing MonoChrome GenesysSSG theme</description>
   </item>
 <item>
     <title>Publishing blazor WASM with electron.js</title>
@@ -109,9 +109,9 @@
     <description>xworkflows</description>
   </item>
 <item>
-    <title>GenesysSSG</title>
-    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
-    <description>GenesysSSG</description>
+    <title>GenesysSSG Doc</title>
+    <link>https://www.dejandjenic.com/projects/doc/genesysssgdoc.html</link>
+    <description>GenesysSSG Doc</description>
   </item>
 <item>
     <title>Themes</title>
@@ -119,53 +119,13 @@
     <description>Themes</description>
   </item>
 <item>
-    <title>GenesysSSG Doc</title>
-    <link>https://www.dejandjenic.com/projects/doc/genesysssgdoc.html</link>
-    <description>GenesysSSG Doc</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/errors.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/examples.html</link>
-    <description>xworkflows</description>
+    <title>GenesysSSG</title>
+    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
+    <description>GenesysSSG</description>
   </item>
 <item>
     <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/doc/xworkflows/installation.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/entities.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/starting.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -175,7 +135,47 @@
   </item>
 <item>
     <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/entities.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/errors.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/doc/xworkflows/events.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/examples.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/starting.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
     <description>xworkflows</description>
   </item>
 </channel>
