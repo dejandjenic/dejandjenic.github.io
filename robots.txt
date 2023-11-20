@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dejandjenic.github.io/sitemap.xml
+Sitemap: https://www.dejandjenic.com/sitemap.xml
