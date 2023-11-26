@@ -14,11 +14,11 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.com/about.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/azure-signalr.html" />
     <meta charset="utf-8">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Dejan's Blog</title>
-    <meta name="description" content="">
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/default.min.css">
@@ -26,6 +26,7 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -100,7 +101,23 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>About me</h2>
+          <h2>Building Responsive Apps, A Guide to SignalR Integration with Azure</h2>
+          <p class="meta2">Posted on Friday, 24 November 2023</p>
+          <div class="social">
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/dotnet.html" class="bb p10 f20">dotnet</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/signalR.html" class="bb p10 f20">signalR</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/azure.html" class="bb p10 f20">azure</a>
+              </span>
+            
+          </div>
         </div>
       </div>
 
@@ -109,28 +126,275 @@
         <div class="col-md-8 ">
 
           <div class="p10 mb10">
-            <p>Hello, I'm Dejan Đenić, a seasoned software developer with over two decades of experience in the industry. With a remarkable track record spanning 21 years, I have witnessed the evolution of technology and embraced the challenges and opportunities it brings.</p>
-<p>From an early age, I fell in love with programming, fascinated by the limitless possibilities it offered. The ability to bring ideas to life through code ignited a passion within me that has only grown stronger over the years. I knew then that I wanted to pursue a career in software development, and it has been a fulfilling journey ever since.</p>
-<p>Currently, I specialize as a .NET backend developer, leveraging my expertise to build robust and scalable solutions. With a deep understanding of the .NET framework and associated technologies, I have successfully delivered high-performance backend systems that power mission-critical applications. I prioritize clean code architecture, efficient data management, and secure API development to ensure optimal functionality and reliability.</p>
-<p>Throughout my career, I have embraced cutting-edge technologies to stay at the forefront of the industry. I have extensive experience working with NoSQL databases, leveraging their flexibility and scalability to handle large volumes of data efficiently. I have also designed and developed microservices architectures, enabling modular and scalable systems that can adapt to evolving business needs. Additionally, I have implemented caching mechanisms to optimize performance and reduce latency, ensuring optimal user experiences.</p>
-<p>In the realm of infrastructure, I am proficient in containerization technologies like Kubernetes. By leveraging the power of container orchestration, I have built and deployed highly available and scalable applications that can handle the demands of modern environments. Moreover, I have extensive experience with CI/CD (Continuous Integration and Continuous Deployment), enabling streamlined development and deployment workflows. By automating testing, building, and deployment processes, I have helped teams deliver software faster and with higher quality.</p>
-<p>Over the years, I have worked on a wide range of projects, from enterprise-level systems to consumer-facing applications. My expertise extends beyond .NET, encompassing other programming languages like Python, PHP, C++, and JavaScript. This versatility has provided me with a well-rounded skill set, allowing me to adapt to different technologies and deliver tailored solutions for diverse client requirements.</p>
-<p>Collaboration and teamwork have always been essential to my success as a developer. I thrive in agile environments, where open communication, continuous improvement, and shared ownership drive project success. I actively contribute to cross-functional teams, collaborating closely with designers, front-end developers, and other stakeholders to ensure cohesive and seamless development cycles.</p>
-<p>In an ever-evolving industry, I am committed to continuous learning. I stay up to date with the latest advancements and best practices through attending conferences, participating in online communities, and exploring emerging technologies. This dedication enables me to deliver modern and efficient solutions that align with industry trends and meet evolving client needs.</p>
-<p>Feel free to connect with me on <a href="https://www.linkedin.com/in/dejandjenic/">LinkedIn</a>, where I share my professional journey, industry insights, and other valuable content. Through this blog, I aim to share my extensive experience, insights, and practical tips with fellow developers and technology enthusiasts. Expect discussions on cutting-edge technologies like NoSQL databases, microservices, caching, Kubernetes, and CI/CD. I'll cover topics such as software architecture, best practices, performance optimization, and career growth. Together, let's foster a community of passionate developers and learners.</p>
+            
+              <img class="mb10" src="/images/signalr_azure.jpg" />
+            
+            <h1 id="introduction">Introduction</h1>
+<p>SignalR is an impressive library and service from Microsoft designed for real-time applications.</p>
+<p>In this example, we'll explore how the SignalR library can be integrated with Azure's hosted SignalR service. To begin, create a .NET 8 Web API project using the .NET 8 SDK.</p>
+<p>When using Azure-hosted SignalR, the workflow should follow these steps:</p>
+<ol>
+<li>The client connects to the server application to obtain the SignalR endpoint (hosted on Azure) and an access token.</li>
+<li>The SignalR library connects to the Azure Negotiate endpoint using the provided access token.</li>
+<li>Once connected, communication between the client and server is enabled.</li>
+</ol>
+<h1 id="code">Code</h1>
+<p>Let's dive into the coding process.</p>
+<p>First, create a configuration class named <code>AppSettings</code> to hold our configuration details:</p>
+<pre><code class="language-csharp">public class AppSettings
+{
+    public string AzureSignalREndpoint { get; set; }
+}
+</code></pre>
+<p>Next, define an interface for IHubContextStore:</p>
+<pre><code class="language-csharp">public interface IHubContextStore
+{
+    public ServiceHubContext ChatHubContext { get; }
+}
+</code></pre>
+<p>Now, implement the SignalRService class:</p>
+<pre><code class="language-csharp">using AzureSignalR;
+using Microsoft.Azure.SignalR.Management;
+
+public class SignalRService(AppSettings configuration, ILoggerFactory loggerFactory) : IHostedService, IHubContextStore
+{
+    private const string ChatHub = &quot;Chat&quot;;
+    public ServiceHubContext ChatHubContext { get; private set; }
+
+    async Task IHostedService.StartAsync(CancellationToken cancellationToken)
+    {
+        using var serviceManager = new ServiceManagerBuilder()
+            .WithOptions(o=&gt;o.ConnectionString = configuration.AzureSignalREndpoint)
+            .WithLoggerFactory(loggerFactory)
+            .BuildServiceManager();
+        ChatHubContext = await serviceManager.CreateHubContextAsync(ChatHub, cancellationToken);
+    }
+
+    Task IHostedService.StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.WhenAll(Dispose(ChatHubContext));
+    }
+
+    private static Task Dispose(ServiceHubContext hubContext)
+    {
+        if (hubContext == null)
+        {
+            return Task.CompletedTask;
+        }
+        return hubContext.DisposeAsync();
+    }
+}
+</code></pre>
+<p>and finally our Program.cs</p>
+<pre><code class="language-csharp">
+using AzureSignalR;
+using Microsoft.AspNetCore.Mvc;
+
+var builder = WebApplication.CreateBuilder(args);
+
+var config = builder.Configuration.GetSection(&quot;AppSettings&quot;).Get&lt;AppSettings&gt;();
+builder.Services.AddSingleton(config);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(x =&gt; 
+    x.AddDefaultPolicy(p=&gt;
+        p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
+    )
+);
+
+builder.Services.AddSignalR().AddAzureSignalR(options =&gt;
+{
+    options.ConnectionString = config.AzureSignalREndpoint;
+});
+
+builder.Services
+    .AddSingleton&lt;SignalRService&gt;()
+    .AddHostedService(sp =&gt; sp.GetService&lt;SignalRService&gt;())
+    .AddSingleton&lt;IHubContextStore&gt;(sp =&gt; sp.GetService&lt;SignalRService&gt;());
+
+var app = builder.Build();
+
+app.UseCors();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.MapGet(&quot;/login&quot;, async ([FromServices]IHubContextStore store) =&gt;
+{
+    var negotiateResponse = await store.ChatHubContext.NegotiateAsync();
+    return negotiateResponse;
+});
+
+app.UseAzureSignalR(routes =&gt;
+{
+    routes.MapHub&lt;Chat&gt;(&quot;/chat&quot;);
+});
+
+app.Run();
+
+</code></pre>
+<p>This Program.cs file performs the following key tasks:</p>
+<ol>
+<li>Configuration Setup: Retrieves the configuration settings from the AppSettings class.</li>
+<li>Swagger Support: Adds support for Swagger to document and test the API endpoints.</li>
+<li>CORS Configuration: Enables Cross-Origin Resource Sharing (CORS) to allow communication between different origins.</li>
+<li>SignalR Registration: Registers SignalR services and configures them to use the Azure SignalR endpoint.</li>
+<li>SignalR Service Registration: Registers the SignalRService class as a singleton and hosted service, making it available for the application's lifetime.</li>
+<li>Azure SignalR Usage: Configures the application to use Azure SignalR with specified hub routes.</li>
+<li>/login Endpoint: Defines an endpoint to negotiate and obtain the SignalR configuration (URL and access token) for the client.</li>
+<li>Application Run: Starts the application.</li>
+</ol>
+<p>This Program.cs file acts as the entry point for the application, orchestrating the setup and configuration of various services, including SignalR integration with Azure.</p>
+<p>For the client side, create an HTML file with the following content:</p>
+<pre><code class="language-html">&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        #messages {
+            list-style: none
+        }
+
+        #messages li {
+            margin-top: 10px;
+        }
+
+        #messages .user {
+            background-color: #e1fce8;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        #messages .system {
+            text-align: right;
+            background-color: #e1f0fc;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    &lt;/style&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ul id=&quot;messages&quot;&gt;&lt;/ul&gt;
+    &lt;textarea id=&quot;text&quot; rows=&quot;10&quot; cols=&quot;50&quot;&gt;&lt;/textarea&gt;
+    &lt;br&gt;
+    &lt;button id=&quot;btn&quot;&gt;
+        Send
+    &lt;/button&gt;
+
+    &lt;script&gt;
+        init();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Create a JavaScript file named index.js with the following content:</p>
+<pre><code class="language-javascript">function ajax(method, url, cb) {
+  var xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      if (xmlhttp.status == 200) {
+        return cb(null, JSON.parse(xmlhttp.responseText));
+      }
+      cb(xmlhttp.status + &quot; error&quot;);
+    }
+  };
+
+  xmlhttp.open(method, url, true);
+  xmlhttp.send();
+}
+
+function addtext(message, cls) {
+  var li = document.createElement(&quot;li&quot;);
+  var text = document.createTextNode(message);
+  li.appendChild(text);
+  li.classList = [cls];
+  document.getElementById(&quot;messages&quot;).appendChild(li);
+}
+
+function bindConnectionMessage(connection) {
+  var messageCallback = function (name, message) {
+    if (!message) return;
+    addtext(message, &quot;system&quot;);
+  };  
+  connection.on(&quot;echo&quot;, messageCallback);
+}
+
+
+var connection;
+
+
+function connect(url, token) {
+  connection = new signalR.HubConnectionBuilder()
+    .withUrl(url, { accessTokenFactory: () =&gt; token })
+    .build();
+
+  bindConnectionMessage(connection);
+  connection
+    .start()
+    .catch(function (error) {
+      console.error(error.message);
+    });
+}
+
+ajax(&quot;GET&quot;, &quot;http://localhost:5065/login&quot;, function (err, data) {
+  connect(data.url, data.accessToken);
+});
+
+function init() {
+  document.getElementById(&quot;btn&quot;).addEventListener(&quot;click&quot;, async (e) =&gt; {
+    try {
+      var message = document.getElementById(&quot;text&quot;).value;
+      addtext(message, &quot;user&quot;);
+      document.getElementById(&quot;text&quot;).value = &quot;&quot;;
+      await connection.invoke(&quot;echo&quot;, &quot;user&quot;, message);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
+
+</code></pre>
+<p>This simple client is sufficient for testing our Azure SignalR instance. When both the server and client are running, the result should resemble the image below:</p>
+<h1 id="conclusion">Conclusion:</h1>
+<p>In conclusion, leveraging SignalR in conjunction with Azure's hosted SignalR service empowers developers to create dynamic, real-time applications with ease. The seamless integration of SignalR into the Azure environment streamlines the process of building responsive and interactive applications that can handle communication between clients and servers in real-time.</p>
+<p>Throughout this article, we've covered the essential steps, from project setup and configuration to the implementation of SignalR services. The code examples provided demonstrate how to connect clients to the Azure SignalR service, facilitating instant communication and collaboration.</p>
+<p>By adopting this approach, developers can harness the power of SignalR to enhance user experiences, making applications more engaging and responsive. Whether you're building a chat application, live updates for a dashboard, or any other real-time feature, SignalR on Azure proves to be a robust solution.</p>
+<p>As you embark on your real-time application development journey, keep in mind the flexibility and scalability that Azure SignalR brings to the table. Consider exploring additional Azure services to complement your real-time solutions and meet the specific needs of your application.</p>
+<p>In summary, SignalR on Azure opens up a realm of possibilities for developers looking to create modern, responsive applications that thrive in the world of real-time communication.</p>
+<p>sample code can be found here: <a href="https://github.com/dejandjenic/AzureSignalR">https://github.com/dejandjenic/AzureSignalR</a></p>
+
+
 
 
             <div class="social-list">
-              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fazure-signalr.html" aria-label="Share">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html&text=About me" aria-label="Share">
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fazure-signalr.html&text=Building Responsive Apps, A Guide to SignalR Integration with Azure" aria-label="Share">
                 <i class="fa-brands fa-twitter"></i>
               </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fazure-signalr.html" aria-label="Share">
                 <i class="fa-brands fa-linkedin-in"></i>
               </a>
             </div>
+
+
+
+            
+              <div
+                id="just-comment"
+                clientId="6nNUpUgInhQ21pZIDKGK"
+                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fazure-signalr.html"></div>
+            
           </div>
 
 
@@ -558,6 +822,9 @@
         </div>
       </div>
     </div>
+    <script>
+      hljs.highlightAll();
+    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"
