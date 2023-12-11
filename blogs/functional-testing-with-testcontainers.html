@@ -14,10 +14,10 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.comtags/caching.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/functional-testing-with-testcontainers.html" />
     <meta charset="utf-8">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blogs with tag caching">
     <title>Welcome to Dejan's Blog</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
@@ -26,6 +26,7 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -100,7 +101,27 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>posts for tag: caching</h2>
+          <h2>Functional testing with testcontainers</h2>
+          <p class="meta2">Posted on Monday, 11 December 2023</p>
+          <div class="social">
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/dotnet.html" class="bb p10 f20">dotnet</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/testcontainers.html" class="bb p10 f20">testcontainers</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/tests.html" class="bb p10 f20">tests</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/xunit.html" class="bb p10 f20">xunit</a>
+              </span>
+            
+          </div>
         </div>
       </div>
 
@@ -108,43 +129,424 @@
       <div class="row container-fluid boxparent">
         <div class="col-md-8 ">
 
-          
-            <div class="box p10 mb10">
-              <div>
-                
-                  <img src="/images/multi_layer_cache.png" />
-                
-              </div>
-              <div class="mt30">
-                <h3 class="title-b">
-                  <a href="/blogs/caching-exploration-in-dotnet.html">Caching exploration in .NET</a>
-                </h3>
-                <div class="meta">
-                  Tuesday, 11 July 2023
-                </div>
-              </div>
-              <div class="mt10">
-                Caching exploration in .NET
-              </div>
+          <div class="p10 mb10">
+            
+              <img class="mb10" src="/images/multi_layer_cache.png" />
+            
+            <h1 id="introduction">Introduction</h1>
+<p>Functional testing is a crucial aspect of software development, ensuring that your application functions as expected in real-world scenarios. However, testing components with external dependencies, such as databases and message brokers, can be challenging. In this article, we explore how the TestContainers library simplifies functional testing by managing these dependencies effectively. We'll focus on using TestContainers with Google Cloud Platform's (GCP) Firestore and PubSub services in a .NET environment.</p>
+<h2 id="setting-up-the-api-project">Setting Up the API Project</h2>
+<p>I recently contributed to the TestContainers open-source library, with two of my pull requests included in the <a href="https://github.com/testcontainers/testcontainers-dotnet/releases/tag/3.6.0">3.6.0</a> release. In this guide, we'll delve into the usage of GCP Firestore and PubSub features with TestContainers.</p>
+<p>Let's assume we have a simple API for managing a to-do list. Our API uses Firestore as the operational database, storing only active to-dos, while PubSub is employed to publish messages for every API action. This allows us to build a reporting system without relying on the operational database.</p>
+<p>Start by creating a .NET 8 API project and adding the necessary references:</p>
+<pre><code>Google.Cloud.Firestore
+Google.Cloud.Firestore.V1
+Google.Cloud.PubSub.V1
+Microsoft.AspNetCore.OpenApi
+Swashbuckle.AspNetCore
+</code></pre>
+<p>Next, add the required classes for your API:</p>
+<pre><code class="language-csharp">[FirestoreData]
+public class Todo
+{
+    [FirestoreDocumentId]
+    public string Id { get; set; }
+    [FirestoreProperty]
+    public string Text { get; set; }
+}
+</code></pre>
+<h2 id="creating-the-firestore-and-pubsub-services">Creating the Firestore and PubSub Services</h2>
+<pre><code class="language-csharp">
+public interface ITodoRepository
+{
+    Task&lt;List&lt;Todo&gt;&gt; List();
+    Task Add(Todo item);
+    Task Delete(string id);
+}
 
-              <div class="btn-parent">
-                <a href="/blogs/caching-exploration-in-dotnet.html" class="continue">continue reading</a>
-              </div>
+public class TodoRepository(FirestoreDb db) : ITodoRepository
+{
+    public const string TodoCollectionName = &quot;Todo&quot;;
+    public async Task&lt;List&lt;Todo&gt;&gt; List()
+    {
+        return (await db.Collection(TodoCollectionName).GetSnapshotAsync()).
+        Documents.
+        Select(x =&gt; 
+            x.ConvertTo&lt;Todo&gt;()).
+        ToList();
+    }
 
-              <div class="social-list">
-                <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2f" aria-label="Share">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2f&text=" aria-label="Share">
-                  <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2f" aria-label="Share">
-                  <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-              </div>
+    public async Task Add(Todo item)
+    {
+        await db.
+            Collection(TodoCollectionName)
+            .Document().
+            CreateAsync(item);
+    } 
+    
+    public async Task Delete(string id)
+    {
+        await db.
+            Collection(TodoCollectionName)
+            .Document(id).
+            DeleteAsync();
+    } 
+}
+</code></pre>
+<pre><code class="language-csharp">public class BaseEvent
+{
+    public DateTime Date { get; set; } = DateTime.UtcNow;
 
+    public string? Type =&gt; this.GetType().FullName;
+}
+</code></pre>
+<pre><code class="language-csharp">public class TodoCreated : BaseEvent
+{
+    
+}
+
+public class TodoDeleted : BaseEvent
+{
+    
+}
+</code></pre>
+<pre><code class="language-csharp">public interface IEventPublisher
+{
+    Task Publish(BaseEvent eventData);
+}
+
+public class EventPublisher(PublisherClientImpl client) : IEventPublisher
+{
+    public async Task Publish(BaseEvent eventData)
+    {
+        await client.PublishAsync(System.Text.Json.JsonSerializer.Serialize(eventData));
+    }
+}
+</code></pre>
+<pre><code class="language-csharp">public interface ITodoService
+{
+    Task&lt;List&lt;Todo&gt;&gt; List();
+    Task Add(Todo item);
+    Task Delete(string id);
+}
+
+public class TodoService(ITodoRepository repository,IEventPublisher eventPublisher) : ITodoService
+{
+    public Task&lt;List&lt;Todo&gt;&gt; List()
+    {
+        return repository.List();
+    }
+    
+    public async Task Add(Todo item)
+    {
+        await eventPublisher.Publish(new TodoCreated());
+        await repository.Add(item);
+    } 
+    
+    public async Task Delete(string id)
+    {
+        await eventPublisher.Publish(new TodoDeleted());
+        await repository.Delete(id);
+    } 
+}
+</code></pre>
+<p>For abbreviation purposes, our Todo class serves both as a model for requests and an entity for the database, though it's not considered good practice.</p>
+<pre><code class="language-csharp">public class AppSettings
+{
+    public string ProjectId { get; set; }
+    public string TopicName { get; set; }
+}
+</code></pre>
+<p>Additionally, include an app configuration class and the main program file:</p>
+<pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var appSettings = builder.Configuration.GetSection(&quot;AppSettings&quot;).Get&lt;AppSettings&gt;();
+builder.Services.AddSingleton(appSettings);
+
+builder.Services.AddSingleton(FirestoreDb.Create(appSettings.ProjectId));
+builder.Services.AddSingleton((PublisherClientImpl)PublisherClientImpl.Create(new TopicName(appSettings.ProjectId,appSettings.TopicName)));
+builder.Services.AddScoped&lt;ITodoRepository,TodoRepository&gt;();
+builder.Services.AddScoped&lt;ITodoService,TodoService&gt;();
+builder.Services.AddScoped&lt;IEventPublisher,EventPublisher&gt;();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+
+app.MapGet(&quot;/todo&quot;, (ITodoService service) =&gt;  service.List())
+    .WithName(&quot;GetTodos&quot;)
+    .WithOpenApi();
+
+app.MapPost(&quot;/todo&quot;, (ITodoService service,[FromBody]Todo model) =&gt;  service.Add(model))
+    .WithName(&quot;CreateTodo&quot;)
+    .WithOpenApi();
+
+app.MapDelete(&quot;/todo/{id}&quot;, (ITodoService service,[FromRoute]string id) =&gt;  service.Delete(id))
+    .WithName(&quot;DeleteTodo&quot;)
+    .WithOpenApi();
+
+app.Run();
+
+public partial class Program{}
+</code></pre>
+<p>after starting our api and checking swagger we would see something like this</p>
+<p><img src="../images/test_containers_swagger.png" alt="image" /></p>
+<p>we have 3 endpoints</p>
+<ol>
+<li>list todos</li>
+<li>create todo</li>
+<li>delete todo</li>
+</ol>
+<p>we store and retrieve this information from firestore database and we publish pubsub message after creating and deleting todo.</p>
+<h2 id="writing-functional-tests">Writing Functional Tests</h2>
+<p>Now, let's add a test project to our solution and include the necessary references:</p>
+<pre><code>FluentAssertions
+Microsoft.AspNetCore.Mvc.Testing
+Testcontainers.Firestore
+Testcontainers.PubSub
+Microsoft.NET.Test.Sdk
+</code></pre>
+<p>Reference your API project from the test project and add the following classes:</p>
+<pre><code class="language-csharp">
+public class CustomWebApplicationFactory&lt;TProgram&gt;
+    : WebApplicationFactory&lt;TProgram&gt; where TProgram : class
+{
+    public Func&lt;IServiceCollection,Task&gt; OverideServices { get; set; }
+	
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureServices(svc =&gt;
+        {
+            if (OverideServices != null)
+            {
+                OverideServices(svc).GetAwaiter().GetResult();
+            }
+        });
+    }
+}
+</code></pre>
+<pre><code class="language-csharp">
+public class TestBase 
+    : IClassFixture&lt;CustomWebApplicationFactory&lt;Program&gt;&gt;
+{
+	
+    private readonly CustomWebApplicationFactory&lt;Program&gt; _factory;
+    protected HttpClient client;
+    private static FirestoreDb firestoreDb;
+    private static PublisherServiceApiClient publisher;
+    private static SubscriberServiceApiClient subscriber;
+    private static SubscriptionName subscriptionName;
+    
+    private static  Func&lt;IServiceCollection,Task&gt; OverideServices = async (svc) =&gt;
+    {
+        var appSettings = svc.BuildServiceProvider().GetRequiredService&lt;AppSettings&gt;();
+        await SetupFirestore(svc,appSettings);
+
+        await SetupPubSub(svc,appSettings);
+    };
+
+    private static async Task SetupFirestore(IServiceCollection svc, AppSettings appSettings)
+    {
+        FirestoreContainer _firestoreContainer = new FirestoreBuilder().Build();
+        await _firestoreContainer.StartAsync();
+        
+        
+        var firestoreDbBuilder = new FirestoreDbBuilder();
+        firestoreDbBuilder.ProjectId = appSettings.ProjectId;
+        firestoreDbBuilder.Endpoint = _firestoreContainer.GetEmulatorEndpoint();
+        firestoreDbBuilder.ChannelCredentials = ChannelCredentials.Insecure;
+
+        firestoreDb = await firestoreDbBuilder.BuildAsync();
+
+        svc.AddSingleton(firestoreDb);
+    }
+
+    private static async Task SetupPubSub(IServiceCollection svc, AppSettings appSettings)
+    {
+        PubSubContainer _pubSubContainer = new PubSubBuilder().Build();
+        await _pubSubContainer.StartAsync();
+        
+        
+        var projectId = appSettings.ProjectId;
+        var topicId = appSettings.TopicName;
+        var subscriptionId = $&quot;{appSettings.TopicName}-sub&quot;;
+		
+        var topicName = new TopicName(projectId, topicId);
+        subscriptionName = new SubscriptionName(projectId, subscriptionId);
+		
+        var publisherClientBuilder = new PublisherServiceApiClientBuilder();
+        publisherClientBuilder.Endpoint = _pubSubContainer.GetEmulatorEndpoint();
+        publisherClientBuilder.ChannelCredentials = ChannelCredentials.Insecure;
+        
+        var subscriberClientBuilder = new SubscriberServiceApiClientBuilder();
+        subscriberClientBuilder.Endpoint = _pubSubContainer.GetEmulatorEndpoint();
+        subscriberClientBuilder.ChannelCredentials = ChannelCredentials.Insecure;
+
+	   
+        publisher = await publisherClientBuilder.BuildAsync();
+        subscriber = await subscriberClientBuilder.BuildAsync();
+        
+        publisher.CreateTopic(topicName);
+        await subscriber.CreateSubscriptionAsync(subscriptionName, topicName, null, 60);
+            
+        svc.AddSingleton(
+            new PublisherClientImpl(
+                topicName, 
+                new List&lt;PublisherServiceApiClient&gt;() { publisher },
+                new PublisherClient.Settings(), 
+                async () =&gt; { }));
+    }
+
+    public TestBase(CustomWebApplicationFactory&lt;Program&gt; factory)
+    {
+        _factory = factory;
+        _factory.OverideServices = OverideServices;
+        client = _factory.CreateClient();
+    }
+
+    public async Task ClearTodoCollection()
+    {
+        var collection = firestoreDb.Collection(TodoRepository.TodoCollectionName);
+        foreach (var item in (await collection.GetSnapshotAsync()).Documents.Select(x=&gt; x.ConvertTo&lt;Todo&gt;()))
+        {
+            await collection.Document(item.Id).DeleteAsync();
+        }
+    }
+
+    public async Task&lt;int&gt; CheckSubscription()
+    {
+        var messages = await subscriber.PullAsync(subscriptionName, 5);
+        await subscriber.AcknowledgeAsync(subscriptionName,messages.ReceivedMessages.Select(x=&gt;x.AckId));
+        return messages.ReceivedMessages.Count;
+    }
+	
+}
+</code></pre>
+<p>the code above is used as a test base class, when invoked it starts docker container for pubsub and firestore (by using TestContainers library) and sets up environment for it.</p>
+<p>now we have to add some tests</p>
+<pre><code class="language-csharp">
+public class TodoTests : TestBase
+{
+
+    async Task&lt;List&lt;Todo&gt;&gt; GetTodos()
+    {
+        return (await client.GetFromJsonAsync&lt;List&lt;Todo&gt;&gt;(&quot;/todo&quot;))!;
+    }
+    
+    private async Task&lt;string&gt; AddTodo()
+    {
+        var todoText = Guid.NewGuid().ToString();
+        await client.PostAsJsonAsync(&quot;/todo&quot;, new Todo()
+        {
+            Text = todoText
+        });
+        return todoText;
+    }
+    
+    private async Task DeleteTodo(string id)
+    {
+        await client.DeleteAsync($&quot;/todo/{id}&quot;);
+    }
+    
+    [Fact]
+    public async Task Should_Return_Empty_List()
+    {
+        var response = await GetTodos();
+        response.Count.Should().Be(0);
+    }
+    
+    [Fact]
+    public async Task Should_Add_Todo()
+    {
+        var todos = await GetTodos();
+        todos.Count.Should().Be(0);
+
+        var todoText = await AddTodo();
+
+        todos = await GetTodos();
+        todos.Count.Should().Be(1);
+        todos.FirstOrDefault()!.Text.Should().Be(todoText);
+
+        await ClearTodoCollection();
+        (await CheckSubscription()).Should().Be(1);
+    }
+
+    
+
+    [Fact]
+    public async Task Should_Delete_Todo()
+    {
+        var todos = await GetTodos();
+        todos.Count.Should().Be(0);
+
+        var todoText = await AddTodo();
+        
+        todos = await GetTodos();
+        todos.Count.Should().Be(1);
+        todos.FirstOrDefault()!.Text.Should().Be(todoText);
+        
+        await DeleteTodo(todos.FirstOrDefault()!.Id);
+        
+        todos = await GetTodos();
+        todos.Count.Should().Be(0);
+        
+        await ClearTodoCollection();
+        (await CheckSubscription()).Should().Be(2);
+    }
+
+    
+
+    public TodoTests(CustomWebApplicationFactory&lt;Program&gt; factory) : base(factory)
+    {
+        
+    }
+}
+</code></pre>
+<h2 id="running-the-tests-and-analyzing-results">Running the Tests and Analyzing Results</h2>
+<p>test server will be started and will execute api project, we did setup and registered with api project DI a special version for our services that we want to use with emulator, no code is changed in api project to achieve this.</p>
+<p>we created test for our api, we ensured that when we create a todo it will appear in the list of all todos, we ensured that when we delete a todo it will not be shown on the list. We tested that api produces pubsub messages.</p>
+<p>if we run tests now we see similar output</p>
+<p><img src="../images/test_containers.png" alt="image" /></p>
+<p>all tests have passed and out code coverage is 98%.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In conclusion, using TestContainers simplifies functional testing by managing external dependencies effectively. In this guide, we explored its integration with GCP Firestore and PubSub, demonstrating how to set up an API project, write functional tests, and analyze the results. By following these practices, developers can ensure their applications are robust and reliable in real-world scenarios.</p>
+<p>code used in this article can be found <a href="https://github.com/dejandjenic/GCPTestContainers">here</a></p>
+
+
+
+
+            <div class="social-list">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ffunctional-testing-with-testcontainers.html" aria-label="Share">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ffunctional-testing-with-testcontainers.html&text=Functional testing with testcontainers" aria-label="Share">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ffunctional-testing-with-testcontainers.html" aria-label="Share">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
             </div>
-          
+
+
+
+            
+              <div
+                id="just-comment"
+                clientId="6nNUpUgInhQ21pZIDKGK"
+                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ffunctional-testing-with-testcontainers.html"></div>
+            
+          </div>
 
 
 
@@ -577,6 +979,9 @@
         </div>
       </div>
     </div>
+    <script>
+      hljs.highlightAll();
+    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"
