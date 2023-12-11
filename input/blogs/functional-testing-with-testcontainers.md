@@ -5,8 +5,8 @@ tags:
   - testcontainers
   - tests
   - xunit
-short: Functional testing with testcontainers
-image: /images/multi_layer_cache.png
+short: Explore the power of functional testing with TestContainers in a .NET environment as we integrate Google Cloud Platform's Firestore and PubSub services. This article provides a step-by-step guide to setting up an API project, creating robust functional tests, and analyzing results. Learn how TestContainers simplifies testing by effectively managing external dependencies, ensuring your applications are reliable in real-world scenarios.
+image: /images/testcontainers.png
 ---
 # Introduction
 
