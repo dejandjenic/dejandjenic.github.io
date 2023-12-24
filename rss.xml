@@ -94,11 +94,6 @@
     <description>Using static site generators and github pages</description>
   </item>
 <item>
-    <title>Projects</title>
-    <link>https://www.dejandjenic.com/projects.html</link>
-    <description>projects</description>
-  </item>
-<item>
     <title>Contact</title>
     <link>https://www.dejandjenic.com/contact.html</link>
     <description>contact page</description>
@@ -109,14 +104,14 @@
     <description>Dejan Đenić is a seasoned software developer with 21 years of experience specializing in .NET backend development. He has a strong passion for programming and has worked with cutting-edge technologies such as NoSQL databases, microservices, caching, Kubernetes, and CI/CD. Dejan has a versatile skill set and has worked as a full-stack developer with experience in React. He is dedicated to continuous learning and actively collaborates with cross-functional teams. Connect with him on LinkedIn to follow his professional journey and join the community of passionate developers and technology enthusiasts.</description>
   </item>
 <item>
+    <title>Projects</title>
+    <link>https://www.dejandjenic.com/projects.html</link>
+    <description>projects</description>
+  </item>
+<item>
     <title>GenesysSSG</title>
     <link>https://www.dejandjenic.com/projects/index.html</link>
     <description>GenesysSSG</description>
-  </item>
-<item>
-    <title>GenesysSSG Doc</title>
-    <link>https://www.dejandjenic.com/projects/doc/genesysssgdoc.html</link>
-    <description>GenesysSSG Doc</description>
   </item>
 <item>
     <title>xworkflows</title>
@@ -134,8 +129,13 @@
     <description>GenesysSSG</description>
   </item>
 <item>
+    <title>GenesysSSG Doc</title>
+    <link>https://www.dejandjenic.com/projects/doc/genesysssgdoc.html</link>
+    <description>GenesysSSG Doc</description>
+  </item>
+<item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -145,12 +145,12 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/examples.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/events.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -170,12 +170,12 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/examples.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/workflow.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/workflow.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -185,7 +185,7 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/events.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
     <description>xworkflows</description>
   </item>
 </channel>
