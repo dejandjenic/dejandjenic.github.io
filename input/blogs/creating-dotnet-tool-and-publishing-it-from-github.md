@@ -4,7 +4,7 @@ tags:
   - dotnet
   - dotnet tool
   - github
-short: Creating dotnet tool and publishing it from github
+short: Build and share your own .NET command-line tools with this guide on creating and publishing them from GitHub.
 image: /images/dotnet-tool2.jpeg
 ---
 ### Creating a .NET Tool and Publishing it from GitHub
