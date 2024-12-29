@@ -14,11 +14,11 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.com/blogs/diagrams-with-mermaidjs-and-genesysssg.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/creating-dotnet-tool-and-publishing-it-from-github.html" />
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Diagrams with mermaidjs and GenesysSSG</title>
+    <title>Creating dotnet tool and publishing it from github</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/default.min.css">
@@ -101,16 +101,20 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>Diagrams with mermaidjs and GenesysSSG</h2>
-          <p class="meta2">Posted on Sunday, 02 July 2023</p>
+          <h2>Creating dotnet tool and publishing it from github</h2>
+          <p class="meta2">Posted on Sunday, 29 December 2024</p>
           <div class="social">
             
               <span style="margin:5px;display:inline-block;">
-                <a href="./tags/genesysSSG.html" class="bb p10 f20">genesysSSG</a>
+                <a href="./tags/dotnet.html" class="bb p10 f20">dotnet</a>
               </span>
             
               <span style="margin:5px;display:inline-block;">
-                <a href="./tags/mermaidjs.html" class="bb p10 f20">mermaidjs</a>
+                <a href="./tags/dotnet tool.html" class="bb p10 f20">dotnet tool</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/github.html" class="bb p10 f20">github</a>
               </span>
             
           </div>
@@ -123,119 +127,224 @@
 
           <div class="p10 mb10">
             
-              <img class="mb10" src="/images/genesysssg_mermaidjs.png" />
+              <img class="mb10" src="/images/dotnet-tool2.jpeg" />
             
-            <h3 id="diagrams-with-mermaidjs-and-genesysssg">Diagrams with mermaidjs and GenesysSSG</h3>
-<p>Having diagrams on your site is always nice.</p>
-<p>One of my favorite tools to create diagrams is <a href="https://mermaid.js.org/">mermaidjs</a></p>
-<p>I wonted to investigate how easy would it be to integrate mermaid js with (genesysSSG)[https://dejandjenic.github.io/projects/genesysssg]</p>
-<p>Lets check some examples of mermaidjs from this <a href="https://mermaid.js.org/syntax/examples.html">link</a></p>
-<p>Create new blog post page with genesysSSG by running</p>
-<pre><code>genesysSSG -b &quot;Test mermaidjs&quot;
+            <h3 id="creating-a.net-tool-and-publishing-it-from-github">Creating a .NET Tool and Publishing it from GitHub</h3>
+<h4 id="introduction">Introduction</h4>
+<p>In the world of software development, creating custom tools can significantly enhance your workflow and streamline repetitive tasks.
+.NET tools offer a powerful and versatile approach to building cross-platform command-line utilities specifically designed for the .NET ecosystem.
+This article guides you through the process of creating a simple .NET tool and publishing it to GitHub, making it readily available for other developers.</p>
+<h5 id="benefits-of-creating.net-tools">Benefits of Creating .NET Tools</h5>
+<ul>
+<li>Multiplatform Compatibility: .NET tools can seamlessly run on Windows, macOS, and Linux environments, ensuring broader accessibility.</li>
+<li>Global Tooling: Once published, your tool becomes accessible through the global tool pool, allowing users to invoke it from any project directory using the designated command.</li>
+<li>Reusable Functionality: Encapsulate common tasks within a .NET tool, promoting code reusability and reducing redundancy across projects.</li>
+<li>Improved Developer Experience: Streamline workflows by automating repetitive tasks and providing a consistent command-line interface for interacting with your code.</li>
+</ul>
+<h4 id="step-by-step">Step by step</h4>
+<p>Let's embark on creating a .NET tool named HelloTool that demonstrates a basic greeting functionality.</p>
+<h5 id="project-setup">Project Setup</h5>
+<ul>
+<li>Open your terminal and navigate to the desired directory for your project.</li>
+<li>Execute the following command to create a new console application:</li>
+</ul>
+<pre><code class="language-bash">dotnet new console -o HelloTool
 </code></pre>
-<p>Copy and paste a few examples from mermaidjs</p>
-<pre>
-```mermaid
- pie title What Voldemort doesn't have?
-         "FRIENDS" : 2
-         "FAMILY" : 3
-         "NOSE" : 45
-```
-</pre>
-<pre>
-```mermaid
-sequenceDiagram
-    Alice ->> Bob: Hello Bob, how are you?
-    Bob-->>John: How about you John?
-    Bob--x Alice: I am good thanks!
-    Bob-x John: I am good thanks!
-    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-    Bob-->Alice: Checking with John...
-    Alice->John: Yes... John, how are you?
-```
-</pre>
-<pre>
-```mermaid
-graph LR
-    A[Square Rect] -- Link text --> B((Circle))
-    A --> C(Round Rect)
-    B --> D{Rhombus}
-    C --> D
-```
-</pre>
-<pre>
-
-```mermaid
-graph TB
-    sq[Square shape] --> ci((Circle shape))
-
-    subgraph A
-        od>Odd shape]-- Two line<br/>edge comment --> ro
-        di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)
-        di==>ro2(Rounded square shape)
-    end
-
-    %% Notice that no text in shape are added here instead that is appended further down
-    e --> od3>Really long text with linebreak<br>in an Odd shape]
-
-    %% Comments after double percent signs
-    e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)
-
-    cyr[Cyrillic]-->cyr2((Circle shape Начало));
-
-     classDef green fill:#9f6,stroke:#333,stroke-width:2px;
-     classDef orange fill:#f96,stroke:#333,stroke-width:4px;
-     class sq,e green
-     class di orange
-```
-</pre>
-<pre>
-```mermaid
-sequenceDiagram
-    loop Daily query
-        Alice->>Bob: Hello Bob, how are you?
-        alt is sick
-            Bob->>Alice: Not so good :(
-        else is well
-            Bob->>Alice: Feeling fresh like a daisy
-        end
-
-        opt Extra response
-            Bob->>Alice: Thanks for asking
-        end
-    end
-```
-</pre>
-<p>add mermaidjs initialization</p>
-<pre>
-&lt;script type=&quot;module&quot;&gt;
-  import mermaid from &#39;https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs&#39;;
-
-  mermaid.initialize({
-  securityLevel: &#39;loose&#39;,
-});
-
-&lt;/script&gt;
-</pre>
-<p>run genesysSSG locally</p>
-<pre><code>genesysSSG -s -w
+<p>Replace HelloTool with your preferred tool name.</p>
+<ul>
+<li>Next, create a solution file using this command:</li>
+</ul>
+<pre><code class="language-bash">dotnet new sln --name HelloTool
 </code></pre>
-<p>and check the results.</p>
-<p>wanna see this page on live demo? check this <a href="mermaid-demo.html">link</a></p>
-<p>how easy and how awesome that was!</p>
+<ul>
+<li>Integrate the newly created console application project into the solution:</li>
+</ul>
+<pre><code class="language-bash">dotnet sln add HelloTool
+</code></pre>
+<h5 id="tool-implementation">Tool Implementation</h5>
+<ul>
+<li>Open the Program.cs file within the HelloTool project directory.</li>
+<li>Modify the Main method to incorporate the greeting logic:</li>
+</ul>
+<pre><code class="language-csharp">Console.WriteLine($&quot;Hello, {(args.Length&gt;0?args[0]:&quot;World&quot;)}!&quot;);
+</code></pre>
+<p>This code checks for any command-line arguments passed to the tool. If an argument exists, it's used as the name in the greeting. Otherwise, it defaults to &quot;World.&quot;</p>
+<h5 id="project-configuration-for-packaging">Project Configuration for Packaging</h5>
+<p>-Prepare your tool for deployment to the NuGet package repository (nuget.org).</p>
+<ul>
+<li>Create a file named README.md within your solution directory. Provide a comprehensive description of your tool's purpose, usage instructions, and any relevant information for potential users.</li>
+<li>Modify the HelloTool.csproj file to include the following configurations:</li>
+</ul>
+<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+
+    &lt;PackAsTool&gt;true&lt;/PackAsTool&gt;
+    &lt;ToolCommandName&gt;hello&lt;/ToolCommandName&gt;
+    &lt;PackageOutputPath&gt;./nupkg&lt;/PackageOutputPath&gt;
+
+
+    &lt;GeneratePackageOnBuild&gt;true&lt;/GeneratePackageOnBuild&gt;
+    &lt;PackageId&gt;HelloTool&lt;/PackageId&gt;
+    &lt;Authors&gt;your name&lt;/Authors&gt;
+    &lt;Company&gt;tour email&lt;/Company&gt;
+    &lt;Product&gt;HelloTool&lt;/Product&gt;
+    &lt;PackageReadmeFile&gt;README.md&lt;/PackageReadmeFile&gt;
+    &lt;PackageProjectUrl&gt;https://github.com/dejandjenic/hello-tool&lt;/PackageProjectUrl&gt;
+  &lt;/PropertyGroup&gt;
+
+
+  &lt;ItemGroup&gt;
+
+    &lt;None Include=&quot;README.md&quot; Pack=&quot;true&quot; PackagePath=&quot;\&quot; /&gt;
+
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<p>This configuration specifies:</p>
+<ul>
+<li>PackAsTool: Indicates that the project should be packaged as a .NET tool.</li>
+<li>ToolCommandName: Defines the command used to invoke the tool from the command line (e.g., hello).</li>
+<li>PackageOutputPath: Sets the directory where the generated NuGet package will be placed.</li>
+<li>GeneratePackageOnBuild: Ensures the NuGet package is automatically created during the build process.</li>
+<li>PackageId, Authors, Company, Product: Provide details about your tool.</li>
+<li>PackageReadmeFile: Specifies the README.md file for documentation inclusion in</li>
+</ul>
+<p>create a file called GetBuildVersion.psm1 and paste the code bellow</p>
+<pre><code class="language-pwsh">Function GetBuildVersion {
+    Param (
+        [string]$VersionString
+    )
+
+    # Process through regex
+    $VersionString -match &quot;(?&lt;major&gt;\d+)(\.(?&lt;minor&gt;\d+))?(\.(?&lt;patch&gt;\d+))?(\-(?&lt;pre&gt;[0-9A-Za-z\-\.]+))?(\+(?&lt;build&gt;\d+))?&quot; | Out-Null
+
+    if ($matches -eq $null) {
+        return &quot;1.0.0-build&quot;
+    }
+
+    # Extract the build metadata
+    $BuildRevision = [uint64]$matches['build']
+    # Extract the pre-release tag
+    $PreReleaseTag = [string]$matches['pre']
+    # Extract the patch
+    $Patch = [uint64]$matches['patch']
+    # Extract the minor
+    $Minor = [uint64]$matches['minor']
+    # Extract the major
+    $Major = [uint64]$matches['major']
+
+    $Version = [string]$Major + '.' + [string]$Minor + '.' + [string]$Patch;
+    if ($PreReleaseTag -ne [string]::Empty) {
+        $Version = $Version + '-' + $PreReleaseTag
+    }
+
+    if ($BuildRevision -ne 0) {
+        $Version = $Version + '.' + [string]$BuildRevision
+    }
+
+    return $Version
+}
+</code></pre>
+<h5 id="streamlined-release-management-with-github-actions">Streamlined Release Management with GitHub Actions</h5>
+<p>This section outlines how to leverage GitHub Actions for automated versioning and publishing of your .NET tool.</p>
+<ol>
+<li>Release Branching:</li>
+</ol>
+<ul>
+<li>Implement a release branching strategy. Create a branch named like release/1.2.3 for each version you intend to publish.</li>
+</ul>
+<ol start="2">
+<li>GitHub Actions Workflow:</li>
+</ol>
+<ul>
+<li>Set up a GitHub Actions workflow to automate the build and publish process. The workflow will be triggered whenever a new branch is created under the release/* path.</li>
+</ul>
+<ol start="3">
+<li>Automatic Versioning:</li>
+</ol>
+<ul>
+<li>Within the workflow, utilize a script (like the provided GetBuildVersion.psm1) to extract the version number from the branch name (e.g., 1.2.3 from release/1.2.3). This extracted version will be used during the build process.</li>
+</ul>
+<ol start="4">
+<li>NuGet API Key:</li>
+</ol>
+<ul>
+<li>Obtain a NuGet API key from nuget.org. This key grants access to publish packages to the repository.</li>
+</ul>
+<ol start="5">
+<li>GitHub Repository Secret:</li>
+</ol>
+<ul>
+<li>In your GitHub repository's settings, navigate to the Secrets section and create a new secret named NUGET_KEY. Store the obtained NuGet API key as the value for this secret.
+By following these steps, your GitHub Actions workflow will automatically handle version extraction, build the tool with the appropriate version, and publish the resulting NuGet package whenever a new release branch is created. This streamlines the release process and ensures consistency.</li>
+</ul>
+<p><img src="../images/github-secret.png" alt="image" /></p>
+<p>Navigate to the 'Actions' tab in your GitHub repository. Create a new workflow file (e.g., .github/workflows/dotnet.yml) and paste the following code into it.</p>
+<pre><code class="language-yaml">
+name: .NET
+
+on:
+  create:
+    branches: 
+      - release/**
+  push:
+    branches: [ &quot;main&quot; ]
+  pull_request:
+    branches: [ &quot;main&quot; ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Get Build Version
+      run: |
+        Import-Module .\build\GetBuildVersion.psm1
+        Write-Host $Env:GITHUB_REF
+        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
+        echo &quot;BUILD_VERSION=$version&quot; | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+      shell: pwsh
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -p:Version=$BUILD_VERSION 
+    - name: Push
+      if: startsWith(github.ref, 'refs/heads/release')
+      run: dotnet nuget push **\*.nupkg --api-key &quot;${{ secrets.NUGET_KEY }}&quot; --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+</code></pre>
+<p>Create a release branch and verify the build and deployment process.</p>
+<p>Once your tool is published on nuget execute in terminal</p>
+<pre><code class="language-bash">dotnet tool install -g HelloTool
+</code></pre>
+<p>after installlation process is finished you can use your tool</p>
+<pre><code class="language-bash">hello dejan
+</code></pre>
+<p>should output &quot;Hello dejan!&quot;</p>
+<p>Happy coding!</p>
 
 
 
 
             <div class="social-list">
-              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html" aria-label="Share">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fcreating-dotnet-tool-and-publishing-it-from-github.html" aria-label="Share">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html&text=Diagrams with mermaidjs and GenesysSSG" aria-label="Share">
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fcreating-dotnet-tool-and-publishing-it-from-github.html&text=Creating dotnet tool and publishing it from github" aria-label="Share">
                 <i class="fa-brands fa-twitter"></i>
               </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html" aria-label="Share">
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fcreating-dotnet-tool-and-publishing-it-from-github.html" aria-label="Share">
                 <i class="fa-brands fa-linkedin-in"></i>
               </a>
             </div>
@@ -247,7 +356,7 @@ sequenceDiagram
                 id="just-comment"
                 clientId="6nNUpUgInhQ21pZIDKGK"
                 clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
-                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html"></div>
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fcreating-dotnet-tool-and-publishing-it-from-github.html"></div>
             
           </div>
 

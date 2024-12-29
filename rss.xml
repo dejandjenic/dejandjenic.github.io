@@ -4,6 +4,11 @@
   <link>https://www.dejandjenic.com</link>
   <description>Empowering Tech Enthusiasts, One Byte at a Time.</description>
 <item>
+    <title>Creating dotnet tool and publishing it from github</title>
+    <link>https://www.dejandjenic.com/blogs/creating-dotnet-tool-and-publishing-it-from-github.html</link>
+    <description>Creating dotnet tool and publishing it from github</description>
+  </item>
+<item>
     <title>Functional testing with testcontainers</title>
     <link>https://www.dejandjenic.com/blogs/functional-testing-with-testcontainers.html</link>
     <description>Explore the power of functional testing with TestContainers in a .NET environment as we integrate Google Cloud Platform's Firestore and PubSub services. This article provides a step-by-step guide to setting up an API project, creating robust functional tests, and analyzing results. Learn how TestContainers simplifies testing by effectively managing external dependencies, ensuring your applications are reliable in real-world scenarios.</description>
@@ -94,6 +99,11 @@
     <description>Using static site generators and github pages</description>
   </item>
 <item>
+    <title>Projects</title>
+    <link>https://www.dejandjenic.com/projects.html</link>
+    <description>projects</description>
+  </item>
+<item>
     <title>Contact</title>
     <link>https://www.dejandjenic.com/contact.html</link>
     <description>contact page</description>
@@ -104,29 +114,19 @@
     <description>Dejan Đenić is a seasoned software developer with 21 years of experience specializing in .NET backend development. He has a strong passion for programming and has worked with cutting-edge technologies such as NoSQL databases, microservices, caching, Kubernetes, and CI/CD. Dejan has a versatile skill set and has worked as a full-stack developer with experience in React. He is dedicated to continuous learning and actively collaborates with cross-functional teams. Connect with him on LinkedIn to follow his professional journey and join the community of passionate developers and technology enthusiasts.</description>
   </item>
 <item>
-    <title>Projects</title>
-    <link>https://www.dejandjenic.com/projects.html</link>
-    <description>projects</description>
-  </item>
-<item>
     <title>GenesysSSG</title>
     <link>https://www.dejandjenic.com/projects/index.html</link>
     <description>GenesysSSG</description>
   </item>
 <item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/xworkflows/index.html</link>
-    <description>xworkflows</description>
+    <title>GenesysSSG</title>
+    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
+    <description>GenesysSSG</description>
   </item>
 <item>
     <title>Themes</title>
     <link>https://www.dejandjenic.com/projects/genesysssg/themes.html</link>
     <description>Themes</description>
-  </item>
-<item>
-    <title>GenesysSSG</title>
-    <link>https://www.dejandjenic.com/projects/genesysssg/index.html</link>
-    <description>GenesysSSG</description>
   </item>
 <item>
     <title>GenesysSSG Doc</title>
@@ -135,12 +135,32 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
+    <link>https://www.dejandjenic.com/projects/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/installation.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/doc/xworkflows/errors.html</link>
+    <description>xworkflows</description>
+  </item>
+<item>
+    <title>xworkflows</title>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -155,17 +175,12 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/actions.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/doc/xworkflows/entities.html</link>
     <description>xworkflows</description>
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/installation.html</link>
+    <link>https://www.dejandjenic.com/projects/doc/xworkflows/basic.html</link>
     <description>xworkflows</description>
   </item>
 <item>
@@ -175,17 +190,7 @@
   </item>
 <item>
     <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/advanced.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
     <link>https://www.dejandjenic.com/projects/doc/xworkflows/starting.html</link>
-    <description>xworkflows</description>
-  </item>
-<item>
-    <title>xworkflows</title>
-    <link>https://www.dejandjenic.com/projects/doc/xworkflows/index.html</link>
     <description>xworkflows</description>
   </item>
 </channel>

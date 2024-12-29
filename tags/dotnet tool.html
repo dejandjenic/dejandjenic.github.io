@@ -14,11 +14,11 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.com/blogs/diagrams-with-mermaidjs-and-genesysssg.html" />
+    <link rel="canonical" href="https://www.dejandjenic.comtags/dotnet tool.html" />
     <meta charset="utf-8">
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Diagrams with mermaidjs and GenesysSSG</title>
+    <meta name="description" content="Blogs with tag dotnet tool">
+    <title>Welcome to Dejan's Blog</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/default.min.css">
@@ -26,7 +26,6 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
-
   </head>
 
   <body>
@@ -101,19 +100,7 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>Diagrams with mermaidjs and GenesysSSG</h2>
-          <p class="meta2">Posted on Sunday, 02 July 2023</p>
-          <div class="social">
-            
-              <span style="margin:5px;display:inline-block;">
-                <a href="./tags/genesysSSG.html" class="bb p10 f20">genesysSSG</a>
-              </span>
-            
-              <span style="margin:5px;display:inline-block;">
-                <a href="./tags/mermaidjs.html" class="bb p10 f20">mermaidjs</a>
-              </span>
-            
-          </div>
+          <h2>posts for tag: dotnet tool</h2>
         </div>
       </div>
 
@@ -121,135 +108,43 @@
       <div class="row container-fluid boxparent">
         <div class="col-md-8 ">
 
-          <div class="p10 mb10">
-            
-              <img class="mb10" src="/images/genesysssg_mermaidjs.png" />
-            
-            <h3 id="diagrams-with-mermaidjs-and-genesysssg">Diagrams with mermaidjs and GenesysSSG</h3>
-<p>Having diagrams on your site is always nice.</p>
-<p>One of my favorite tools to create diagrams is <a href="https://mermaid.js.org/">mermaidjs</a></p>
-<p>I wonted to investigate how easy would it be to integrate mermaid js with (genesysSSG)[https://dejandjenic.github.io/projects/genesysssg]</p>
-<p>Lets check some examples of mermaidjs from this <a href="https://mermaid.js.org/syntax/examples.html">link</a></p>
-<p>Create new blog post page with genesysSSG by running</p>
-<pre><code>genesysSSG -b &quot;Test mermaidjs&quot;
-</code></pre>
-<p>Copy and paste a few examples from mermaidjs</p>
-<pre>
-```mermaid
- pie title What Voldemort doesn't have?
-         "FRIENDS" : 2
-         "FAMILY" : 3
-         "NOSE" : 45
-```
-</pre>
-<pre>
-```mermaid
-sequenceDiagram
-    Alice ->> Bob: Hello Bob, how are you?
-    Bob-->>John: How about you John?
-    Bob--x Alice: I am good thanks!
-    Bob-x John: I am good thanks!
-    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+          
+            <div class="box p10 mb10">
+              <div>
+                
+                  <img src="/images/dotnet-tool2.jpeg" />
+                
+              </div>
+              <div class="mt30">
+                <h3 class="title-b">
+                  <a href="/blogs/creating-dotnet-tool-and-publishing-it-from-github.html">Creating dotnet tool and publishing it from github</a>
+                </h3>
+                <div class="meta">
+                  Sunday, 29 December 2024
+                </div>
+              </div>
+              <div class="mt10">
+                Creating dotnet tool and publishing it from github
+              </div>
 
-    Bob-->Alice: Checking with John...
-    Alice->John: Yes... John, how are you?
-```
-</pre>
-<pre>
-```mermaid
-graph LR
-    A[Square Rect] -- Link text --> B((Circle))
-    A --> C(Round Rect)
-    B --> D{Rhombus}
-    C --> D
-```
-</pre>
-<pre>
+              <div class="btn-parent">
+                <a href="/blogs/creating-dotnet-tool-and-publishing-it-from-github.html" class="continue">continue reading</a>
+              </div>
 
-```mermaid
-graph TB
-    sq[Square shape] --> ci((Circle shape))
+              <div class="social-list">
+                <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2f" aria-label="Share">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2f&text=" aria-label="Share">
+                  <i class="fa-brands fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2f" aria-label="Share">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+              </div>
 
-    subgraph A
-        od>Odd shape]-- Two line<br/>edge comment --> ro
-        di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)
-        di==>ro2(Rounded square shape)
-    end
-
-    %% Notice that no text in shape are added here instead that is appended further down
-    e --> od3>Really long text with linebreak<br>in an Odd shape]
-
-    %% Comments after double percent signs
-    e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)
-
-    cyr[Cyrillic]-->cyr2((Circle shape Начало));
-
-     classDef green fill:#9f6,stroke:#333,stroke-width:2px;
-     classDef orange fill:#f96,stroke:#333,stroke-width:4px;
-     class sq,e green
-     class di orange
-```
-</pre>
-<pre>
-```mermaid
-sequenceDiagram
-    loop Daily query
-        Alice->>Bob: Hello Bob, how are you?
-        alt is sick
-            Bob->>Alice: Not so good :(
-        else is well
-            Bob->>Alice: Feeling fresh like a daisy
-        end
-
-        opt Extra response
-            Bob->>Alice: Thanks for asking
-        end
-    end
-```
-</pre>
-<p>add mermaidjs initialization</p>
-<pre>
-&lt;script type=&quot;module&quot;&gt;
-  import mermaid from &#39;https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs&#39;;
-
-  mermaid.initialize({
-  securityLevel: &#39;loose&#39;,
-});
-
-&lt;/script&gt;
-</pre>
-<p>run genesysSSG locally</p>
-<pre><code>genesysSSG -s -w
-</code></pre>
-<p>and check the results.</p>
-<p>wanna see this page on live demo? check this <a href="mermaid-demo.html">link</a></p>
-<p>how easy and how awesome that was!</p>
-
-
-
-
-            <div class="social-list">
-              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html" aria-label="Share">
-                <i class="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html&text=Diagrams with mermaidjs and GenesysSSG" aria-label="Share">
-                <i class="fa-brands fa-twitter"></i>
-              </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html" aria-label="Share">
-                <i class="fa-brands fa-linkedin-in"></i>
-              </a>
             </div>
-
-
-
-            
-              <div
-                id="just-comment"
-                clientId="6nNUpUgInhQ21pZIDKGK"
-                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
-                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2fdiagrams-with-mermaidjs-and-genesysssg.html"></div>
-            
-          </div>
+          
 
 
 
@@ -688,9 +583,6 @@ sequenceDiagram
         </div>
       </div>
     </div>
-    <script>
-      hljs.highlightAll();
-    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"
