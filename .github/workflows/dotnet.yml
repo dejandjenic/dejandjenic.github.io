@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '6.0'
+        dotnet-version: '8.0'
     - name: Install GenesysSSG
       run: dotnet tool install --tool-path . GenesysSSG
     - name: Publish blog
