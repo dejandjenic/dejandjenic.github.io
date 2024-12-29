@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '6.0'
+        dotnet-version: '8.0'
     - name: Install GenesysSSG
       run: dotnet tool install --tool-path . GenesysSSG
     - name: Publish blog
@@ -23,8 +23,8 @@ jobs:
     - name: Configure public domain
       run: echo "www.dejandjenic.com" >> ./output/CNAME
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.5.0
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        PUBLISH_BRANCH: gh-pages  # deploying branch
-        PUBLISH_DIR: ./output
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_branch: gh-pages  # deploying branch
+        publish_dir: ./output
