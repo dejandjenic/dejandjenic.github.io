@@ -228,4 +228,6 @@ hello dejan
 
 should output "Hello dejan!"
 
+github repo with this sample can be found https://github.com/dejandjenic/hello-tool
+
 Happy coding!
