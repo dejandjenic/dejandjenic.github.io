@@ -24,7 +24,7 @@ jobs:
       run: echo "www.dejandjenic.com" >> ./output/CNAME
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
-      env:
+      with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         publish_branch: gh-pages  # deploying branch
         publish_dir: ./output
