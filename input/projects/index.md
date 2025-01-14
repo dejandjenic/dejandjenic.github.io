@@ -16,3 +16,11 @@ GenesysSSG is a robust static site generator built on .NET. With its versatile l
 XWorkflows is a .NET library designed to simplify the management of workflows on entities, providing a clean and organized way to handle state transitions and actions for your entities. With XWorkflows, you can easily define and enforce a set of state transitions and actions, reducing spaghetti code and duplication in your application.
 
 [read more](xworkflows/index.html)
+
+
+
+## TestJWTLibrary
+
+TestJWTLibrary is a lightweight .NET library designed for generating JWT tokens specifically for testing purposes. It simplifies authentication and authorization testing by allowing developers to create customizable tokens with specific claims, roles, and user identities without relying on external authentication systems
+
+[read more](testjwtlibrary/index.html)
