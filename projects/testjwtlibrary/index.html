@@ -14,10 +14,10 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.com/about.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/index.html" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About me</title>
+    <title>TestJWTLibrary</title>
     <meta name="description" content="">
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
@@ -100,7 +100,7 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>About me</h2>
+          <h2>TestJWTLibrary</h2>
         </div>
       </div>
 
@@ -109,25 +109,59 @@
         <div class="col-md-8 ">
 
           <div class="p10 mb10">
-            <p>Hello, I'm Dejan Đenić, a seasoned software developer with over two decades of experience in the industry. With a remarkable track record spanning 21 years, I have witnessed the evolution of technology and embraced the challenges and opportunities it brings.</p>
-<p>From an early age, I fell in love with programming, fascinated by the limitless possibilities it offered. The ability to bring ideas to life through code ignited a passion within me that has only grown stronger over the years. I knew then that I wanted to pursue a career in software development, and it has been a fulfilling journey ever since.</p>
-<p>Currently, I specialize as a .NET backend developer, leveraging my expertise to build robust and scalable solutions. With a deep understanding of the .NET framework and associated technologies, I have successfully delivered high-performance backend systems that power mission-critical applications. I prioritize clean code architecture, efficient data management, and secure API development to ensure optimal functionality and reliability.</p>
-<p>Throughout my career, I have embraced cutting-edge technologies to stay at the forefront of the industry. I have extensive experience working with NoSQL databases, leveraging their flexibility and scalability to handle large volumes of data efficiently. I have also designed and developed microservices architectures, enabling modular and scalable systems that can adapt to evolving business needs. Additionally, I have implemented caching mechanisms to optimize performance and reduce latency, ensuring optimal user experiences.</p>
-<p>In the realm of infrastructure, I am proficient in containerization technologies like Kubernetes. By leveraging the power of container orchestration, I have built and deployed highly available and scalable applications that can handle the demands of modern environments. Moreover, I have extensive experience with CI/CD (Continuous Integration and Continuous Deployment), enabling streamlined development and deployment workflows. By automating testing, building, and deployment processes, I have helped teams deliver software faster and with higher quality.</p>
-<p>Over the years, I have worked on a wide range of projects, from enterprise-level systems to consumer-facing applications. My expertise extends beyond .NET, encompassing other programming languages like Python, PHP, C++, and JavaScript. This versatility has provided me with a well-rounded skill set, allowing me to adapt to different technologies and deliver tailored solutions for diverse client requirements.</p>
-<p>Collaboration and teamwork have always been essential to my success as a developer. I thrive in agile environments, where open communication, continuous improvement, and shared ownership drive project success. I actively contribute to cross-functional teams, collaborating closely with designers, front-end developers, and other stakeholders to ensure cohesive and seamless development cycles.</p>
-<p>In an ever-evolving industry, I am committed to continuous learning. I stay up to date with the latest advancements and best practices through attending conferences, participating in online communities, and exploring emerging technologies. This dedication enables me to deliver modern and efficient solutions that align with industry trends and meet evolving client needs.</p>
-<p>Feel free to connect with me on <a href="https://www.linkedin.com/in/dejandjenic/">LinkedIn</a>, where I share my professional journey, industry insights, and other valuable content. Through this blog, I aim to share my extensive experience, insights, and practical tips with fellow developers and technology enthusiasts. Expect discussions on cutting-edge technologies like NoSQL databases, microservices, caching, Kubernetes, and CI/CD. I'll cover topics such as software architecture, best practices, performance optimization, and career growth. Together, let's foster a community of passionate developers and learners.</p>
+            <h3 id="testjwtlibrary">TestJWTLibrary</h3>
+<p>TestJWTLibrary is a lightweight .NET library designed for generating JWT tokens specifically for testing purposes. It simplifies authentication and authorization testing by allowing developers to create customizable tokens with specific claims, roles, and user identities without relying on external authentication systems</p>
+<h4 id="usage">Usage</h4>
+<ul>
+<li>Install TestJWTLibrary from nuget</li>
+</ul>
+<p>inside your tests instantiate generator class</p>
+<pre><code class="language-csharp">TestJWT.Generator generator = new();
+</code></pre>
+<p>setup test server</p>
+<pre><code class="language-csharp">public class TestServer(TestJWT.Generator generator) : WebApplicationFactory&lt;Program&gt;
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        base.ConfigureWebHost(builder);
+        generator.ConfigureAuthentication(builder);
+    }
+}
+</code></pre>
+<p>create test</p>
+<pre><code class="language-csharp">[Fact]
+public async Task AuthorizedTest()
+{
+    await using var factory = new TestServer(generator);
+    var client = factory.CreateDefaultClient();
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, generator.GenerateJwt());
+    var response = await client.GetAsync(&quot;/users&quot;);
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+}
+</code></pre>
+<h2 id="default-values">Default values</h2>
+<p>by default generator assumes these value</p>
+<ul>
+<li>issuer=&quot;https://auth.example.com&quot;</li>
+<li>audience = &quot;https://api.example.com&quot;</li>
+</ul>
+<p>GenerateJwt method by default assumes these settings</p>
+<ul>
+<li>audience = &quot;https://api.example.com&quot;</li>
+<li>userId = &quot;john.doe&quot;</li>
+<li>60</li>
+</ul>
+<p>list of additional claims can be passed to GenerateJWT method</p>
 
 
             <div class="social-list">
-              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2findex.html" aria-label="Share">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html&text=About me" aria-label="Share">
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2findex.html&text=TestJWTLibrary" aria-label="Share">
                 <i class="fa-brands fa-twitter"></i>
               </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2findex.html" aria-label="Share">
                 <i class="fa-brands fa-linkedin-in"></i>
               </a>
             </div>

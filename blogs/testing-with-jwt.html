@@ -14,11 +14,11 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    <link rel="canonical" href="https://www.dejandjenic.com/about.html" />
+    <link rel="canonical" href="https://www.dejandjenic.com/blogs/testing-with-jwt.html" />
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About me</title>
     <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Testing with JWT in .NET APIs</title>
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
     <script src="/assets/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/default.min.css">
@@ -26,6 +26,7 @@
 
     <script src="/assets/792270d8d1.js" crossorigin="anonymous"></script>
     <link href="/assets/main.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -100,7 +101,23 @@
 
       <div class="row container-fluid">
         <div class="title">
-          <h2>About me</h2>
+          <h2>Testing with JWT in .NET APIs</h2>
+          <p class="meta2">Posted on Tuesday, 14 January 2025</p>
+          <div class="social">
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/dotnet.html" class="bb p10 f20">dotnet</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/testing.html" class="bb p10 f20">testing</a>
+              </span>
+            
+              <span style="margin:5px;display:inline-block;">
+                <a href="./tags/JWT.html" class="bb p10 f20">JWT</a>
+              </span>
+            
+          </div>
         </div>
       </div>
 
@@ -109,28 +126,243 @@
         <div class="col-md-8 ">
 
           <div class="p10 mb10">
-            <p>Hello, I'm Dejan Đenić, a seasoned software developer with over two decades of experience in the industry. With a remarkable track record spanning 21 years, I have witnessed the evolution of technology and embraced the challenges and opportunities it brings.</p>
-<p>From an early age, I fell in love with programming, fascinated by the limitless possibilities it offered. The ability to bring ideas to life through code ignited a passion within me that has only grown stronger over the years. I knew then that I wanted to pursue a career in software development, and it has been a fulfilling journey ever since.</p>
-<p>Currently, I specialize as a .NET backend developer, leveraging my expertise to build robust and scalable solutions. With a deep understanding of the .NET framework and associated technologies, I have successfully delivered high-performance backend systems that power mission-critical applications. I prioritize clean code architecture, efficient data management, and secure API development to ensure optimal functionality and reliability.</p>
-<p>Throughout my career, I have embraced cutting-edge technologies to stay at the forefront of the industry. I have extensive experience working with NoSQL databases, leveraging their flexibility and scalability to handle large volumes of data efficiently. I have also designed and developed microservices architectures, enabling modular and scalable systems that can adapt to evolving business needs. Additionally, I have implemented caching mechanisms to optimize performance and reduce latency, ensuring optimal user experiences.</p>
-<p>In the realm of infrastructure, I am proficient in containerization technologies like Kubernetes. By leveraging the power of container orchestration, I have built and deployed highly available and scalable applications that can handle the demands of modern environments. Moreover, I have extensive experience with CI/CD (Continuous Integration and Continuous Deployment), enabling streamlined development and deployment workflows. By automating testing, building, and deployment processes, I have helped teams deliver software faster and with higher quality.</p>
-<p>Over the years, I have worked on a wide range of projects, from enterprise-level systems to consumer-facing applications. My expertise extends beyond .NET, encompassing other programming languages like Python, PHP, C++, and JavaScript. This versatility has provided me with a well-rounded skill set, allowing me to adapt to different technologies and deliver tailored solutions for diverse client requirements.</p>
-<p>Collaboration and teamwork have always been essential to my success as a developer. I thrive in agile environments, where open communication, continuous improvement, and shared ownership drive project success. I actively contribute to cross-functional teams, collaborating closely with designers, front-end developers, and other stakeholders to ensure cohesive and seamless development cycles.</p>
-<p>In an ever-evolving industry, I am committed to continuous learning. I stay up to date with the latest advancements and best practices through attending conferences, participating in online communities, and exploring emerging technologies. This dedication enables me to deliver modern and efficient solutions that align with industry trends and meet evolving client needs.</p>
-<p>Feel free to connect with me on <a href="https://www.linkedin.com/in/dejandjenic/">LinkedIn</a>, where I share my professional journey, industry insights, and other valuable content. Through this blog, I aim to share my extensive experience, insights, and practical tips with fellow developers and technology enthusiasts. Expect discussions on cutting-edge technologies like NoSQL databases, microservices, caching, Kubernetes, and CI/CD. I'll cover topics such as software architecture, best practices, performance optimization, and career growth. Together, let's foster a community of passionate developers and learners.</p>
+            
+              <img class="mb10" src="/images/jwt.png" />
+            
+            <h4 id="introduction-to-jwt-and-its-use-in.net-apis">Introduction to JWT and Its Use in .NET APIs</h4>
+<p><strong>JSON Web Tokens (JWT)</strong> are a compact, URL-safe means of representing claims between two parties. In the context of web APIs, JWT is commonly used for authentication and authorization. When a client logs in, a server generates a JWT containing user information and permissions (claims), which the client includes in subsequent requests.</p>
+<p>In .NET APIs, JWT is integrated through middleware for authentication and authorization, allowing developers to enforce access rules based on claims and roles.</p>
+<br> 
+<h4 id="setting-up-a-minimal-api-with-jwt-authentication">Setting Up a Minimal API with JWT Authentication</h4>
+<p>Let's start by creating a .NET Minimal API project. This example will include two endpoints:</p>
+<ul>
+<li>/users: Returns a list of users and requires the &quot;admin&quot; claim.</li>
+<li>/me: Returns information about the currently authenticated user and requires only authentication without specific claims.</li>
+</ul>
+<p><strong>Step 1</strong>: Update Project Dependencies
+Update the csproj file to include the necessary packages for JWT handling, Swagger for API documentation, and OpenAPI integration.</p>
+<pre><code class="language-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
+
+    &lt;PropertyGroup&gt;
+        &lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+        &lt;Nullable&gt;enable&lt;/Nullable&gt;
+        &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;/PropertyGroup&gt;
+
+    &lt;ItemGroup&gt;
+        &lt;PackageReference Include=&quot;Microsoft.AspNetCore.OpenApi&quot; Version=&quot;8.0.11&quot;/&gt;
+        &lt;PackageReference Include=&quot;Swashbuckle.AspNetCore&quot; Version=&quot;6.6.2&quot;/&gt;
+        &lt;PackageReference Include=&quot;Microsoft.AspNetCore.Authentication.JwtBearer&quot; Version=&quot;8.0.11&quot; /&gt;
+    &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
+
+</code></pre>
+<p><strong>Step 2</strong>: Implement API Logic in Program.cs
+Add the following code to your Program.cs file. This configures the endpoints and sets up authentication and authorization.</p>
+<pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+builder.Services.AddAuthentication(&quot;Bearer&quot;).AddJwtBearer();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.MapGet(&quot;/users&quot;, () =&gt; new UserInfo[]
+    {
+        new()
+        {
+            Name = &quot;me&quot;
+        },
+        new()
+        {
+            Name = &quot;you&quot;
+        }
+    })
+    .WithName(&quot;users&quot;)
+    .WithOpenApi()
+    .RequireAuthorization(p =&gt;
+    {
+        p.RequireRole(&quot;admin&quot;);
+    });
+
+app.MapGet(&quot;/me&quot;, (HttpContext context) =&gt; new UserInfo
+    {
+        Name = context.User.Identity.Name
+    })
+    .WithName(&quot;me&quot;)
+    .WithOpenApi()
+    .RequireAuthorization();
+
+app.Run();
+
+public class UserInfo
+{
+    public string Name { get; set; }
+}
+
+
+</code></pre>
+<p><strong>Step 3</strong>: Configure Authentication in appsettings.json
+Add the following configuration to appsettings.json to define the JWT authentication settings.</p>
+<pre><code class="language-json">{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;Authentication&quot;: {
+    &quot;Schemes&quot;: {
+      &quot;Bearer&quot;: {
+        &quot;Authority&quot;: &quot;https://auth.example.com&quot;,
+        &quot;ValidAudiences&quot;: [
+          &quot;https://api.example.com&quot;
+        ],
+        &quot;ValidIssuer&quot;: &quot;https://auth.example.com&quot;
+      }
+    }
+  }
+}
+
+</code></pre>
+<br>
+<p><strong>Summary</strong>:
+So far, we've created a minimal API with two endpoints secured using JWT authentication and authorization. The /users endpoint requires an &quot;admin&quot; role, while /me only requires the user to be authenticated.</p>
+<h4 id="adding-integration-tests-with-testjwtlibrary">Adding Integration Tests with TestJWTLibrary</h4>
+<p><strong>Step 1</strong>: Add a Test Project
+Create a test project in the solution and reference the API project. For this example, we use xUnit. Add the TestJWTLibrary NuGet package to generate JWT tokens for testing purposes.</p>
+<p><strong>Step 2</strong>: Implement a Test Server
+The test server uses WebApplicationFactory to spin up the API for testing with a custom configuration.</p>
+<pre><code class="language-csharp">public class TestServer(TestJWTLibrary.Generator generator) : WebApplicationFactory&lt;Program&gt;
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        base.ConfigureWebHost(builder);
+        generator.ConfigureAuthentication(builder);
+        builder.UseEnvironment(&quot;Test&quot;);
+    }
+}
+</code></pre>
+<p><strong>Step 3</strong>: Write Integration Tests
+Here are some test examples:</p>
+<pre><code class="language-csharp">
+public class APITest
+{
+    TestJWTLibrary.Generator generator = new();
+    
+    [Fact]
+    public async Task AuthorizedRoleTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, generator.GenerateJwt(additionalClaims:new Claim(&quot;role&quot;,&quot;admin&quot;)));
+        var response = await client.GetAsync(&quot;/users&quot;);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Fact]
+    public async Task ForbbidenRoleTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, generator.GenerateJwt());
+        var response = await client.GetAsync(&quot;/users&quot;);
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+    }
+    
+    [Fact]
+    public async Task UnAuthorizedRoleTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        var response = await client.GetAsync(&quot;/users&quot;);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+    
+    [Fact]
+    public async Task MeTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, generator.GenerateJwt());
+        var response = await client.GetFromJsonAsync&lt;UserInfo&gt;(&quot;/me&quot;);
+        response.Name.Should().Be(&quot;john.doe&quot;);
+    }
+    
+    [Fact]
+    public async Task MeSpecificNameTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, generator.GenerateJwt(userId:&quot;test&quot;));
+        var response = await client.GetFromJsonAsync&lt;UserInfo&gt;(&quot;/me&quot;);
+        response.Name.Should().Be(&quot;test&quot;);
+    }
+    
+    [Fact]
+    public async Task MeUnAuthorizedTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        var response = await client.GetAsync(&quot;/me&quot;);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+    
+    [Fact]
+    public async Task UnAuthorizedTest()
+    {
+        await using var factory = new TestServer(generator);
+        var client = factory.CreateDefaultClient();
+        var response = await client.GetAsync(&quot;/me&quot;);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    } 
+}
+</code></pre>
+<h4 id="summary">Summary</h4>
+<p>In this article, we covered how to set up a .NET Minimal API with JWT-based authentication and authorization. We implemented two secure endpoints and wrote integration tests using TestJWTLibrary. This library simplifies creating JWTs for test scenarios, eliminating the need for long-lived tokens or external authentication systems.</p>
+<p>Explore the TestJWTLibrary on GitHub: <a href="https://github.com/dejandjenic/TestJWTLibrary">TestJWTLibrary</a></p>
+<p>Happy coding! 🎉</p>
+
+
 
 
             <div class="social-list">
-              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ftesting-with-jwt.html" aria-label="Share">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html&text=About me" aria-label="Share">
+              <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ftesting-with-jwt.html&text=Testing with JWT in .NET APIs" aria-label="Share">
                 <i class="fa-brands fa-twitter"></i>
               </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fabout.html" aria-label="Share">
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ftesting-with-jwt.html" aria-label="Share">
                 <i class="fa-brands fa-linkedin-in"></i>
               </a>
             </div>
+
+
+
+            
+              <div
+                id="just-comment"
+                clientId="6nNUpUgInhQ21pZIDKGK"
+                clientKey="lxyi4d73WqU2fG8d1OJz5VKy+On6ElPTTxDTQMZW6PoWaX0McqWaXJZpWmoBAv6jcnnRaN3fFlpxJSFCpjerMOT2xLq/+Oa+hr8X0ilsOvcRhQ+zckhxrvkZ/iDIS4MnZjDmv0vlAS5z4GcJMad+lakHynGS/s9jFqAcBVgqfc7gGOy2S7U80UJ+apeztimumsNH9tYb/d0adBMYk+/gqnGj26891OnnU2XH60t8VOIiehjdopG1Lk39IIwdYd6BdIu+nBOHS1EUpJ6zvENYw1p+fBvjuChpreSvxNlyVSLuCNkxKYlp4x4oAEY0t7Qkv0R0zABzXS3td5wUC7Mev9xip0g2aBDSjbCtMIGxIvglY13bxCwfZE06U//8n5wFTscnUmiPKBYf6PUMJFzrHW3dzGTz+fVLiIWbHStvHeXyTUzwcmELjQhzWMT92g1PQnUJGfk18YcifPQRiW05aPVxqPLU3nY7Qe3jNTKPhx/C6TtHXeb64IuCNbGWfaxK"
+                page="https%3a%2f%2fwww.dejandjenic.com%2fblogs%2ftesting-with-jwt.html"></div>
+            
           </div>
 
 
@@ -582,6 +814,9 @@
         </div>
       </div>
     </div>
+    <script>
+      hljs.highlightAll();
+    </script>
     
       <script
         src="https://www.just-software.tech/just-subscribe/bundle.js"

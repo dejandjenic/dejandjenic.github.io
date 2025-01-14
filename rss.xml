@@ -4,6 +4,11 @@
   <link>https://www.dejandjenic.com</link>
   <description>Empowering Tech Enthusiasts, One Byte at a Time.</description>
 <item>
+    <title>Testing with JWT in .NET APIs</title>
+    <link>https://www.dejandjenic.com/blogs/testing-with-jwt.html</link>
+    <description>Learn how to create and test a .NET Minimal API with JWT authentication and authorization, including secure endpoints, configuration, and integration testing using the TestJWTLibrary.</description>
+  </item>
+<item>
     <title>Creating dotnet tool and publishing it from github</title>
     <link>https://www.dejandjenic.com/blogs/creating-dotnet-tool-and-publishing-it-from-github.html</link>
     <description>Build and share your own .NET command-line tools with this guide on creating and publishing them from GitHub.</description>
@@ -127,6 +132,11 @@
     <title>Themes</title>
     <link>https://www.dejandjenic.com/projects/genesysssg/themes.html</link>
     <description>Themes</description>
+  </item>
+<item>
+    <title>TestJWTLibrary</title>
+    <link>https://www.dejandjenic.com/projects/testjwtlibrary/index.html</link>
+    <description>TestJWTLibrary is a lightweight .NET library designed for generating JWT tokens specifically for testing purposes. It simplifies authentication and authorization testing by allowing developers to create customizable tokens with specific claims, roles, and user identities without relying on external authentication systems</description>
   </item>
 <item>
     <title>GenesysSSG Doc</title>

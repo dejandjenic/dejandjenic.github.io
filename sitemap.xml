@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://www.dejandjenic.com/blogs/testing-with-jwt.html</loc>
+<lastmod>2025-01-14</lastmod>
+</url>
+<url>
 <loc>https://www.dejandjenic.com/blogs/creating-dotnet-tool-and-publishing-it-from-github.html</loc>
 <lastmod>2024-12-29</lastmod>
 </url>
@@ -99,6 +103,10 @@
 <url>
 <loc>https://www.dejandjenic.com/projects/genesysssg/themes.html</loc>
 <lastmod>2023-06-20</lastmod>
+</url>
+<url>
+<loc>https://www.dejandjenic.com/projects/testjwtlibrary/index.html</loc>
+<lastmod>2025-01-14</lastmod>
 </url>
 <url>
 <loc>https://www.dejandjenic.com/projects/doc/genesysssgdoc.html</loc>
